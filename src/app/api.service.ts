@@ -6,7 +6,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class APIService {
-  URL = 'https:localhost:3000/';
+  URL = 'http://localhost:3000/';
   constructor() { }
   getAllTweets(): Promise<any> {
     return axios.get(`${this.URL}tweets`)
