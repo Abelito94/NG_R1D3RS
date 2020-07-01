@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       }
       else{
-        this.errorMessage = 'El correo o la contraseña no coinciden. Por favor, revísalo e inténtalo de nuevo.';
+        this.errorMessage = 'The email or password do not match. Please review it and try again.';
         return this.errorMessage;
       }
     })
