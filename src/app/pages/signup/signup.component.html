@@ -1,1 +1,82 @@
-<p>signup works!</p>
+<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
+  <a id="brand" class="navbar-brand big-bold green">FRESHH</a>
+  <span class="ml-auto">
+    <button class="btn-lg round big-btn border-green my-2 my-sm-0" type="button">Sign in</button>
+    <a class="h4 ml-2 mr-2 mb-0"> or </a>
+    <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button" data-toggle="modal"
+      data-target="#signUp">Sign up</button>
+  </span>
+</nav>
+
+<div id="pageContent" class="container-flex d-flex full-h p-5">
+  <div class="row align-items-center p-5">
+    <section id="left" class="col-12 col-lg-6 pl-5">
+      <div class="big-bold text-dark">Glad you're here.</div><br>
+      <div class="m-bold text-dark">In this place we accept all kinds of people, except those who keep quiet.<br><br>
+        Just kidding, everyone is welcome!<br> But we prefer those people who share their thoughts, their stories, those
+        who say they are sad when they are, those who think, criticize and argue.<br>
+        <br> This is the place to connect with your friends and new interesting people for you.
+      </div>
+      <form class="form-inline p-0 mt-5">
+        <input id="calltoaction" class="form-control-lg border-green col-12 col-sm-6 round bg-light" type="email" name="email"
+          placeholder="Your email" [(ngModel)]="callEmail" aria-label="Email" required>
+        <button class="btn-lg round big-btn bg-green col-12 col-sm-5 m-auto py-3" data-toggle="modal"
+          data-target="#signUp" (click)="setEmail()">START NOW!</button>
+      </form>
+    </section>
+    <section id="right" class="col-12 col-lg-6 text-right">
+      <img src="https://landbot.io/wp-content/uploads/2019/01/chatbot-landing-page-design.jpg"
+        alt="people sending messages and connecting" width="90%">
+    </section>
+  </div>
+</div>
+
+<div id="signUp" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content round p-5">
+      <div class="modal-header">
+        <span class="modal-title big-bold text-dark" id="exampleModalLabel">Create your new account</span>
+        <button type="button" class="close big-bold" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form">
+          <div class="form-group mt-4">
+            <input type="email" placeholder="Write your email" name="email" [(ngModel)]="email"
+              class="col-12 form-control-lg round bg-light shadow-sm" required>
+          </div>
+          <div class="form-group mt-4">
+            <input type="text" placeholder="Choose a cool and original username" name="username" [(ngModel)]="username"
+              class="col-12 form-control-lg round bg-light shadow-sm is-valid" required (keyup)="checkUsernames()">
+            <div [hidden]="username.length == 0" class="valid-feedback ml-2">Looks good!</div>
+            <div class="invalid-feedback ml-2">Should be longer than 5</div>
+            <div class="invalid-feedback ml-2">Choose another username</div>
+          </div>
+          <div class="form-group mt-4">
+            <input type="password" placeholder="Your password here" name="password" [(ngModel)]="password"
+              class="col-12 form-control-lg round bg-light shadow-sm" required>
+            <small class="text-muted">
+              Should be longer than 6!
+            </small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-lg btn-light round big-btn float-right" data-dismiss="modal">Close</button>
+        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
+          (click)="createUser()">Next</button>
+        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green">Skip step</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <label class="hoverable" for="fileInput">
+  <img
+    [src]="profileUrl ? profileUrl : 'https://cdn1.iconfinder.com/data/icons/rounded-black-basic-ui/139/Photo_Add-RoundedBlack-512.png'">
+  <div class="hover-text">Choose file</div>
+  <div class="background"></div>
+</label>
+<br />
+<input id="fileInput" type="file" (change)="onSelectFile($event)"> -->

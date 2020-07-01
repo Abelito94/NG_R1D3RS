@@ -6,7 +6,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class APIService {
-  URL = 'https:localhost:3000/';
+  URL = 'http://localhost:3000/';
   constructor() { }
   getAllTweets(): Promise<any> {
     return axios.get(`${this.URL}tweets`)
@@ -15,6 +15,11 @@ export class APIService {
   }
   getAllUsers(): Promise<any> {
     return axios.get(`${this.URL}users`)
+      .then(response => response.data)
+      .catch(err => console.log(err))
+  }
+  findEqualUsername(username): Promise<any> {
+    return axios.get(`${this.URL}users?username=${username}`)
       .then(response => response.data)
       .catch(err => console.log(err))
   }
