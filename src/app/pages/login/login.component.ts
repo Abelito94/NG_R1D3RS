@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/api.service';
 import { Router } from '@angular/router';
+import axios from 'axios';
 
 type User = {
   username:string,
@@ -20,27 +21,32 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-
   userLogin:string='';
   userPass:string='';
-
-  async loginUser(){
-    const users = await this.loginservice.getAllUsers();
+  errorLogin:boolean= true;
+  errorMessage:string= '';
+  
+  
+  loginUser(){
     
-    const user:User = {
-      username: this.userLogin,
+    let user = {
       email: this.userLogin,
       password: this.userPass
     }
-
-   let userLog = users.some(us => us.username == user.username || us.email == user.email);
-   if(userLog){
-     this.router.navigate(['']);
-   }
-   else{
-     console.log('mal');
-   }
-   
+    
+    axios.get(`http://localhost:3000/users?username=${user.email}`)
+    .then(response => {
+      if(response.data.length == 1){
+        this.errorLogin = false;
+        localStorage.setItem('user', JSON.stringify(response.data[0]));
+        this.router.navigate(['']);
+      }
+      else{
+        this.errorMessage = 'El correo o la contraseña no coinciden. Por favor, revísalo e inténtalo de nuevo.';
+        return this.errorMessage;
+      }
+    })
+    .catch(error => {console.log(error)})
   }
 
 }

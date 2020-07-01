@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +12,7 @@ export class APIService {
       .then(response => response.data)
       .catch(err => console.log(err))
   }
+
   getAllUsers(): Promise<any> {
     return axios.get(`${this.URL}users`)
       .then(response => response.data)
