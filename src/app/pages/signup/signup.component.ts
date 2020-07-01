@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { APIService } from '../../api.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -23,26 +24,51 @@ export class SignupComponent implements OnInit {
   emailIsValid: boolean = false;
   emailFormatValidation: boolean = true;
   emailIsAvaible: boolean = true;
+  emailIsEmpty: boolean = null;
+
 
   //USER VALIDATION
   usernameIsValid: boolean = false;
   usernameFormatValidation: boolean = true;
   usernameIsAvaible: boolean = true;
+  usernameIsEmpty: boolean = null;
 
-  constructor(private APIService: APIService) { }
+
+  //PASSWORD VALIDATION
+  passwordIsValid: boolean = false;
+  passwordFormatValidation: boolean = true;
+  passwordIsEmpty: boolean = null;
+
+  constructor(private APIService: APIService, private router: Router) {
+  }
   ngOnInit(): void {
   }
 
   createUser() {
-    this.newUser = {
-      username: this.username,
-      email: this.email,
-      password: this.password,
-      profileUrl: this.profileUrl,
-      coverUrl: this.coverUrl,
-      tags: this.tags
+    if (this.email === '') {
+      this.emailIsEmpty = true;
     }
+    if (this.username === '') {
+      this.usernameIsEmpty = true;
+    }
+    if (this.password === '') {
+      this.passwordIsEmpty = true;
+    }
+    if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
+      this.newUser = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        profileUrl: this.profileUrl,
+        coverUrl: this.coverUrl,
+        tags: this.tags
+      };
+      this.APIService.createUser(this.newUser);
+      this.router.navigate(['']);
+    }
+
   }
+
   //CHARGE IMG
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -66,7 +92,8 @@ export class SignupComponent implements OnInit {
     this.emailIsAvaible = email.length === 0;
   }
   isValidEmail() {
-    if (this.email.length < 1 || this.email === '') {
+    this.emailIsEmpty = false;
+    if (this.email.length < 1) {
       this.emailIsValid = false;
       this.emailFormatValidation = true;
     } else {
@@ -92,7 +119,8 @@ export class SignupComponent implements OnInit {
   }
 
   isValidUsername() {
-    if (this.username.length < 1 || this.username === '') {
+    this.usernameIsEmpty = false;
+    if (this.username.length < 1) {
       this.usernameIsValid = false;
       this.usernameFormatValidation = true;
     } else {
@@ -115,17 +143,40 @@ export class SignupComponent implements OnInit {
       }
     }
   }
+
+  isValidPassword() {
+    this.passwordIsEmpty = false;
+    if (this.password.length < 1) {
+      this.passwordIsValid = false;
+      this.passwordFormatValidation = true;
+    } else if (this.password.length < 8) {
+      this.passwordIsValid = false;
+      this.passwordFormatValidation = false;
+    } else {
+      this.passwordIsValid = true;
+      this.passwordFormatValidation = true;
+    }
+  }
+
+  clearModalData() {
+    this.email = '';
+    this.username = '';
+    this.password = '';
+    this.emailIsValid = false;
+    this.emailFormatValidation = true;
+    this.emailIsAvaible = true;
+    this.emailIsEmpty = null;
+
+    //USER VALIDATION
+    this.usernameIsValid = false;
+    this.usernameFormatValidation = true;
+    this.usernameIsAvaible = true;
+    this.usernameIsEmpty = null;
+
+    //PASSWORD VALIDATION
+    this.passwordIsValid = false;
+    this.passwordFormatValidation = true;
+    this.passwordIsEmpty = null;
+  }
 }
-
-//CONDICIONES
-
-
-// Username:
-
-// - Debe ser mayor de 5 caracte().            -----> Tiener que ser mayor de 5
-// - No estar en la base de datos registrado    -----> Nombre de usuario no disponible
-
-// Password:
-
-// - Mayor de 8 caracte().                     -----> Debe ser mayor de 8 caracta().
 

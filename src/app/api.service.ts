@@ -28,4 +28,9 @@ export class APIService {
       .then(response => response.data)
       .catch(err => console.log(err))
   }
+  createUser(newUser): Promise<any> {
+    return axios.post(`${this.URL}users`, newUser)
+      .then(response => console.log(response.data))
+      .catch(err => console.log(err))
+  }
 }

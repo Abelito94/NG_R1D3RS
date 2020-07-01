@@ -39,6 +39,9 @@ outline: 0px !important;
 .border-green{
   border:1px solid #1DF24C;
 }
+.border-error {
+  border:1px solid red;
+}
 .full-h {
   min-height: 100vh;
 }
