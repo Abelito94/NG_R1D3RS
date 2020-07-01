@@ -23,4 +23,9 @@ export class APIService {
       .then(response => response.data)
       .catch(err => console.log(err))
   }
+  findEqualEmail(email): Promise<any> {
+    return axios.get(`${this.URL}users?email=${email}`)
+      .then(response => response.data)
+      .catch(err => console.log(err))
+  }
 }

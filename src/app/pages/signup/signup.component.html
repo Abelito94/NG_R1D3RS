@@ -18,9 +18,9 @@
         <br> This is the place to connect with your friends and new interesting people for you.
       </div>
       <form class="form-inline p-0 mt-5">
-        <input id="calltoaction" class="form-control-lg border-green col-12 col-sm-6 round bg-light" type="email" name="email"
-          placeholder="Your email" [(ngModel)]="callEmail" aria-label="Email" required>
-        <button class="btn-lg round big-btn bg-green col-12 col-sm-5 m-auto py-3" data-toggle="modal"
+        <input id="calltoaction" class="form-control-lg border-green col-12 col-sm-6 round bg-light" type="email"
+          name="email" placeholder="Your email" [(ngModel)]="callEmail" aria-label="Email" required>
+        <button type="button" class="btn-lg round big-btn bg-green col-12 col-sm-5 m-auto py-3" data-toggle="modal"
           data-target="#signUp" (click)="setEmail()">START NOW!</button>
       </form>
     </section>
@@ -42,23 +42,29 @@
       </div>
       <div class="modal-body">
         <form class="form">
-          <div class="form-group mt-4">
+          <div class="form-group form-height">
             <input type="email" placeholder="Write your email" name="email" [(ngModel)]="email"
-              class="col-12 form-control-lg round bg-light shadow-sm" required>
+              class="col-12 form-control-lg round bg-light shadow-sm" required (keyup)="isValidEmail()">
+            <div class="m-3 s-bold valid" [hidden]="!emailIsValid">Looks good!</div>
+            <div class="m-3 s-bold invalid" [hidden]="emailFormatValidation">
+              Introduce a valid format like 'user@example.com'</div>
+            <div class="m-3 s-bold invalid" [hidden]="emailIsAvaible">
+              This email is already in use</div>
           </div>
-          <div class="form-group mt-4">
+          <div class="form-group form-height">
             <input type="text" placeholder="Choose a cool and original username" name="username" [(ngModel)]="username"
-              class="col-12 form-control-lg round bg-light shadow-sm is-valid" required (keyup)="checkUsernames()">
-            <div [hidden]="username.length == 0" class="valid-feedback ml-2">Looks good!</div>
-            <div class="invalid-feedback ml-2">Should be longer than 5</div>
-            <div class="invalid-feedback ml-2">Choose another username</div>
+              class="col-12 form-control-lg round bg-light shadow-sm is-valid" required (keyup)="isValidUsername()">
+            <div class="m-3 s-bold valid" [hidden]="!usernameIsValid">Looks good!</div>
+            <div class="m-3 s-bold invalid" [hidden]="usernameFormatValidation">
+              Should be longer than 4</div>
+            <div class="m-3 s-bold invalid" [hidden]="usernameIsAvaible">
+              This username is already in use</div>
+
           </div>
-          <div class="form-group mt-4">
+          <div class="form-group form-height">
             <input type="password" placeholder="Your password here" name="password" [(ngModel)]="password"
-              class="col-12 form-control-lg round bg-light shadow-sm" required>
-            <small class="text-muted">
-              Should be longer than 6!
-            </small>
+              class="col-12 form-control-lg round bg-light shadow-sm" required (keyup)="isValidPassword()">
+ 
           </div>
         </form>
       </div>

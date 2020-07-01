@@ -3,7 +3,13 @@
 outline: 0px !important;
 }
 .green{
-  color: #1DF24C;
+  color: #1DF24C !important;
+}
+.invalid {
+  color: red !important;
+}
+.valid {
+  color: green !important;
 }
 .bg-green{
   background-color: #1DF24C;
@@ -16,6 +22,10 @@ outline: 0px !important;
   font-weight: 600;
   color: white;
   font-size: 18px;
+}
+.s-bold{
+    font-weight: 600;
+  font-size: 12px;
 }
 .big-btn {
   font-weight: 800;
@@ -81,4 +91,7 @@ img {
 }
 .modal-content, .modal-body, .modal-header, .modal-footer {
   border: 0px !important;
+}
+.form-height {
+  height: 70px;
 }
