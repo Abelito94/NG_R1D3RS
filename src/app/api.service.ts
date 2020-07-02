@@ -35,4 +35,9 @@ export class APIService {
     const res = await axios.post(`${this.URL}tweets`,tweet)
     return res.data
   }
+  createUser(newUser): Promise<any> {
+    return axios.post(`${this.URL}users`, newUser)
+      .then(response => console.log(response.data))
+      .catch(err => console.log(err))
+  }
 }
