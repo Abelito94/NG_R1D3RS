@@ -19,7 +19,6 @@ type Tweet = {
 export class HomeComponent {
   tweets: any[] = []
 
-
   newtweet: Tweet = {
     userId: "",
     id: 0,
@@ -30,13 +29,15 @@ export class HomeComponent {
   }
   text: string = ""
 
-  constructor(private tweetService: APIService) { }
 
-  getTweet() {
-    this.tweetService.getAllTweets()
+  constructor(private tweetService: APIService) {
+    tweetService.getAllTweets()
       .then(res => this.tweets = res)
       .catch(err => console.log(err))
+
   }
+
+
   createTweet(text) {
 
     this.newtweet.text = text
