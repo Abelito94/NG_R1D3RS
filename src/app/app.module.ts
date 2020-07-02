@@ -8,6 +8,7 @@ import { TweetComponent } from './components/tweet/tweet.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
+import { SignComponent } from './pages/signup copy/sign.component';
 import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-alone.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-a
     HomeComponent,
     SignupComponent,
     LoginComponent,
+    SignComponent,
     TweetAloneComponent
   ],
   imports: [
