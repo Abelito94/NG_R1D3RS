@@ -29,7 +29,7 @@ export class APIService {
     return axios.get(`${this.URL}users?email=${email}`)
       .then(response => response.data)
       .catch(err => console.log(err))
-
+  }
   async createTweet(tweet) {
     console.log(tweet)
     const res = await axios.post(`${this.URL}tweets`,tweet)
