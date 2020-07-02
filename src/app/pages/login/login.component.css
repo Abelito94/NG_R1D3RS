@@ -1,0 +1,51 @@
+.form{
+    
+    width: 400px;
+    margin: 200px auto;
+}
+.form > .title{
+    width: 290px;
+    margin: auto;
+}
+.form > .errorMessage{
+    height: 50px;
+    margin-top: 3px;
+}
+.form > .errorMessage > p{
+    color: red;
+    margin: 0 0 0 0;
+}
+.form > .form-group > input{
+    margin-top: 10px;
+}
+.form > .form-group > .data{
+   width: 100%;
+   height: 35px;
+   border-style: none none solid none;
+}
+.form > .form-group > .form-control:focus{
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border: 2px solid #7d7;
+}
+.form > .form-group > .ng-reflect-name{
+    background-color: #7d7;
+}
+.btn-success{
+    background-color: #7d7;
+    width: 100%;
+    border-style: none;
+}
+.btn-success:hover{
+    background-color: #0b2d;
+}
+.btn-success:focus{
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}

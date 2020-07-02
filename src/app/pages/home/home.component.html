@@ -1,1 +1,2 @@
-<input class="input" aria-label="Hello" placeholder="Write here">
+<input class="input" aria-label="Hello" placeholder="Write here" [(ngModel)]="text">
+<button (click)="createTweet(text)">Save</button>
