@@ -8,10 +8,9 @@ export class APIService {
   URL = 'http://localhost:3000/';
   constructor() { }
 
-  getAllTweets(): Promise<any> {
-    return axios.get(`${this.URL}tweets`)
-      .then(response => response.data)
-      .catch(err => console.log(err))
+  async getAllTweets(): Promise<any> {
+    const res = await axios.get(`${this.URL}tweets`)
+    return res.data
   }
 
   getAllUsers(): Promise<any> {
@@ -31,7 +30,6 @@ export class APIService {
       .catch(err => console.log(err))
   }
   async createTweet(tweet) {
-    console.log(tweet)
     const res = await axios.post(`${this.URL}tweets`,tweet)
     return res.data
   }
