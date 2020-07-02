@@ -2,48 +2,21 @@
 *{
 outline: 0px !important;
 }
-.green{
-  color: #1DF24C !important;
-}
-.invalid {
-  color: red !important;
+.h-80{
+  height: 80px;
 }
 .valid {
   color: green !important;
 }
-.bg-green{
-  background-color: #1DF24C;
-}
-.big-bold {
-  font-weight: 800;
-  font-size: 32px;
-}
-.m-bold {
-  font-weight: 600;
-  color: white;
-  font-size: 18px;
-}
-.s-bold{
-    font-weight: 600;
-  font-size: 12px;
-}
-.big-btn {
-  font-weight: 800;
-  padding-left: 30px;
-  padding-right: 30px;
-}
-.round {
-  border-radius: 50px;
-  border: 0px;
-}
-.border-green{
-  border:1px solid #1DF24C;
+.invalid {
+  color: red !important;
 }
 .border-error {
   border:1px solid red;
 }
-.full-h {
-  min-height: 100vh;
+.round {
+  border-radius: 50px;
+  border: 0px;
 }
 #calltoaction {
   height: 45px;
