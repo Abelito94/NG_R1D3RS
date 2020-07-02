@@ -1,0 +1,97 @@
+
+*{
+outline: 0px !important;
+}
+.green{
+  color: #1DF24C !important;
+}
+.invalid {
+  color: red !important;
+}
+.valid {
+  color: green !important;
+}
+.bg-green{
+  background-color: #1DF24C;
+}
+.big-bold {
+  font-weight: 800;
+  font-size: 32px;
+}
+.m-bold {
+  font-weight: 600;
+  color: white;
+  font-size: 18px;
+}
+.s-bold{
+    font-weight: 600;
+  font-size: 12px;
+}
+.big-btn {
+  font-weight: 800;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.round {
+  border-radius: 50px;
+  border: 0px;
+}
+.border-green{
+  border:1px solid #1DF24C;
+}
+.full-h {
+  min-height: 100vh;
+}
+#calltoaction {
+  height: 45px;
+  padding-left: 25px;
+}
+/* //img */
+img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.hoverable{
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+.hoverable .hover-text{
+  position: absolute;
+  display: none;
+  top: 50%;
+  left:  50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+}
+.hoverable .background{
+  position: absolute;
+  display: none;
+  top: 0;
+  left:  0;
+  bottom: 0;
+  right: 0;
+  background-color:rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+}
+.hoverable:hover .hover-text{
+  display: block;
+}
+.hoverable:hover .background{
+  display: block;
+}
+#fileInput{
+  display: none;
+}
+.modal-content, .modal-body, .modal-header, .modal-footer {
+  border: 0px !important;
+}
+.form-height {
+  height: 70px;
+}
