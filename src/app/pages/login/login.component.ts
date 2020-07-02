@@ -25,21 +25,21 @@ export class LoginComponent implements OnInit {
   userPass:string='';
   errorLogin:boolean= true;
   errorMessage:string= '';
-  
-  
+
+
   loginUser(){
-    
+
     let user = {
       email: this.userLogin,
       password: this.userPass
     }
-    
-    axios.get(`http://localhost:3000/users?username=${user.email}`)
+
+    axios.get(`http://localhost:3000/users?username=${user.email}&password=${user.password}`)
     .then(response => {
       if(response.data.length == 1){
         this.errorLogin = false;
         localStorage.setItem('user', JSON.stringify(response.data[0]));
-        this.router.navigate(['']);
+        this.router.navigate(['home']);
       }
       else{
         this.errorMessage = 'The email or password do not match. Please review it and try again.';

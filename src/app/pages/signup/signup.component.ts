@@ -65,7 +65,7 @@ export class SignupComponent implements OnInit {
         tags: this.tags
       };
       this.APIService.createUser(this.newUser);
-      this.router.navigate(['']);
+      this.router.navigate(['home']);
     }
 
   }
