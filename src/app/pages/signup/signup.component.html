@@ -19,7 +19,7 @@
       </div>
       <form class="form-inline p-0 mt-5">
         <input id="calltoaction" class="form-control-lg border-green col-12 col-sm-6 round bg-light" type="email"
-          name="email" placeholder="Your email" [(ngModel)]="callEmail" aria-label="Email" required>
+          name="email" placeholder="Your email" [(ngModel)]="callEmail" aria-label="Email">
         <button type="button" class="btn-lg round big-btn bg-green col-12 col-sm-5 m-auto py-3" data-toggle="modal"
           data-target="#signUp" (click)="setEmail()">START NOW!</button>
       </form>
@@ -36,7 +36,7 @@
     <div class="modal-content round p-5">
       <div class="modal-header">
         <span class="modal-title big-bold text-dark" id="exampleModalLabel">Create your new account</span>
-        <button type="button" class="close big-bold" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close big-bold" data-dismiss="modal" aria-label="Close" (click)="clearModalData()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -44,35 +44,45 @@
         <form class="form">
           <div class="form-group form-height">
             <input type="email" placeholder="Write your email" name="email" [(ngModel)]="email"
-              class="col-12 form-control-lg round bg-light shadow-sm" required (keyup)="isValidEmail()">
+              class="col-12 form-control-lg round bg-light shadow-sm" [class.border-error]="emailIsEmpty"
+              (keyup)="isValidEmail()">
             <div class="m-3 s-bold valid" [hidden]="!emailIsValid">Looks good!</div>
             <div class="m-3 s-bold invalid" [hidden]="emailFormatValidation">
               Introduce a valid format like 'user@example.com'</div>
             <div class="m-3 s-bold invalid" [hidden]="emailIsAvaible">
               This email is already in use</div>
+            <div class="m-3 s-bold invalid" [hidden]="!emailIsEmpty">
+              Please, complete that field</div>
           </div>
           <div class="form-group form-height">
             <input type="text" placeholder="Choose a cool and original username" name="username" [(ngModel)]="username"
-              class="col-12 form-control-lg round bg-light shadow-sm is-valid" required (keyup)="isValidUsername()">
+              class="col-12 form-control-lg round bg-light shadow-sm is-valid" [class.border-error]="emailIsEmpty"
+              (keyup)="isValidUsername()">
             <div class="m-3 s-bold valid" [hidden]="!usernameIsValid">Looks good!</div>
             <div class="m-3 s-bold invalid" [hidden]="usernameFormatValidation">
               Should be longer than 4</div>
             <div class="m-3 s-bold invalid" [hidden]="usernameIsAvaible">
               This username is already in use</div>
-
+            <div class="m-3 s-bold invalid" [hidden]="!usernameIsEmpty">
+              Please, complete that field</div>
           </div>
           <div class="form-group form-height">
-            <input type="password" placeholder="Your password here" name="password" [(ngModel)]="password"
-              class="col-12 form-control-lg round bg-light shadow-sm" required (keyup)="isValidPassword()">
- 
+            <input type="password" placeholder="Your password here" name="password" [class.border-error]="emailIsEmpty"
+              [(ngModel)]="password" class="col-12 form-control-lg round bg-light shadow-sm"
+              (keyup)="isValidPassword()">
+            <div class="m-3 s-bold valid" [hidden]="!passwordIsValid">Looks good!</div>
+            <div class="m-3 s-bold invalid" [hidden]="passwordFormatValidation">
+              Should be longer than 6!</div>
+            <div class="m-3 s-bold invalid" [hidden]="!passwordIsEmpty">
+              Please, complete that field</div>
           </div>
+          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
+            (click)="createUser()">Next</button>
+          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green">Skip step</button>
+          <button type="button" class="btn-lg btn-light round big-btn float-right" data-dismiss="modal" (click)="clearModalData()">Close</button>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-lg btn-light round big-btn float-right" data-dismiss="modal">Close</button>
-        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
-          (click)="createUser()">Next</button>
-        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green">Skip step</button>
       </div>
     </div>
   </div>
