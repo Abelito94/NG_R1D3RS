@@ -5,6 +5,10 @@ outline: 0px !important;
 .h-80{
   height: 80px;
 }
+.bg-opacity{
+  background-color: black;
+  opacity: 75%;
+}
 .valid {
   color: green !important;
 }
@@ -70,4 +74,13 @@ img {
 }
 .form-height {
   height: 70px;
+}
+@keyframes overlay {
+  from {opacity: 0%;}
+  to {opacity: 75%;}
+}
+.overlay {
+  animation-name: overlay;
+  animation-duration: .4s;
+  animation-timing-function: ease-in;
 }
