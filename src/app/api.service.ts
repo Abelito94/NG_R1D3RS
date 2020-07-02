@@ -8,14 +8,19 @@ export class APIService {
   URL = 'http://localhost:3000/';
   constructor() { }
 
-  getAllTweets(): Promise<any> {
-    return axios.get(`${this.URL}tweets`)
-      .then(response => response.data)
-      .catch(err => console.log(err))
+  async getAllTweets(): Promise<any> {
+    const res = await axios.get(`${this.URL}tweets?_page=1&_limit=100`)
+    return res.data
   }
 
   getAllUsers(): Promise<any> {
     return axios.get(`${this.URL}users`)
+      .then(response => response.data)
+      .catch(err => console.log(err))
+  }
+
+  getUserById(userId): Promise<any> {
+    return axios.get(`${this.URL}users/${userId}`)
       .then(response => response.data)
       .catch(err => console.log(err))
   }
@@ -31,7 +36,6 @@ export class APIService {
       .catch(err => console.log(err))
   }
   async createTweet(tweet) {
-    console.log(tweet)
     const res = await axios.post(`${this.URL}tweets`,tweet)
     return res.data
   }

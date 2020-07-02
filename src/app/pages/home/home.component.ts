@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { APIService } from '../../api.service'
 import * as moment from 'moment';
 
@@ -17,6 +17,7 @@ type Tweet = {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  tweets: any[] = []
 
   newtweet: Tweet = {
     userId: "",
@@ -27,16 +28,23 @@ export class HomeComponent {
     numRTs: 0
   }
   text: string = ""
-  
-  constructor(private tweetService : APIService) {}
+
+
+  constructor(private tweetService: APIService) {
+    tweetService.getAllTweets()
+      .then(res => this.tweets = res)
+      .catch(err => console.log(err))
+
+  }
+
 
   createTweet(text) {
 
     this.newtweet.text = text
     this.newtweet.creationDate = moment().format('MMMM Do YYYY, h:mm:ss a')
     this.tweetService.createTweet(this.newtweet)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
 
   }
 }
