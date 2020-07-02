@@ -19,6 +19,12 @@ export class APIService {
       .catch(err => console.log(err))
   }
 
+  getUserById(userId): Promise<any> {
+    return axios.get(`${this.URL}users/:${userId}`)
+      .then(response => response.data)
+      .catch(err => console.log(err))
+  }
+
   findEqualUsername(username): Promise<any> {
     return axios.get(`${this.URL}users?username=${username}`)
       .then(response => response.data)
