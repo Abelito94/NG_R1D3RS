@@ -9,7 +9,7 @@ export class APIService {
   constructor() { }
 
   async getAllTweets(): Promise<any> {
-    const res = await axios.get(`${this.URL}tweets`)
+    const res = await axios.get(`${this.URL}tweets?_page=1&_limit=100`)
     return res.data
   }
 
@@ -20,7 +20,7 @@ export class APIService {
   }
 
   getUserById(userId): Promise<any> {
-    return axios.get(`${this.URL}users/:${userId}`)
+    return axios.get(`${this.URL}users/${userId}`)
       .then(response => response.data)
       .catch(err => console.log(err))
   }

@@ -1,23 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { APIService } from '../../api.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { APIService } from '../../../api.service';
 
 @Component({
   selector: 'app-tweet-alone',
   templateUrl: './tweet-alone.component.html',
   styleUrls: ['./tweet-alone.component.css']
 })
-export class TweetAloneComponent {
-  @Input() tweet: Object
-  userID: string = this.tweet.userID
-  user: Object 
+export class TweetAloneComponent implements OnInit{
+  @Input() tweet;
+  //userID: string = this.tweet.userID
+ 
+  user:any={};
 
+  constructor(private tweetService: APIService) {}
 
-  constructor(private tweetService: APIService) {
-
-    tweetService.getUserById(this.userID)
-      .then(res => this.user = res)
-      .catch(err => console.log(err))
-
+  async ngOnInit(){
+    this.user = await this.tweetService.getUserById(this.tweet.userID);
+    
   }
 
 }
