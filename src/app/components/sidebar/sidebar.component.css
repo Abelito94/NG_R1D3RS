@@ -1,0 +1,48 @@
+*{
+    outline: 0px !important;
+}
+
+.green{
+    color: #1DF24C !important;
+}
+
+.invalid {
+    color: red !important;
+}
+
+.valid {
+    color: green !important;
+}
+
+.bg-green{
+    background-color: #1DF24C;
+}
+
+.big-bold {
+    font-weight: 800;
+    font-size: 32px;
+}
+
+.m-bold {
+    font-weight: 600;
+    color: white;
+    font-size: 18px;
+}
+
+.s-bold{
+    font-weight: 600;
+    font-size: 12px;
+}
+
+
+
+.fondo > img{
+    width: 60%;
+    height: 30rem;
+}
+
+.profile > img{
+    position: absolute;
+    top: 50%;
+    width: 40%;
+}
