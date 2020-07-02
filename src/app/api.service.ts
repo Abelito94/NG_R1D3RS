@@ -6,8 +6,10 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class APIService {
-  URL = 'https:localhost:3000/';
+
+  URL = 'http://localhost:3000/';
   constructor() { }
+
   getAllTweets(): Promise<any> {
     return axios.get(`${this.URL}tweets`)
       .then(response => response.data)
@@ -17,5 +19,10 @@ export class APIService {
     return axios.get(`${this.URL}users`)
       .then(response => response.data)
       .catch(err => console.log(err))
+  }
+  async createTweet(tweet) {
+    console.log(tweet)
+    const res = await axios.post(`${this.URL}tweets`,tweet)
+    return res.data
   }
 }
