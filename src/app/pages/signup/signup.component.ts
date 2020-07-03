@@ -60,14 +60,15 @@ export class SignupComponent implements OnInit {
         username: this.username,
         email: this.email,
         password: this.password,
-        profileUrl: this.profileUrl,
         coverUrl: this.coverUrl,
-        tags: this.tags
+        tags: this.tags,
+        profilePictureURL: "https://randomuser.me/api/portraits/men/20.jpg",
+        bio: '',
       };
       this.APIService.createUser(this.newUser);
+      localStorage.setItem('user', JSON.stringify(this.newUser));
       this.router.navigate(['home']);
     }
-
   }
 
   //CHARGE IMG

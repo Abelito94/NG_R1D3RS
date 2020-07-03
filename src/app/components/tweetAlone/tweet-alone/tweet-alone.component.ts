@@ -8,15 +8,13 @@ import { APIService } from '../../../api.service';
 })
 export class TweetAloneComponent implements OnInit{
   @Input() tweet;
+  @Input() user;
   //userID: string = this.tweet.userID
- 
-  user:any={};
 
   constructor(private tweetService: APIService) {}
 
   async ngOnInit(){
     this.user = await this.tweetService.getUserById(this.tweet.userID);
-    
   }
 
 }

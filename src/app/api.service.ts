@@ -9,7 +9,7 @@ export class APIService {
   constructor() { }
 
   async getAllTweets(): Promise<any> {
-    const res = await axios.get(`${this.URL}tweets?_page=1&_limit=100`)
+    const res = await axios.get(`${this.URL}tweets?_sort=creationDate&_order=desc&_page=1&_limit=100`)
     return res.data
   }
 
@@ -18,7 +18,11 @@ export class APIService {
       .then(response => response.data)
       .catch(err => console.log(err))
   }
-
+  // getUserId(username): Promise<any> {
+  //   return axios.get(`${this.URL}users?username=${username}`)
+  //     .then(response => response.data)
+  //     .catch(err => console.log(err))
+  // }
   getUserById(userId): Promise<any> {
     return axios.get(`${this.URL}users/${userId}`)
       .then(response => response.data)

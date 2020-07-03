@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sign',
@@ -6,9 +6,10 @@ import { Component, OnInit, Inject } from '@angular/core';
   styleUrls: ['./sign.component.css']
 })
 export class SignComponent implements OnInit {
-  constructor() {
-  }
+
+  constructor() { }
+
   ngOnInit(): void {
   }
-}
 
+}

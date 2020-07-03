@@ -3,8 +3,7 @@ import { APIService } from '../../api.service'
 import * as moment from 'moment';
 
 type Tweet = {
-  userId: string;
-  id: number;
+  userID: any;
   text: string;
   creationDate: string;
   numLikes: number;
@@ -18,15 +17,11 @@ type Tweet = {
 })
 export class HomeComponent {
   tweets: any[] = []
+  myTweets: any[]
+  user
 
-  newtweet: Tweet = {
-    userId: "",
-    id: 0,
-    text: "",
-    creationDate: "",
-    numLikes: 0,
-    numRTs: 0
-  }
+
+
   text: string = ""
 
 
@@ -35,16 +30,35 @@ export class HomeComponent {
       .then(res => this.tweets = res)
       .catch(err => console.log(err))
 
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.tweetService.findEqualUsername(this.user.username)
+      .then(fullUser => {
+        this.user = fullUser[0]
+        localStorage.clear()
+        localStorage.setItem('user', JSON.stringify(fullUser[0]))
+      })
   }
 
-
+  filterMyTweets() {
+    this.myTweets = this.tweets.filter(tweet => tweet.userID === this.user.id)
+  }
   createTweet(text) {
-
-    this.newtweet.text = text
-    this.newtweet.creationDate = moment().format('MMMM Do YYYY, h:mm:ss a')
-    this.tweetService.createTweet(this.newtweet)
+    var newtweet: Tweet = {
+      userID: this.user.id,
+      text: text,
+      creationDate: moment().format(),
+      numLikes: 0,
+      numRTs: 0
+    }
+    this.tweetService.createTweet(newtweet)
       .then(res => console.log(res))
+      .then(() => {
+        this.tweetService.getAllTweets()
+          .then(res => this.tweets = res)
+          .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
+          .catch(err => console.log(err))
+      })
       .catch(err => console.log(err))
-
+    this.text = ''
   }
 }
