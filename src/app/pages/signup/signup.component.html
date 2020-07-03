@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="form">
+        <form id="step1" class="form" [hidden]="step != 1">
           <div class="form-group form-height">
             <input type="email" placeholder="Write your email" name="email" [(ngModel)]="email"
             class="col-12 form-control-lg round bg-light shadow-sm" [class.border-error]="emailIsEmpty"
@@ -49,6 +49,17 @@
           <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
             (click)="createUser()">Next</button>
           <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green">Skip step</button>
+          <button type="button" class="btn-lg btn-light round big-btn float-right" (click)="close()">Close</button>
+        </form>
+        <form id="step2" class="form" [hidden]="step != 2">
+          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
+            (click)="createUser()">Next</button>
+          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green">Skip step</button>
+          <button type="button" class="btn-lg btn-light round big-btn float-right" (click)="close()">Close</button>
+        </form>
+        <form id="step3" class="form" [hidden]="step != 3">
+          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
+            (click)="createUser()">Next</button>
           <button type="button" class="btn-lg btn-light round big-btn float-right" (click)="close()">Close</button>
         </form>
       </div>
