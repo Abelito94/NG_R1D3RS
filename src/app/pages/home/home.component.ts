@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { APIService } from '../../api.service'
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 type Tweet = {
   userID: any;
@@ -25,7 +26,7 @@ export class HomeComponent {
   text: string = ""
 
 
-  constructor(private tweetService: APIService) {
+  constructor(private tweetService: APIService, private router : Router) {
     tweetService.getAllTweets()
       .then(res => this.tweets = res)
       .catch(err => console.log(err))
@@ -60,5 +61,11 @@ export class HomeComponent {
       })
       .catch(err => console.log(err))
     this.text = ''
+  }
+
+  logout(){
+    localStorage.clear();
+   
+    this.router.navigate(['sign']); 
   }
 }
