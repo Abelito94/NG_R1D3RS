@@ -29,6 +29,7 @@ export class HomeComponent {
   constructor(private tweetService: APIService, private router : Router) {
     tweetService.getAllTweets()
       .then(res => this.tweets = res)
+      .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
       .catch(err => console.log(err))
 
     this.user = JSON.parse(localStorage.getItem('user'))
@@ -40,9 +41,9 @@ export class HomeComponent {
       })
   }
 
-  filterMyTweets() {
+  /*filterMyTweets() {
     this.myTweets = this.tweets.filter(tweet => tweet.userID === this.user.id)
-  }
+  }*/
   createTweet(text) {
     var newtweet: Tweet = {
       userID: this.user.id,
