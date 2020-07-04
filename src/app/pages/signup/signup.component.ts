@@ -14,11 +14,10 @@ export class SignupComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
-  profileUrl = null;
-  coverUrl: string = '';
-  tags: string = '';
+  profilePictureURL;
+  tags: string[] = [];
   newUser: object = {};
-  callEmail: string = '';
+  tag: string = '';
 
   //EMAIL VALIDATION
   emailValidator = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
@@ -45,6 +44,53 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  validateForm() {
+    // if (this.email === '') {
+    //   this.emailIsEmpty = true;
+    // }
+    // if (this.username === '') {
+    //   this.usernameIsEmpty = true;
+    // }
+    // if (this.password === '') {
+    //   this.passwordIsEmpty = true;
+    // }
+    // if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
+    //   this.newUser = {
+    //     username: this.username,
+    //     email: this.email,
+    //     password: this.password,
+    //   };
+    // }
+    this.step = 2
+  }
+
+  chargeImg(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.profilePictureURL = event.target.result;
+      }
+    }
+  }
+
+  setProfilePicture() {
+    if (!this.profilePictureURL) {
+      this.profilePictureURL = "https://katakrak.net/sites/default/files/default_images/default_profile_0.jpg"
+    }
+    this.step = 3
+  }
+
+  addTag() {
+    this.tags.push(this.tag);
+    this.tag = ''
+  }
+  deleteTag(tagDeleted) {
+    this.tags = this.tags.filter(tag => tag != tagDeleted)
+
+  }
   createUser() {
     if (this.email === '') {
       this.emailIsEmpty = true;
@@ -60,33 +106,20 @@ export class SignupComponent implements OnInit {
         username: this.username,
         email: this.email,
         password: this.password,
-        coverUrl: this.coverUrl,
         tags: this.tags,
-        profilePictureURL: "https://randomuser.me/api/portraits/men/20.jpg",
+        profilePictureURL: this.profilePictureURL,
         bio: '',
       };
       this.APIService.createUser(this.newUser);
       localStorage.setItem('user', JSON.stringify(this.newUser));
       this.router.navigate(['home']);
+    } else {
+      this.step = 1;
     }
   }
 
-  //CHARGE IMG
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.profileUrl = event.target.result;
-      }
-    }
-  }
-
-  setEmail() {
-    this.email = this.callEmail || '';
-    this.callEmail = '';
+  back() {
+    this.step--
   }
 
   async checkEmails() {
