@@ -10,3 +10,6 @@ export class SidebarComponent {
   @Input() sidebar
   
 }
+
+
+//var guardado = localStorage.setItem();
