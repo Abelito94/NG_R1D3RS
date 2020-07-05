@@ -46,15 +46,65 @@
     z-index: 1;
     position: relative;
     top: 200px;
-    left: -180px;
+    right: 270px;
 }
 
-.columna-2{
+.columna-2, .columna-3, 
+.columna-4, .columna-5{
     position: absolute;
     top: 28rem;
-    height: 50px;
+    height: 20px;
 }
 
 .columna-2 span{
     text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.name-profile{
+    left: 50px;
+}
+
+.name-profile-2{
+    left: 90px;
+}
+
+.name-profile-2 span{
+    font-size: 20px;
+}
+
+.columna-3{
+    top: 33rem;
+    left: 50px;
+}
+
+.columna-4{
+    top: 38rem;
+}
+
+.columna-5{
+    top: 50rem;
+    left:20px;
+    
+}
+
+.columna-4 button,
+.columna-5 button{
+    margin: 4px;
+    border : 0px;
+    background-color: black;
+    color: white;
+    border-radius: 99px;
+    padding: 4px;
+}
+
+.columna-5 #edit{
+    background-color: #1DF24C;
+}
+
+.columna-5 .out{
+    background-color: #f2f2f2;
+    color: black;
+    padding: 12px;
 }
