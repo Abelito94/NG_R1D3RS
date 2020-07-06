@@ -16,5 +16,4 @@ export class TweetAloneComponent implements OnInit{
   async ngOnInit(){
     this.user = await this.tweetService.getUserById(this.tweet.userID);
   }
-
 }

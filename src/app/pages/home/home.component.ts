@@ -1,14 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { APIService } from '../../api.service'
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { Cloudinary } from '@cloudinary/angular-5.x';
+
+import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
+
+import { HttpClient } from '@angular/common/http';
 
 type Tweet = {
   userID: any;
   text: string;
   creationDate: string;
   numLikes: number;
-  numRTs: number
+  numRTs: number;
+  urlTweet: string
 }
 
 @Component({
@@ -16,17 +22,32 @@ type Tweet = {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+  responses: Array<any>;
+  
+  urlImages: string
+  public hasBaseDropZoneOver: boolean = false;
+  public uploader: FileUploader;
+  public title: string
+
   tweets: any[] = []
   myTweets: any[]
   user
 
-
-
   text: string = ""
 
+  constructor(
+    private tweetService: APIService,
+    private router: Router,
+    private cloudinary: Cloudinary,
+    private zone: NgZone,
+    private http: HttpClient
+  ) {
 
-  constructor(private tweetService: APIService, private router : Router) {
+    this.responses = [];
+    this.title = '';
+
     tweetService.getAllTweets()
       .then(res => this.tweets = res)
       .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
@@ -44,14 +65,19 @@ export class HomeComponent {
   /*filterMyTweets() {
     this.myTweets = this.tweets.filter(tweet => tweet.userID === this.user.id)
   }*/
+
   createTweet(text) {
+
     var newtweet: Tweet = {
       userID: this.user.id,
       text: text,
       creationDate: moment().format(),
       numLikes: 0,
-      numRTs: 0
+      numRTs: 0,
+      urlTweet: this.urlImages || ""
     }
+
+   console.log(this.responses)
     this.tweetService.createTweet(newtweet)
       .then(res => console.log(res))
       .then(() => {
@@ -63,10 +89,120 @@ export class HomeComponent {
       .catch(err => console.log(err))
     this.text = ''
   }
+  tweetImg() {
 
-  logout(){
+  }
+
+  logout() {
     localStorage.clear();
-   
-    this.router.navigate(['sign']); 
+
+    this.router.navigate(['sign']);
+  }
+
+  ngOnInit(): void {
+    // Create the file uploader, wire it to upload to your account
+    const uploaderOptions: FileUploaderOptions = {
+      url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/upload`,
+      // Upload files automatically upon addition to upload queue
+      autoUpload: true,
+      // Use xhrTransport in favor of iframeTransport
+      isHTML5: true,
+      // Calculate progress independently for each uploaded file
+      removeAfterUpload: true,
+      // XHR request headers
+      headers: [
+        {
+          name: 'X-Requested-With',
+          value: 'XMLHttpRequest'
+        }
+      ]
+    };
+    this.uploader = new FileUploader(uploaderOptions);
+
+    this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
+      // Add Cloudinary's unsigned upload preset to the upload form
+      form.append('upload_preset', this.cloudinary.config().upload_preset);
+      // Add built-in and custom tags for displaying the uploaded photo in the list
+      let tags = 'myphotoalbum';
+
+      if (this.title) {
+        form.append('context', `photo=${this.title}`);
+        tags = `myphotoalbum,${this.title}`;
+      }
+      // Upload to a custom folder
+      // Note that by default, when uploading via the API, folders are not automatically created in your Media Library.
+      // In order to automatically create the folders based on the API requests,
+      // please go to your account upload settings and set the 'Auto-create folders' option to enabled.
+      form.append('folder', 'Assets');
+      // Add custom tags
+      form.append('tags', tags);
+      // Add file to upload
+      form.append('file', fileItem);
+
+      // Use default "withCredentials" value for CORS requests
+      fileItem.withCredentials = false;
+      return { fileItem, form };
+    };
+
+    const upsertResponse = fileItem => {
+
+      // Run the update in a custom zone since for some reason change detection isn't performed
+      // as part of the XHR request to upload the files.
+      // Running in a custom zone forces change detection
+      this.zone.run(() => {
+        // Update an existing entry if it's upload hasn't completed yet
+
+        // Find the id of an existing item
+        const existingId = this.responses.reduce((prev, current, index) => {
+          if (current.file.name === fileItem.file.name && !current.status) {
+            return index;
+          }
+          return prev;
+        }, -1);
+        if (existingId > -1) {
+          // Update existing item with new data
+          this.responses[existingId] = Object.assign(this.responses[existingId], fileItem);
+        } else {
+          // Create new response
+          this.responses.push(fileItem);
+        }
+      });
+    };
+    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>
+      upsertResponse(
+        {
+          file: item.file,
+          status,
+          data: JSON.parse(response)
+        }
+      );
+
+    // Update model on upload progress event
+    this.uploader.onProgressItem = (fileItem: any, progress: any) =>
+      upsertResponse(
+        {
+          file: fileItem.file,
+          progress,
+          data: {}
+        }
+      );
+  }
+
+  updateTitle(value: string) {
+    this.title = value;
+  }
+  
+  fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  getFileProperties(fileProperties: any) {
+    // Transforms Javascript Object to an iterable to be used by *ngFor
+    if (!fileProperties) {
+      return null;
+    }
+    return Object.keys(fileProperties)
+      .map((key) => ({ 'key': key, 'value': fileProperties[key] }));
   }
 }
+
