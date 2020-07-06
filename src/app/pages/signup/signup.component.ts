@@ -64,6 +64,8 @@ export class SignupComponent implements OnInit {
         tags: this.tags,
         profilePictureURL: "https://randomuser.me/api/portraits/men/20.jpg",
         bio: '',
+        following: [],
+        followers: [],
       };
       this.APIService.createUser(this.newUser);
       localStorage.setItem('user', JSON.stringify(this.newUser));

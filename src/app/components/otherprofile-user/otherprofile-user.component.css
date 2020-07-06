@@ -1,0 +1,76 @@
+.card{
+    border-radius: 0;
+    border-style: none;
+}
+.otherprofile{
+    width: 100%;
+    height: 300px;
+    /*border: 0.5px solid blue;*/
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.otherprofile > .profile{
+    position: relative;
+    width: 100%;
+    height: 290px;
+    /*border: 0.5px solid red;*/
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+/*Cover*/
+.otherprofile > .profile > .cover{
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    background: url('http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i') no-repeat;
+    background-size: 100%;
+}
+/*Picture*/
+.otherprofile > .profile > .picture{
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+.otherprofile > .profile > .picture > img{
+    width: 200px;
+    height: 220px;
+    border-radius: 0.5em;
+    float: right;
+}
+/*Name*/
+.otherprofile > .profile > .username{
+    position: absolute;
+    /*background-color: black;*/
+    color: black;
+    max-width: 310px;
+    border-radius: 2px;
+    padding: 2px 2px 2px 2px;
+    bottom: 0;
+    right: 20px;
+}
+.otherprofile > .profile > .username > .data{
+    position: relative;
+}
+.otherprofile > .profile > .data > .name{
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+.otherprofile > .profile > .data{
+    position: absolute;
+    border: 1px solid red;
+    top: 150px;
+    width: 70%;
+    height: 140px;
+}
+.follow{
+    color: white;
+    background-color: #1DF24C;
+    border-style: none;
+    border-radius: 2em;
+    padding: 5px 50px 5px 50px;
+    position: absolute;
+    top: 5px;
+}

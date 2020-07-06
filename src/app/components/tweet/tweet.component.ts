@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-tweet',
@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./tweet.component.css']
 })
 export class TweetComponent {
+  
   @Input() tweets: Array<any>
   @Input() user
 }
