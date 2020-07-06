@@ -1,7 +1,3 @@
-<div>
-  <ul>
-    <li *ngFor= "let tweet of tweets" >
-      <span>{{ tweet }}</span>
-    </li>
-  </ul>
+<div class="list">
+  <app-tweet-alone *ngFor="let tweet of tweets" [tweet]="tweet" [user]="user" ></app-tweet-alone>
 </div>

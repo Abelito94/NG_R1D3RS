@@ -1,0 +1,30 @@
+<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5 h-80">
+  <a id="brand" class="navbar-brand big-bold green">FRESHH</a>
+  <span class="ml-auto">
+    <button [routerLink]="['/','login']" class="btn-lg round big-btn border-green my-2 my-sm-0" type="button">Sign
+      in</button>
+    <a class="h4 ml-2 mr-2 mb-0"> or </a>
+    <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button" routerLink="up">Sign up</button>
+  </span>
+</nav>
+
+<div id="pageContent" class="container-flex d-flex full-h p-5">
+  <div class="row align-items-center p-5">
+    <section id="left" class="col-12 col-lg-6 pl-5">
+      <div class="big-bold text-dark">Glad you're here.</div><br>
+      <div class="m-bold text-dark">In this place we accept all kinds of people, except those who keep quiet.<br><br>
+        Just kidding, everyone is welcome!<br> But we prefer those people who share their thoughts, their stories, those
+        who say they are sad when they are, those who think, criticize and argue.<br>
+        <br> This is the place to connect with your friends and new interesting people for you.
+      </div>
+      <form class="form-inline p-0 mt-5">
+        <button type="button" routerLink="up" class="btn-lg round big-btn bg-green col-12 col-sm-5 ml-auto py-3">START
+          NOW!</button>
+      </form>
+    </section>
+    <section id="right" class="col-12 col-lg-6 text-right">
+      <img src="https://landbot.io/wp-content/uploads/2019/01/chatbot-landing-page-design.jpg"
+        alt="people sending messages and connecting" width="90%">
+    </section>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { APIService } from '../../api.service'
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -59,14 +60,15 @@ export class SignupComponent implements OnInit {
         username: this.username,
         email: this.email,
         password: this.password,
-        profileUrl: this.profileUrl,
         coverUrl: this.coverUrl,
-        tags: this.tags
+        tags: this.tags,
+        profilePictureURL: "https://randomuser.me/api/portraits/men/20.jpg",
+        bio: '',
       };
       this.APIService.createUser(this.newUser);
-      this.router.navigate(['']);
+      localStorage.setItem('user', JSON.stringify(this.newUser));
+      this.router.navigate(['home']);
     }
-
   }
 
   //CHARGE IMG
@@ -158,25 +160,8 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  clearModalData() {
-    this.email = '';
-    this.username = '';
-    this.password = '';
-    this.emailIsValid = false;
-    this.emailFormatValidation = true;
-    this.emailIsAvaible = true;
-    this.emailIsEmpty = null;
-
-    //USER VALIDATION
-    this.usernameIsValid = false;
-    this.usernameFormatValidation = true;
-    this.usernameIsAvaible = true;
-    this.usernameIsEmpty = null;
-
-    //PASSWORD VALIDATION
-    this.passwordIsValid = false;
-    this.passwordFormatValidation = true;
-    this.passwordIsEmpty = null;
+  close() {
+    this.router.navigate(['sign']);
   }
 }
 

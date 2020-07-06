@@ -2,3 +2,43 @@
 * {
   font-family: 'Montserrat', sans-serif;
 }
+.green{
+  color: #1DF24C !important;
+}
+.bg-green{
+  background-color: #1DF24C;
+}
+.border-green{
+  border:3px solid #1DF24C !important;
+}
+.s-bold{
+    font-weight: 600;
+  font-size: 12px;
+}
+.m-bold {
+  font-weight: 600;
+  font-size: 18px;
+}
+.l-bold{
+   font-weight: 600;
+  font-size: 21px;
+}
+.xl-bold{
+   font-weight: 800;
+  font-size: 24px;
+}
+.big-bold {
+  font-weight: 800;
+  font-size: 32px;
+}
+
+.big-btn {
+  font-weight: 800;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.full-h {
+  min-height: 100vh;
+}
+
+

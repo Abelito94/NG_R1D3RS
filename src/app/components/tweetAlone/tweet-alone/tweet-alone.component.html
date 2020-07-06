@@ -1,0 +1,24 @@
+<div class="card shadow-sm p-4 mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-3">
+      <img [src]="user.profilePictureURL" alt="userimages" width="150">
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+        <span>
+          <span class="float-right s-bold">{{ tweet.creationDate}}</span>
+          <span class="xl-bold"><em>{{user.username}}</em></span>
+          <span class="l-bold ml-2">@{{user.username}}</span>
+          <div class="m-bold mt-4 mr-3">
+            {{ tweet.text }}
+          </div>
+        </span>
+        <div class="footer">
+          <!-- <p class="card-text">RETWEET {{ tweet.numRTs }} </p> -->
+          <!-- <p class="card-text">FAVOURITE {{ tweet.numLikes }} </p> -->
+          <!-- <p>ANSWER</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
