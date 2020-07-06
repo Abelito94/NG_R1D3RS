@@ -40,9 +40,7 @@
 
           <div class="file" *ngFor="let response of responses; let i = index">
             <h3>{{response.file.name}}</h3>
-
-            {{ response.data.url }}
-            
+            <img [src]="response.data.url" alt="">
             <div class="status">
               Uploading... {{response.progress}}%
               <div *ngIf="!response.status">In progress</div>

@@ -22,10 +22,12 @@ type Tweet = {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
 export class HomeComponent implements OnInit {
 
   responses: Array<any>;
-  
+
   urlImages: string
   public hasBaseDropZoneOver: boolean = false;
   public uploader: FileUploader;
@@ -74,19 +76,20 @@ export class HomeComponent implements OnInit {
       creationDate: moment().format(),
       numLikes: 0,
       numRTs: 0,
-      urlTweet: this.urlImages || ""
+      urlTweet: this.responses[0].data.url || ""
     }
 
    console.log(this.responses)
-    this.tweetService.createTweet(newtweet)
-      .then(res => console.log(res))
-      .then(() => {
-        this.tweetService.getAllTweets()
-          .then(res => this.tweets = res)
-          .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
-          .catch(err => console.log(err))
-      })
-      .catch(err => console.log(err))
+
+   this.tweetService.createTweet(newtweet)
+   .then(res => console.log(res))
+   .then(() => {
+     this.tweetService.getAllTweets()
+     .then(res => this.tweets = res)
+     .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
+     .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
     this.text = ''
   }
   tweetImg() {
