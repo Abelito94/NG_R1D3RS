@@ -1,7 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { APIService } from '../../api.service'
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
+  // Stepper
   step = 1;
+
   //USER DATA
   username: string = '';
   email: string = '';

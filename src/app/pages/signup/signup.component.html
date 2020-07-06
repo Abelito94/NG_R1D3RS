@@ -1,18 +1,18 @@
 <app-sign></app-sign>
 
 <div id="bg" class="container-fluid fixed-top full-h bg-opacity overlay"></div>
-<div id="signUp" class="container fixed-top overlay mt-5">
+<div id="signUp" class="container fixed-top overlay">
   <div class="mt-5">
     <div class="modal-content col-12 col-lg-8 round p-5 m-auto">
       <span class="modal-title xl-bold text-dark" id="exampleModalLabel">
-        <button class="btn btn-link glyphicon glyphicon-arrow-left m-bold" (click)="back()"
-          [hidden]="step===1"></button>
+        <i type="button" class="material-icons m-bold mr-2"
+          (click)="back()" [hidden]="step===1">arrow_back</i>
         <span>Step {{step}} of 3</span>
         <button type="button" class="close big-bold" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
       </span>
-      <div class="modal-header mt-5 mb-4">
+      <div class="modal-header mt-3 mb-2">
         <span class="modal-title big-bold text-dark" id="exampleModalLabel">
           <span [hidden]="step != 1">Create your new account</span>
           <span [hidden]="step != 2">Choose your profile picture</span>
@@ -62,7 +62,8 @@
           <label class="hoverable m-auto" for="fileInput">
             <img
               [src]="profilePictureURL ? profilePictureURL : 'https://katakrak.net/sites/default/files/default_images/default_profile_0.jpg'">
-            <div class="hover-text bg-light round p-4 glyphicon glyphicon-plus xl-bold"></div>
+            <i type="button" class="hover-text bg-light round p-3 material-icons big-bold p-2"
+              (click)="deleteTag(tag)">add</i>
           </label>
           <input id="fileInput" type="file" (change)="chargeImg($event)">
         </form>
@@ -70,13 +71,11 @@
         <form id="step3" class="form" [hidden]="step != 3">
           <div class="form-group">
             <input type="text" placeholder="Example: developer" name="tags" [(ngModel)]="tag"
-              class="col-12 form-control-lg round bg-light shadow-sm" (keyup.enter)="addTag()">
+              class="col-12 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
           </div>
-          <span *ngFor="let tag of tags" class="text-white bg-dark round s-bold pl-5 pr-3 py-3 mr-2">
+          <span *ngFor="let tag of tags" class="d-inline text-white bg-dark round s-bold pl-5 pr-3 py-3 mr-4">
             <span class="mr-2 mb-3">{{tag}}</span>
-            <a type="button" class="l-bold p-2 mt-5" (click)="deleteTag(tag)">
-              <span aria-hidden="true">&times;</span>
-            </a>
+            <i type="button" class="material-icons m-bold p-2" (click)="deleteTag(tag)">close</i>
           </span>
         </form>
       </div>
