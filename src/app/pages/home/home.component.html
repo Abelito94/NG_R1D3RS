@@ -11,13 +11,39 @@
           <div class="form-group">
             <textarea [(ngModel)]="text" name="text" class="form-control m-bold reset-txtarea" maxlength="140"
               id="exampleFormControlTextarea1" rows="3" placeholder="What's new?"></textarea>
-            </div>
-          </form>
-            <span class="ml-auto">
-              <span class="m-bold m-4">{{text.length}} / 140</span>
-              <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button"
+          </div>
+        </form>
+
+        <div class="file" *ngFor="let response of responses; let i = index">
+          <button class="btn position-absolute m-2" *ngIf="response.data.delete_token"
+            (click)="deleteImage(response.data, i)"><svg width="2.2em" height="2.2em" viewBox="0 0 16 16"
+              class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
+            </svg></button>
+          <img [src]="response.data.url" class="w-100 rounded mx-auto mb-4 cover" height="300px" alt="">
+        </div>
+        <!--
+          <button type="button" class="btn-lg round bg-white big-btn my-2 my-sm-0" (click)="tweetImg()">
+            <img src="../../../assets/icons8-camera-40.png" alt="camera">
+          </button>
+        -->
+        <div class="d-flex">
+          <input type="file" id="fileupload" #fileInput ng2FileSelect [style.display]="'none'" [uploader]="uploader"
+            (change)="fileInput.value=''" multiple />
+          <label class="btn green round py-0 xl-bold" for="fileupload">
+            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-image-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+            </svg>
+          </label>
+          <span class="ml-auto">
+            <span class="m-bold m-4">{{text.length}} / 140</span>
+            <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button"
               (click)="createTweet(text)">Publishh</button>
           </span>
+        </div>
       </div>
     </div>
   </div>
@@ -60,4 +86,3 @@
     </div>
   </div>
 </div>
-

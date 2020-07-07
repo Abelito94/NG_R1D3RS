@@ -18,7 +18,6 @@ export class TweetAloneComponent implements OnInit{
   async ngOnInit(){
     this.user = await this.tweetService.getUserById(this.tweet.userID);
   }
-
   //para comparar en la vista y dibujare el username...
   myuser = JSON.parse(localStorage.getItem('user'));
 }

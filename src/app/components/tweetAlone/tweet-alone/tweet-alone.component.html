@@ -12,6 +12,7 @@
           <span class="l-bold ml-2">@{{user.username}}</span>
           <div class="m-bold mt-4 mr-3">
             {{ tweet.text }}
+            <img [hidden]="!tweet.urlTweet" [src]="tweet.urlTweet" alt="imgTweet">
           </div>
         </span>
         <div class="footer">
