@@ -58,7 +58,7 @@ export class SignupComponent implements OnInit {
     if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
       this.newUser = {
         username: this.username,
-        name: '',
+        name: this.username,
         email: this.email,
         password: this.password,
         gender: '',

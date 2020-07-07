@@ -54,8 +54,10 @@ export class APIService {
     return res.data
   }
 
-  createFollower(user){
+  updateFollower(user){
     return axios.put(`${this.URL}users/${user.id}`, user)
       .then(response => response.data)
   }
+
+ 
 }
