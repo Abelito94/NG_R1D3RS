@@ -9,15 +9,12 @@ import { APIService } from 'src/app/api.service';
 })
 export class OtherprofileComponent implements OnInit {
 
-
   otherTweets: any[];
   username;
   user;
   following = [];
 
-  constructor(private route: ActivatedRoute, private router : Router, private dataService: APIService) { 
-    //this.loadProfileByUserName();
-  }
+  constructor(private route: ActivatedRoute, private router : Router, private dataService: APIService) { }
 
   ngOnInit() {
     this.username = this.route.snapshot.paramMap.get('username');
@@ -31,59 +28,76 @@ export class OtherprofileComponent implements OnInit {
         this.otherTweets = response;
       })
     })
-
   }
   
   logout(){
     localStorage.clear();
     this.router.navigate(['sign']); 
   }
-
-  async addFollower(userFollower) {
+  
+  async addFollows(userFollower) {
     let localUser = JSON.parse(localStorage.getItem('user'));
 
     await this.dataService.findEqualUsername(userFollower.username)
-      .then(response => {
+      .then( response => {
         
-        let hastFollowing = response[0].followers.some(fwing => fwing == localUser.id);
+        let hastFollower = response[0].followers.some(fwer => fwer == localUser.id);
         
-        if(hastFollowing == false)
+        if(hastFollower == false)
         {
           response[0].followers.push(localUser.id);
         }
-        
-        this.dataService.updateFollower(response[0])
-          .then(() =>{
+        //Update api of user...
+        this.dataService.updateFollows(response[0])
+        .then(()=>{
+          this.dataService.findEqualUsername(localUser.username)
+          .then(response => {
+            let hastFollowing = response[0].following.some(fwing => fwing == userFollower.id);
+            if(hastFollowing == false)
+            {
+              response[0].following.push(userFollower.id);
+            }
+            //Update api of local user...
+            this.dataService.updateFollows(response[0]);
+            //reload page...
             this.dataService.findEqualUsername(this.username)
-              .then(res => {
-                this.user = res[0];
-              })
-          });
-       
+            .then(res => {
+              this.user = res[0];
+            })
+            
+          })
+        })
       })
-  }
+    }
 
+    async deleteFollows(userFollower){
+      let localUser = JSON.parse(localStorage.getItem('user'));
 
-  async deleteFollower(userFollower) {
-    let localUser = JSON.parse(localStorage.getItem('user'));
+      await this.dataService.findEqualUsername(userFollower.username)
+      .then(response =>{
 
-    await this.dataService.findEqualUsername(userFollower.username)
-      .then(response => {
-        
         let whereFollower = response[0].followers.indexOf(localUser.id);
-        
+
         if(whereFollower != -1){
           response[0].followers.splice(whereFollower, 1);
         }
-        
-        this.dataService.updateFollower(response[0])
-          .then(() =>{
+        this.dataService.updateFollows(response[0])
+        .then(()=>{
+          this.dataService.findEqualUsername(localUser.username)
+          .then(response =>{
+            let whereFollowing = response[0].following.indexOf(userFollower.id);
+            if(whereFollowing != -1){
+              response[0].following.splice(whereFollowing, 1);
+            }
+  
+            this.dataService.updateFollows(response[0]);
+  
             this.dataService.findEqualUsername(this.username)
-              .then(res => {
-                this.user = res[0];
-              })
-          });
-       
+            .then(res => {
+              this.user = res[0];
+            })
+          })
+        })
       })
-  }
+    }
 }
