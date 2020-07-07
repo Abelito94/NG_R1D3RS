@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   // Stepper
   step = 1;
 
+
   //USER DATA
   username: string = '';
   email: string = '';
@@ -29,6 +30,8 @@ export class SignupComponent implements OnInit {
   tags: string[] = [];
   newUser: object = {};
   tag: string = '';
+
+  tagsMaxcount = false;
 
   //EMAIL VALIDATION
   emailValidator = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
@@ -168,8 +171,8 @@ export class SignupComponent implements OnInit {
         email: this.email,
         password: this.password,
       };
-      this.step = 2
     }
+    this.step = 2
   }
 
   chargeImg(event) {
@@ -192,11 +195,18 @@ export class SignupComponent implements OnInit {
   }
 
   addTag() {
-    if(this.tag != '')
-    this.tags.push(this.tag);
-    this.tag = ''
+    if (this.tag != '') {
+      if (this.tags.length < 4) {
+        this.tagsMaxcount = false
+        this.tags.push(this.tag);
+        this.tag = ''
+      } else {
+        this.tagsMaxcount = true
+      }
+    }
   }
   deleteTag(tagDeleted) {
+    this.tagsMaxcount = false
     this.tags = this.tags.filter(tag => tag != tagDeleted)
   }
 
