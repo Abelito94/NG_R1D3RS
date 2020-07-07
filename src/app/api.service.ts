@@ -48,4 +48,16 @@ export class APIService {
       .then(response => console.log(response.data))
       .catch(err => console.log(err))
   }
+
+  async gettweetsByUser(userID){
+    const res = await axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`)
+    return res.data
+  }
+
+  updateFollower(user){
+    return axios.put(`${this.URL}users/${user.id}`, user)
+      .then(response => response.data)
+  }
+
+ 
 }

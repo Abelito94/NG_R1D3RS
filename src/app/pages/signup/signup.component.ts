@@ -106,11 +106,15 @@ export class SignupComponent implements OnInit {
     if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
       this.newUser = {
         username: this.username,
+        name: this.username,
         email: this.email,
         password: this.password,
         tags: this.tags,
         profilePictureURL: this.profilePictureURL,
-        bio: '',
+        gender: '',
+        profileCoverURL: "http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i",
+        following: [],
+        followers: [],
       };
       this.APIService.createUser(this.newUser);
       localStorage.setItem('user', JSON.stringify(this.newUser));
