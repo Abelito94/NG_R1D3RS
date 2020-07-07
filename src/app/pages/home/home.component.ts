@@ -26,18 +26,18 @@ type Tweet = {
 
 export class HomeComponent implements OnInit {
 
-  responses: Array<any>;
 
-  urlImages: string
+  public title: string
   public hasBaseDropZoneOver: boolean = false;
   public uploader: FileUploader;
-  public title: string
 
   tweets: any[] = []
   myTweets: any[]
   user
-
   text: string = ""
+  urlImages: string;
+  responses: Array<any>;
+
 
   constructor(
     private tweetService: APIService,
@@ -79,26 +79,21 @@ export class HomeComponent implements OnInit {
       urlTweet: this.responses[0].data.url || ""
     }
 
-   console.log(this.responses)
-
-   this.tweetService.createTweet(newtweet)
-   .then(res => console.log(res))
-   .then(() => {
-     this.tweetService.getAllTweets()
-     .then(res => this.tweets = res)
-     .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
-     .catch(err => console.log(err))
-    })
-    .catch(err => console.log(err))
-    this.text = ''
-  }
-  tweetImg() {
-
+    this.tweetService.createTweet(newtweet)
+      .then(res => console.log(res))
+      .then(() => {
+        this.tweetService.getAllTweets()
+          .then(res => this.tweets = res)
+          .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+    this.text = '';
+    this.responses = [];
   }
 
   logout() {
     localStorage.clear();
-
     this.router.navigate(['sign']);
   }
 
@@ -194,7 +189,7 @@ export class HomeComponent implements OnInit {
   updateTitle(value: string) {
     this.title = value;
   }
-  
+
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
@@ -207,5 +202,21 @@ export class HomeComponent implements OnInit {
     return Object.keys(fileProperties)
       .map((key) => ({ 'key': key, 'value': fileProperties[key] }));
   }
+  // Delete an uploaded image
+  // Requires setting "Return delete token" to "Yes" in your upload preset configuration
+  // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
+  deleteImage = function (data: any, index: number) {
+    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
+    const headers = new Headers({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });
+    const options = { headers: headers };
+    const body = {
+      token: data.delete_token
+    };
+    this.http.post(url, body, options).subscribe(response => {
+      console.log(`Deleted image - ${data.public_id} ${response.result}`);
+      // Remove deleted item for responses
+      this.responses.splice(index, 1);
+    });
+  };
 }
 

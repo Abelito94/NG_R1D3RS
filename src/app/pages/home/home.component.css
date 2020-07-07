@@ -35,41 +35,10 @@
   border-bottom: 3px solid #1DF24C;
 }
 
-
+.cover {
+  object-fit: cover;
+}
 /* apply a natural box layout model to all elements, but allowing components to change */
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-body {
-  font-family: Helvetica, Arial, sans-serif;
-  color: #333;
-  margin: 0;
-  padding: 10px;
-  width: 100%;
-  word-wrap: break-word;
-}
-
-#posterframe {
-  /*position: absolute;*/
-  /*right: 10px;*/
-  /*top: 10px;*/
-  position: relative;
-}
-
-h1 { color: #0e2953; font-size: 18px; }
-
-h1.welcome {
-  margin-top: 25px;
-}
-h2 { color: #666; font-size: 16px; }
-p { font-size: 14px; line-height: 18px; }
-#logo { height: 51px; width: 241px; }
-a { color: #0b63b6 }
 
 .manipulation-video {
   margin: 10px 0;
@@ -114,7 +83,6 @@ td { vertical-align: top; padding-right: 5px; }
 form { border: 1px solid #ddd; margin: 15px 0; padding: 15px 0; border-radius: 4px; }
 form .form_line { margin-bottom: 20px; }
 form .form_controls { margin-left: 180px; }
-form label { float: left; width: 160px; padding-top: 3px; text-align: right; }
 form .error { color: #c55; margin: 0 10px; }
 
 #direct_upload, #direct_upload_jquery { border: 4px dashed #ccc; }
@@ -147,7 +115,7 @@ form .error { color: #c55; margin: 0 10px; }
 
 .upload_button_holder .upload_button {
   display: block;
-} 
+}
 
 .upload_button:hover {
   background-color: rgb(17, 133, 240);
