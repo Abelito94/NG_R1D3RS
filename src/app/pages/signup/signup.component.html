@@ -5,8 +5,7 @@
   <div class="mt-5">
     <div class="modal-content col-12 col-lg-8 round p-5 m-auto">
       <span class="modal-title xl-bold text-dark" id="exampleModalLabel">
-        <i type="button" class="material-icons m-bold mr-2"
-          (click)="back()" [hidden]="step===1">arrow_back</i>
+        <i type="button" class="material-icons m-bold mr-2" (click)="back()" [hidden]="step===1">arrow_back</i>
         <span>Step {{step}} of 3</span>
         <button type="button" class="close big-bold" (click)="close()">
           <span aria-hidden="true">&times;</span>
@@ -57,7 +56,6 @@
               Please, complete that field</div>
           </div>
         </form>
-
         <form id="step2" class="form" [hidden]="step != 2">
           <label class="hoverable m-auto" for="fileInput">
             <img
@@ -65,13 +63,13 @@
             <i type="button" class="hover-text bg-light round p-3 material-icons big-bold p-2"
               (click)="deleteTag(tag)">add</i>
           </label>
-          <input id="fileInput" type="file" (change)="chargeImg($event)">
+          <input id="fileInput" type="file" (change)="chargeImg($event)" #fileInput ng2FileSelect [uploader]="uploader">
         </form>
-
         <form id="step3" class="form" [hidden]="step != 3">
-          <div class="form-group">
-            <input type="text" placeholder="Example: developer" name="tags" [(ngModel)]="tag"
-              class="col-12 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
+          <div class="form-group-inline">
+              <input type="text" placeholder="Example: developer" name="tags" [(ngModel)]="tag"
+              class="col-10 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
+              <button type="button" class="col-2 btn-lg btn-dark round m-bold" (click)="addTag()">Add</button>
           </div>
           <span *ngFor="let tag of tags" class="d-inline text-white bg-dark round s-bold pl-5 pr-3 py-3 mr-4">
             <span class="mr-2 mb-3">{{tag}}</span>

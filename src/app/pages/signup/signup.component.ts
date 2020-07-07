@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { APIService } from '../../api.service'
 import { Router } from '@angular/router';
+import { Cloudinary } from '@cloudinary/angular-5.x';
+import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -8,6 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
+  // IMG LOADER
+  public hasBaseDropZoneOver: boolean = false;
+  public uploader: FileUploader;
+  public title: string
+  responses: Array<any>;
 
   // Stepper
   step = 1;
@@ -41,29 +50,126 @@ export class SignupComponent implements OnInit {
   passwordFormatValidation: boolean = true;
   passwordIsEmpty: boolean = null;
 
-  constructor(private APIService: APIService, private router: Router) {
+  constructor(
+    private APIService: APIService,
+    private router: Router,
+    private cloudinary: Cloudinary,
+    private zone: NgZone,
+    private http: HttpClient) {
+
+    this.responses = [];
+    this.title = '';
   }
+
   ngOnInit(): void {
+    // Create the file uploader, wire it to upload to your account
+    const uploaderOptions: FileUploaderOptions = {
+      url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/upload`,
+      // Upload files automatically upon addition to upload queue
+      autoUpload: true,
+      // Use xhrTransport in favor of iframeTransport
+      isHTML5: true,
+      // Calculate progress independently for each uploaded file
+      removeAfterUpload: true,
+      // XHR request headers
+      headers: [
+        {
+          name: 'X-Requested-With',
+          value: 'XMLHttpRequest'
+        }
+      ]
+    };
+    this.uploader = new FileUploader(uploaderOptions);
+
+    this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
+      // Add Cloudinary's unsigned upload preset to the upload form
+      form.append('upload_preset', this.cloudinary.config().upload_preset);
+      // Add built-in and custom tags for displaying the uploaded photo in the list
+      let tags = 'myphotoalbum';
+
+      if (this.title) {
+        form.append('context', `photo=${this.title}`);
+        tags = `myphotoalbum,${this.title}`;
+      }
+      // Upload to a custom folder
+      // Note that by default, when uploading via the API, folders are not automatically created in your Media Library.
+      // In order to automatically create the folders based on the API requests,
+      // please go to your account upload settings and set the 'Auto-create folders' option to enabled.
+      form.append('folder', 'Profile');
+      // Add custom tags
+      form.append('tags', tags);
+      // Add file to upload
+      form.append('file', fileItem);
+
+      // Use default "withCredentials" value for CORS requests
+      fileItem.withCredentials = false;
+      return { fileItem, form };
+    };
+    const upsertResponse = fileItem => {
+
+      // Run the update in a custom zone since for some reason change detection isn't performed
+      // as part of the XHR request to upload the files.
+      // Running in a custom zone forces change detection
+      this.zone.run(() => {
+        // Update an existing entry if it's upload hasn't completed yet
+
+        // Find the id of an existing item
+        const existingId = this.responses.reduce((prev, current, index) => {
+          if (current.file.name === fileItem.file.name && !current.status) {
+            return index;
+          }
+          return prev;
+        }, -1);
+        if (existingId > -1) {
+          // Update existing item with new data
+          this.responses[existingId] = Object.assign(this.responses[existingId], fileItem);
+        } else {
+          // Create new response
+          this.responses.push(fileItem);
+        }
+      });
+    };
+    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
+      upsertResponse(
+        {
+          file: item.file,
+          status,
+          data: JSON.parse(response)
+        }
+      );
+    }
+
+    // Update model on upload progress event
+    this.uploader.onProgressItem = (fileItem: any, progress: any) => {
+      upsertResponse(
+        {
+          file: fileItem.file,
+          progress,
+          data: {}
+        }
+      );
+    }
+
   }
 
   validateForm() {
-    // if (this.email === '') {
-    //   this.emailIsEmpty = true;
-    // }
-    // if (this.username === '') {
-    //   this.usernameIsEmpty = true;
-    // }
-    // if (this.password === '') {
-    //   this.passwordIsEmpty = true;
-    // }
-    // if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
-    //   this.newUser = {
-    //     username: this.username,
-    //     email: this.email,
-    //     password: this.password,
-    //   };
-    // }
-    this.step = 2
+    if (this.email === '') {
+      this.emailIsEmpty = true;
+    }
+    if (this.username === '') {
+      this.usernameIsEmpty = true;
+    }
+    if (this.password === '') {
+      this.passwordIsEmpty = true;
+    }
+    if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
+      this.newUser = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      };
+      this.step = 2
+    }
   }
 
   chargeImg(event) {
@@ -86,13 +192,14 @@ export class SignupComponent implements OnInit {
   }
 
   addTag() {
+    if(this.tag != '')
     this.tags.push(this.tag);
     this.tag = ''
   }
   deleteTag(tagDeleted) {
     this.tags = this.tags.filter(tag => tag != tagDeleted)
-
   }
+
   createUser() {
     if (this.email === '') {
       this.emailIsEmpty = true;
@@ -104,6 +211,11 @@ export class SignupComponent implements OnInit {
       this.passwordIsEmpty = true;
     }
     if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
+
+      if (this.profilePictureURL != "https://katakrak.net/sites/default/files/default_images/default_profile_0.jpg") {
+        this.profilePictureURL = this.responses[0].data.url
+      }
+
       this.newUser = {
         username: this.username,
         name: this.username,
@@ -132,6 +244,7 @@ export class SignupComponent implements OnInit {
     var email = await this.APIService.findEqualEmail(this.email)
     this.emailIsAvaible = email.length === 0;
   }
+
   isValidEmail() {
     this.emailIsEmpty = false;
     if (this.email.length < 1) {
@@ -202,5 +315,6 @@ export class SignupComponent implements OnInit {
   close() {
     this.router.navigate(['sign']);
   }
+
 }
 

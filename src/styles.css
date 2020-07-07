@@ -5,6 +5,9 @@
 .green{
   color: #1DF24C !important;
 }
+.red {
+  color: red;
+}
 .bg-green{
   background-color: #1DF24C;
 }
