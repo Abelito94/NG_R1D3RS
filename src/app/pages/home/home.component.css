@@ -39,6 +39,14 @@
 .cover {
   object-fit: cover;
 }
+
+.expanded {
+  height: auto;
+}
+
+.max-h {
+  height: 300px;
+}
 /* apply a natural box layout model to all elements, but allowing components to change */
 
 .manipulation-video {

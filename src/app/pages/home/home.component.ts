@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   text: string = ""
   urlImages: string;
   responses: Array<any>;
+  expanded = false;
 
 
   constructor(
@@ -220,5 +221,12 @@ export class HomeComponent implements OnInit {
       this.responses.splice(index, 1);
     });
   };
+  expandImage() {
+    if (this.expanded) {
+      this.expanded = false;
+    } else {
+      this.expanded = true;
+    }
+  }
 }
 
