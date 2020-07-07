@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   email: string = '';
   password: string = '';
   profileUrl = null;
-  coverUrl: string = '';
+  //coverUrl: string = '';
   tags: string = '';
   newUser: object = {};
   callEmail: string = '';
@@ -58,12 +58,15 @@ export class SignupComponent implements OnInit {
     if (this.emailIsValid && this.usernameIsValid && this.passwordIsValid) {
       this.newUser = {
         username: this.username,
+        name: '',
         email: this.email,
         password: this.password,
-        coverUrl: this.coverUrl,
-        tags: this.tags,
+        gender: '',
+        profileCoverURL: "http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i",
         profilePictureURL: "https://randomuser.me/api/portraits/men/20.jpg",
-        bio: '',
+        tags: this.tags,
+        following: [],
+        followers: [],
       };
       this.APIService.createUser(this.newUser);
       localStorage.setItem('user', JSON.stringify(this.newUser));

@@ -16,6 +16,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignComponent } from './pages/sign/sign.component';
 import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-alone.component';
+import { OtherprofileComponent } from './pages/otherprofile/otherprofile.component';
+import { OtherprofileUserComponent } from './components/otherprofile-user/otherprofile-user.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-a
     SignupComponent,
     LoginComponent,
     SignComponent,
-    TweetAloneComponent
+    TweetAloneComponent,
+    OtherprofileComponent,
+    OtherprofileUserComponent
   ],
   imports: [
     BrowserModule,
