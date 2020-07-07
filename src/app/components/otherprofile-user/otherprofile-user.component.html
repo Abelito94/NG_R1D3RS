@@ -19,13 +19,13 @@
             <span class="l-bold followers">Followers: {{user.followers.length}}</span>
             
             <button type="button" class="buttonFollow" 
-            (click)="emitFollower()" 
+            (click)="emitFollow()"
             *ngIf="user.followers.indexOf(localUser.id) === -1">
                 <b>Follow</b>
             </button>
             <!--<span class="arefollowing" *ngIf="user.followers.indexOf(localUser.id) >= 0">You're following!</span>-->
             <button type="button" class="buttonFollow" 
-            (click)="emitNotFollower()" 
+            (click)="emitNotFollow()" 
             *ngIf="user.followers.indexOf(localUser.id) >= 0">
                 <b>Stop following</b>
             </button>

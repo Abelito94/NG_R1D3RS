@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
 
   tweets: any[] = []
   myTweets: any[]
+  followingtweets: any[];
   user
   text: string = ""
   urlImages: string;
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit {
     tweetService.getAllTweets()
       .then(res => this.tweets = res)
       .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
+      
       .catch(err => console.log(err))
 
     this.user = JSON.parse(localStorage.getItem('user'))

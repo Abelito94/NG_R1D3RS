@@ -6,8 +6,9 @@
 <div class="container-fluid nav-margin">
     <div class="tab" id="otheruser"> 
         <app-otherprofile-user [user]="user" 
-        (emitterFollower)="addFollower($event)"
-        (emitterNotFollower)="deleteFollower($event)"></app-otherprofile-user>
+        (emitterFollows)="addFollows($event)"
+        (emitterNotFollows)="deleteFollows($event)"
+        ></app-otherprofile-user>
     </div>
     
     <div class="tab" id="othermeshh">
