@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-
+import { Component, Input, Output, EventErase } from '@angular/core';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
@@ -8,4 +7,5 @@ import { Component, Input } from '@angular/core';
 export class TweetComponent {
   @Input() tweets: Array<any>
   @Input() user
+  @Output() notifyErase = new EventErase();
 }

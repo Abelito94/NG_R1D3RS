@@ -17,6 +17,7 @@ type Tweet = {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  //@Input myuser
   tweets: any[] = []
   myTweets: any[]
   user

@@ -10,6 +10,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignComponent } from './pages/sign/sign.component';
 import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-alone.component';
+import{ SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-a
     SignupComponent,
     LoginComponent,
     SignComponent,
-    TweetAloneComponent
+    TweetAloneComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

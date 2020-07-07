@@ -1,57 +1,55 @@
-<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
+<!--<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
   <a id="brand" class="navbar-brand big-bold green">FRESHH</a>
-  <!--BARRA DE BÚSQUEDA-->
+  BARRA DE BÚSQUEDA
   <form class="form-inline my-2 my-lg-0">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
   </form>
-  <!--FIN BARRA DE BÚSQUEDA-->
+  FIN BARRA DE BÚSQUEDA
 </nav>
+-->
 
-
-<div class="container-flex d-flex full-h">
-  <div class="row columna-1">
-    <div class="col side">
-      <img class="sm-2 cover" src="https://antonio-carrillo.com/wp-content/uploads/2015/04/mg_7219--400x400.jpg" alt="fondo-collab">
-    </div>
-    <img class="img profile" src="https://i.pinimg.com/originals/8b/da/ca/8bdaca81d5ddbaeb92b61d6b5787d866.jpg" alt="imagen-perfil">
+<div class="container full-h w-25 sidebar">
+  <div class="row">
+    <img class="cover" src="https://antonio-carrillo.com/wp-content/uploads/2015/04/mg_7219--400x400.jpg" alt="fondo-collab">
+    <img class="profile round mx-auto" [src]="myuser.profilePictureURL" alt="imagen-perfil">
   </div>
-  <div class="row columna-2">
-    <div class="col-12 name-profile">
-      <span class="font-weight-bold">
-        Valeria Fuentes
+  <div class="row text-center">
+    <div class="col-12 mt-4">
+      <span class="big-bold">
+        {{myuser.username}}
       </span>
     </div>
-    <div class="col-12 name-profile-2">
-      <span class="font-weight-light">@valery</span>
+    <div class="col-12">
+      <span class="xl-medium">@{{myuser.username}}</span>
+      {{tags}}
     </div>
   </div>
-
-  <div class="row columna-3">
+  
+  <!-- <div class="row columna-3">
     <div class="col-8">
       <span class="follow">100 following</span>
     </div>
     <div class="col">
       <span>66 followers</span>
     </div>  
-  </div>
+  </div> -->
 
-  <div class="row columna-4">
-    <div class="col-3">
-      <button class="mx-4">#influencer</button>
-      <button class="mx-4">#youtuber</button>      
-    </div>
-    <div class="col-4">
-      <button class="mx-4">#photographer</button>
-    </div>
+  <div class="row">
+    <!--tenemos una problema con los tags...-->
+    cualquier cosa
+    {{tags}}
+    <span *ngFor="let tag of tags" class="d-inline text-white bg-dark round s-bold pl-5 pr-3 py-3 mr-4">
+      <span class="mr-2 mb-3">{{tag}}</span>
+    </span>
   </div>
 
   <div class="row columna-5">
-    <div class="col-6">
+    <!--<div class="col-6">
       <button id="edit">Edit profile</button>
-    </div>
+    </div>-->
     <div class="col">
-      <button class="out">Log out</button>
+      <button (click)="logout()" class="btn-lg round big-btn border-green my-2 my-sm-0" type="button">Logout</button>
     </div>
   </div>
 </div>

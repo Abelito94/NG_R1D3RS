@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventErase } from '@angular/core';
 import { APIService } from '../../../api.service';
 
 @Component({
@@ -10,11 +10,16 @@ export class TweetAloneComponent implements OnInit{
   @Input() tweet;
   @Input() user;
   //userID: string = this.tweet.userID
+  @Output() notifyErase = new EventErase();
 
   constructor(private tweetService: APIService) {}
 
   async ngOnInit(){
     this.user = await this.tweetService.getUserById(this.tweet.userID);
+  }
+
+  erase(){
+    this.notifyErase();
   }
 
 }

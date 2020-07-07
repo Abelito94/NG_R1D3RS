@@ -1,110 +1,47 @@
-*{
-    outline: 0px !important;
+.round {
+    border-radius: 20px;
+    border: 0px;
 }
 
-.green{
-    color: #1DF24C !important;
+.sidebar{
+    top: 0;
+    position: fixed;
 }
-
-.invalid {
-    color: red !important;
-}
-
-.valid {
-    color: green !important;
-}
-
-.bg-green{
-    background-color: #1DF24C;
-}
-
-.big-bold {
-    font-weight: 800;
-    font-size: 32px;
-}
-
-.m-bold {
-    font-weight: 600;
-    color: white;
-    font-size: 18px;
-}
-
-.s-bold{
-    font-weight: 600;
-    font-size: 12px;
-}
-
 
 .cover{
-    width: 300px;
-    height: 25rem;
+    width: 100%;
+    height: 40vh;
+    object-fit: cover; 
 }
-
 .profile{
-    width: 200px;
-    height: 240px;
-    z-index: 1;
-    position: relative;
-    top: 200px;
-    right: 270px;
+    width: 60%;
+    height: 300px;
+    object-fit: cover;
+    margin-top: -25vh;
 }
 
-.columna-2, .columna-3, 
-.columna-4, .columna-5{
-    position: absolute;
-    top: 28rem;
-    height: 20px;
+.big-bold{
+    font-size: 48px;
 }
 
-.columna-2 span{
-    text-align: center;
-    cursor: pointer;
-    font-size: 24px;
+.xl-medium{
+    font-size: 36px;
+    font-weight: 500;
 }
-
-.name-profile{
-    left: 50px;
-}
-
-.name-profile-2{
-    left: 90px;
-}
-
-.name-profile-2 span{
-    font-size: 20px;
-}
-
+/*
 .columna-3{
     top: 33rem;
     left: 50px;
-}
-
-.columna-4{
-    top: 38rem;
-}
+}*/
 
 .columna-5{
     top: 50rem;
-    left:20px;
-    
+    left:20px;  
 }
 
-.columna-4 button,
-.columna-5 button{
-    margin: 4px;
-    border : 0px;
-    background-color: black;
-    color: white;
-    border-radius: 99px;
-    padding: 4px;
-}
 
-.columna-5 #edit{
-    background-color: #1DF24C;
-}
-
-.columna-5 .out{
+/*.columna-5 .out{
     background-color: #f2f2f2;
     color: black;
     padding: 12px;
-}
+}*/

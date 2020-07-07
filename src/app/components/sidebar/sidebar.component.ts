@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { APIService } from '../../api.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,16 @@ import { APIService } from '../../api.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  @Input() sidebar
-  
+  @Input() myuser;
+  tags = this.myuser.tags;
+
+  constructor(private router : Router) {
+  }
+
+  logout(){
+    localStorage.clear();
+   
+    this.router.navigate(['sign']); 
+  }
 }
 
-
-//var guardado = localStorage.setItem();
