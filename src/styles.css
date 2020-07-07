@@ -5,6 +5,9 @@
 .green{
   color: #1DF24C !important;
 }
+.red {
+  color: red;
+}
 .bg-green{
   background-color: #1DF24C;
 }
@@ -17,7 +20,7 @@
 }
 .m-bold {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 }
 .l-bold{
    font-weight: 600;
@@ -29,7 +32,7 @@
 }
 .big-bold {
   font-weight: 800;
-  font-size: 32px;
+  font-size: 30px;
 }
 
 .big-btn {

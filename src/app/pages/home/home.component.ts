@@ -3,9 +3,7 @@ import { APIService } from '../../api.service'
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { Cloudinary } from '@cloudinary/angular-5.x';
-
 import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
-
 import { HttpClient } from '@angular/common/http';
 
 type Tweet = {
@@ -23,9 +21,7 @@ type Tweet = {
   styleUrls: ['./home.component.css']
 })
 
-
 export class HomeComponent implements OnInit {
-
 
   public title: string
   public hasBaseDropZoneOver: boolean = false;
