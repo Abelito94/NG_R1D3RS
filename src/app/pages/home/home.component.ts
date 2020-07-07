@@ -202,9 +202,11 @@ export class HomeComponent implements OnInit {
     return Object.keys(fileProperties)
       .map((key) => ({ 'key': key, 'value': fileProperties[key] }));
   }
+
   // Delete an uploaded image
   // Requires setting "Return delete token" to "Yes" in your upload preset configuration
   // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
+
   deleteImage = function (data: any, index: number) {
     const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
     const headers = new Headers({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });

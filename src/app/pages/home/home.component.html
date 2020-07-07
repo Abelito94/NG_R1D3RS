@@ -15,7 +15,7 @@
         </form>
 
         <div class="file" *ngFor="let response of responses; let i = index">
-          <button class="btn position-absolute m-2" *ngIf="!response.data.delete_token"
+          <button class="btn position-absolute m-2" *ngIf="response.data.delete_token"
             (click)="deleteImage(response.data, i)"><svg width="2.2em" height="2.2em" viewBox="0 0 16 16"
               class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
