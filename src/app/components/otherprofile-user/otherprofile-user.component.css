@@ -19,16 +19,16 @@
     padding: 0 0 0 0;
 }
 /*Cover*/
-.otherprofile > .profile > .cover{
+.otherprofile > .profile > .cover > img{
     position: absolute;
     width: 100%;
     height: 150px;
-    background: url('http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i') no-repeat;
+    /*background: url('http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i') no-repeat;*/
     background-size: 100%;
 }
 /*Picture*/
 .otherprofile > .profile > .picture{
-    position: absolute;
+    position: relative;
     top: 30px;
     right: 20px;
 }
@@ -36,7 +36,10 @@
     width: 200px;
     height: 220px;
     border-radius: 0.5em;
-    float: right;
+    position: absolute;
+    right: 20px;
+    margin-top: 40px;
+    /*float: right;*/
 }
 /*Name*/
 .otherprofile > .profile > .username{
@@ -49,28 +52,51 @@
     bottom: 0;
     right: 20px;
 }
-.otherprofile > .profile > .username > .data{
+.otherprofile > .profile > .data{
     position: relative;
-}
-.otherprofile > .profile > .data > .name{
-    position: absolute;
-    right: 0;
-    top: 5px;
 }
 
 .otherprofile > .profile > .data{
     position: absolute;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     top: 150px;
-    width: 70%;
-    height: 140px;
+    width: 65%;
+    height: 145px;
 }
-.follow{
+.otherprofile > .profile > .data > .name{
+    position: absolute;
+    left: 0;
+    top: 5px;
+}
+.otherprofile > .profile > .data > .username{
+    position: absolute;
+    right: 0;
+    top: 12px;
+}
+.otherprofile > .profile > .data > .buttonFollow{
     color: white;
     background-color: #1DF24C;
     border-style: none;
-    border-radius: 2em;
-    padding: 5px 50px 5px 50px;
+    border-radius: 1em;
+    padding: 5px 30px 5px 30px;
     position: absolute;
-    top: 5px;
+    right: 0;
+    bottom: 5px;
+}
+.otherprofile > .profile > .data > .buttonFollow:focus{
+    outline: none;
+}
+.otherprofile > .profile > .data > .followers{
+    /*padding: 5px 10px 5px 10px;*/
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    position: absolute;
+    right: 0;
+    top: 75px;
+}
+
+.otherprofile > .profile > .data > .arefollowing{
+    position: absolute;
+    right: 0;
+    bottom: 5px;
 }

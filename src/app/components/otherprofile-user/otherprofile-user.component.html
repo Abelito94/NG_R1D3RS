@@ -1,18 +1,34 @@
 
 <div class="card otherprofile">
     <div class="profile">
-        <div class="cover"></div>
+        <div class="cover">
+           <img src="{{user.profileCoverURL}}">
+        </div>
         <div class="picture">
             <img src={{user.profilePictureURL}}>
         </div>
         
-        <div class="username">
+        <!--<div class="username">
             <span class="xl-bold">@ {{user.username}}</span>
-        </div>
+        </div>-->
         
         <div class="data">
-            <span class="xl-bold name">{{user.name}}</span>
-            <button type="button" class="follow"><b>Follow</b></button>
+            <span class="big-bold name">{{user.name}}</span>
+            <span class="xl-bold username">@{{user.username}}</span>
+
+            <span class="l-bold followers">Followers: {{user.followers.length}}</span>
+            
+            <button type="button" class="buttonFollow" 
+            (click)="emitFollower()" 
+            *ngIf="user.followers.indexOf(localUser.id) === -1">
+                <b>Follow</b>
+            </button>
+            <!--<span class="arefollowing" *ngIf="user.followers.indexOf(localUser.id) >= 0">You're following!</span>-->
+            <button type="button" class="buttonFollow" 
+            (click)="emitNotFollower()" 
+            *ngIf="user.followers.indexOf(localUser.id) >= 0">
+                <b>Stop following</b>
+            </button>
         </div>
     </div>
 </div>

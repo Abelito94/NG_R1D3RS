@@ -1,11 +1,13 @@
 <nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
     <a id="brand" class="navbar-brand big-bold green">FRESHH</a>
-    <button (click)="logout()" class="btn-lg round big-btn border-green my-2 my-sm-0" type="button">Logout</button>
+    <button (click)="logout()" class="btn-lg round big-btn border-green my-2 my-sm-0 buttonLogout" type="button">Logout</button>
 </nav>
 
 <div class="container-fluid nav-margin">
     <div class="tab" id="otheruser"> 
-        <app-otherprofile-user [user]="user" (emitter)="addFollower($event)"></app-otherprofile-user>
+        <app-otherprofile-user [user]="user" 
+        (emitterFollower)="addFollower($event)"
+        (emitterNotFollower)="deleteFollower($event)"></app-otherprofile-user>
     </div>
     
     <div class="tab" id="othermeshh">

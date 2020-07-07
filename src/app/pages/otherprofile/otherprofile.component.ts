@@ -41,17 +41,48 @@ export class OtherprofileComponent implements OnInit {
 
   async addFollower(userFollower) {
     let localUser = JSON.parse(localStorage.getItem('user'));
-    /*this.following.push(userFollower.id);
-    localUser.following = this.following;
-    localStorage.setItem('user', JSON.stringify(localUser));*/
 
     await this.dataService.findEqualUsername(userFollower.username)
       .then(response => {
-        console.log(response[0].username);
-        response[0].following.some(fwing => fwing == localUser.id);
-        response[0].following.push(localUser.id);
-        //response[0].following.unique();
-        this.dataService.createFollower(response[0]);
+        
+        let hastFollowing = response[0].followers.some(fwing => fwing == localUser.id);
+        
+        if(hastFollowing == false)
+        {
+          response[0].followers.push(localUser.id);
+        }
+        
+        this.dataService.updateFollower(response[0])
+          .then(() =>{
+            this.dataService.findEqualUsername(this.username)
+              .then(res => {
+                this.user = res[0];
+              })
+          });
+       
+      })
+  }
+
+
+  async deleteFollower(userFollower) {
+    let localUser = JSON.parse(localStorage.getItem('user'));
+
+    await this.dataService.findEqualUsername(userFollower.username)
+      .then(response => {
+        
+        let whereFollower = response[0].followers.indexOf(localUser.id);
+        
+        if(whereFollower != -1){
+          response[0].followers.splice(whereFollower, 1);
+        }
+        
+        this.dataService.updateFollower(response[0])
+          .then(() =>{
+            this.dataService.findEqualUsername(this.username)
+              .then(res => {
+                this.user = res[0];
+              })
+          });
        
       })
   }

@@ -7,19 +7,22 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class OtherprofileUserComponent implements OnInit {
   @Input() user;
+  @Output() emitterFollower = new EventEmitter<string>();
+  @Output() emitterNotFollower = new EventEmitter<string>();
+
   constructor() {}
   ngOnInit(): void {}
-  /*@Output() 
-  emitter = new EventEmitter<string>();
 
-
-  fwing = false;
   localUser = JSON.parse(localStorage.getItem('user'));
 
- 
-
   emitFollower(){
-    this.emitter.emit(this.user);
-  }*/
+    this.emitterFollower.emit(this.user);
+  }
+
+  emitNotFollower(){
+    this.emitterNotFollower.emit(this.user);
+  }
+
+  
  
 }

@@ -2,6 +2,9 @@
 .nav-margin {
   margin-top: 75px;
 }
+.buttonLogout{
+  border-radius: 1em;
+}
 #othermeshh, #otheruser{
   margin: 0 0 0 0;
   padding: 0 0 0 0;
