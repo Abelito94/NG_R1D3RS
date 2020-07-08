@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ViewChild } from '@angular/core';
 import { APIService } from '../../api.service'
 import * as moment from 'moment';
 import { Router } from '@angular/router';
@@ -27,9 +27,9 @@ export class HomeComponent implements OnInit {
   public hasBaseDropZoneOver: boolean = false;
   public uploader: FileUploader;
 
-  tweets: any[] = []
-  myTweets: any[]
-  followingtweets: any[];
+  tweets: any[] = [];
+  myTweets: any[] = [];
+  followingtweets: any[] = [];
   user
   text: string = ""
   urlImages: string;
@@ -41,27 +41,10 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private cloudinary: Cloudinary,
     private zone: NgZone,
-    private http: HttpClient
-  ) {
-
-    this.responses = [];
-    this.title = '';
-
-    tweetService.getAllTweets()
-      .then(res => this.tweets = res)
-      .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
-      
-      .catch(err => console.log(err))
-
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.tweetService.findEqualUsername(this.user.username)
-      .then(fullUser => {
-        this.user = fullUser[0]
-        localStorage.clear()
-        localStorage.setItem('user', JSON.stringify(fullUser[0]))
-      })
-  }
-
+    private http: HttpClient,
+    
+  ) {}
+  
   /*filterMyTweets() {
     this.myTweets = this.tweets.filter(tweet => tweet.userID === this.user.id)
   }*/
@@ -89,13 +72,14 @@ export class HomeComponent implements OnInit {
     this.text = '';
     this.responses = [];
   }
-
+ 
   logout() {
     localStorage.clear();
     this.router.navigate(['sign']);
   }
 
   ngOnInit(): void {
+
     // Create the file uploader, wire it to upload to your account
     const uploaderOptions: FileUploaderOptions = {
       url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/upload`,
@@ -182,6 +166,54 @@ export class HomeComponent implements OnInit {
           data: {}
         }
       );
+      
+
+
+      //Load home...
+      this.responses = [];
+      this.title = '';
+
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.tweetService.findEqualUsername(this.user.username)
+      .then(fullUser => {
+        this.user = fullUser[0]
+        localStorage.clear()
+        localStorage.setItem('user', JSON.stringify(fullUser[0]))
+      })
+      .then(()=>{
+        this.tweetService.getAllTweets()
+      
+      .then(res =>{
+        //all tweets
+        this.tweets = res;
+        //my tweets
+        this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
+        
+        //my following tweets
+        /*this.user.following.forEach(fwing => {
+          //this.followingtweets = res.filter(tweet => tweet.userID == fwing);
+          let whereFollowing = res.filter(tweet => tweet.userID == fwing);
+          this.followingtweets.push(...whereFollowing);
+        })*/
+        //this.followingtweets.sort();
+        //console.log(this.followingtweets);
+        //console.log(this.user.following);
+        this.tweetService.getFollowingTweets(this.user.following)
+        .then(matrizTweets =>{
+          matrizTweets.map(arrayTweets =>{
+            arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
+          })
+          this.followingtweets.sort(function(a, b){
+            var dateA = new Date(a.creationDate).getTime();
+            var dateB = new Date(b.creationDate).getTime();
+            return dateA < dateB ? 1 : -1;
+          })
+        })
+       
+        
+      })
+      .catch(err => console.log(err))
+    })
   }
 
   updateTitle(value: string) {
@@ -218,5 +250,6 @@ export class HomeComponent implements OnInit {
       this.responses.splice(index, 1);
     });
   };
+  
 }
 
