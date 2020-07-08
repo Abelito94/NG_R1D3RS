@@ -220,5 +220,11 @@ export class HomeComponent implements OnInit {
       this.responses.splice(index, 1);
     });
   };
+
+  keyupFunction(e) {
+    if(e.length > 140){
+      alert('hello')
+    }
+  }
 }
 

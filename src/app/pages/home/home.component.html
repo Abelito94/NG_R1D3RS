@@ -7,10 +7,11 @@
   <div class="row">
     <div class="col">
       <div class="col-12 col-lg-6 m-auto card round border-green p-4">
+
         <form>
           <div class="form-group">
-            <textarea [(ngModel)]="text" name="text" class="form-control m-bold reset-txtarea" maxlength="140"
-              id="exampleFormControlTextarea1" rows="3" placeholder="What's new?"></textarea>
+            <textarea  [(ngModel)]="text" name="text" class="form-control m-bold reset-txtarea" (keyup)="keyupFunction(text)"
+            id="exampleFormControlTextarea1" rows="3" placeholder="What's new?"></textarea>
           </div>
         </form>
 
@@ -39,7 +40,7 @@
             </svg>
           </label>
           <span class="ml-auto">
-            <span class="m-bold m-4">{{text.length}} / 140</span>
+            <span class="m-bold mr-1" [ngClass]="{'pintame': text.length > 140}" >{{text.length}}</span><span class="m-bold mr-4">/ 140</span>
             <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button"
               (click)="createTweet(text)">Publishh</button>
           </span>
