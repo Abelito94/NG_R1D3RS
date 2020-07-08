@@ -9,7 +9,7 @@ export class OtherprofileUserComponent implements OnInit {
   @Input() user;
   @Output() emitterFollows = new EventEmitter<string>();
   @Output() emitterNotFollows = new EventEmitter<string>();
- 
+  
   constructor() {}
   ngOnInit(): void {}
 
@@ -17,7 +17,7 @@ export class OtherprofileUserComponent implements OnInit {
 
   emitFollow(){
     this.emitterFollows.emit(this.user);
-    //this.emitterFollowing.emit(this.localUser);
+    
   }
 
   emitNotFollow(){

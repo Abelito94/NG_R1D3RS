@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APIService } from 'src/app/api.service';
+
 
 @Component({
   selector: 'app-otherprofile',
   templateUrl: './otherprofile.component.html',
-  styleUrls: ['./otherprofile.component.css']
+  styleUrls: ['./otherprofile.component.css'],
 })
 export class OtherprofileComponent implements OnInit {
 
+  
   otherTweets: any[];
   username;
   user;
   following = [];
 
-  constructor(private route: ActivatedRoute, private router : Router, private dataService: APIService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private router : Router, 
+    private dataService: APIService
+    ) { }
 
   ngOnInit() {
     this.username = this.route.snapshot.paramMap.get('username');
@@ -29,7 +35,9 @@ export class OtherprofileComponent implements OnInit {
       })
     })
   }
-  
+  toHome(){
+    this.router.navigateByUrl('/home');
+  }
   logout(){
     localStorage.clear();
     this.router.navigate(['sign']); 
@@ -95,9 +103,12 @@ export class OtherprofileComponent implements OnInit {
             this.dataService.findEqualUsername(this.username)
             .then(res => {
               this.user = res[0];
+              
             })
           })
         })
       })
     }
+
+  
 }
