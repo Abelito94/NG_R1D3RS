@@ -8,6 +8,7 @@ import { OtherprofileComponent } from './pages/otherprofile/otherprofile.compone
 
 
 const routes: Routes = [
+
   { path: '', redirectTo: '/sign', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'sign', component: SignComponent },

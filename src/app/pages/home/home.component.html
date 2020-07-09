@@ -1,86 +1,63 @@
-<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
-  <a id="brand" class="navbar-brand big-bold green">FRESHH</a>
-  <button (click)="logout()" class="btn-lg round big-btn border-green my-2 my-sm-0" type="button">Logout</button>
-</nav>
+<div class="container">
+  <nav class="row navbar-sm navbar-light fixed-top text-dark m-0 justify-content-center index-up">
+    <div class="col-lg-5">
+      <button id="brand" routerLink="/home" class="btn col-12 col-lg-5 xl-bold green py-2">FRESHH</button>
+      <input class="col-12 col-lg-6 round border p-2 pl-3" type="search" placeholder="Search about topics"
+        maxlength="20" aria-label="Search">
+    </div>
+    <!-- Navtabs -->
+    <div class="tab-nav col-12 col-lg-6 bg-white border">
+      <ul class="nav nav-fill" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link w-100 active show s-bold" id="profile-tab-classic" data-toggle="tab" href="#alltweets"
+            role="tab" aria-controls="alltweets" aria-selected="true">ON LIVE</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link w-100 s-bold" data-toggle="tab" href="#mymeshh" role="tab" aria-controls="mymeshh"
+            aria-selected="false">MY MESHH</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link w-100 s-bold" data-toggle="tab" href="#favs" role="tab" aria-controls="favs"
+            aria-selected="false">FOLLOWING</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-<div class="container-fluid nav-margin">
-  <div class="row">
-    <div class="col">
-      <div class="col-12 col-lg-6 m-auto card round border-green p-4">
-        <form>
-          <div class="form-group">
-            <textarea [(ngModel)]="text" name="text" class="form-control m-bold reset-txtarea" maxlength="140"
-              id="exampleFormControlTextarea1" rows="3" placeholder="What's new?"></textarea>
-          </div>
-        </form>
+</div>
 
-        <div class="file" *ngFor="let response of responses; let i = index">
-          <button class="btn position-absolute m-2" *ngIf="response.data.delete_token"
-            (click)="deleteImage(response.data, i)"><svg width="2.2em" height="2.2em" viewBox="0 0 16 16"
-              class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
-            </svg></button>
-          <img [src]="response.data.url" class="w-100 rounded mx-auto mb-4 cover" height="300px" alt="">
-        </div>
-        <!--
-          <button type="button" class="btn-lg round bg-white big-btn my-2 my-sm-0" (click)="tweetImg()">
-            <img src="../../../assets/icons8-camera-40.png" alt="camera">
+<div class="container-flex justify-self-space bg-light pt-5">
+  <div class="row m-0 justify-content-center">
+
+    <div class="col-12 col-lg-5 d-none d-lg-block p-0">
+      <div class="sticky">
+        <app-sidebar [myuser]="user" (propagar)="createTweet($event)"></app-sidebar>
+
+        <div class="col-12 text-center mt-5">
+
+          <button class="round bg-ligth s-bold border-green py-2 px-4" (click)="logout()">
+            Logout
           </button>
-        -->
-        <div class="d-flex">
-          <input type="file" id="fileupload" #fileInput ng2FileSelect [style.display]="'none'" [uploader]="uploader"
-            (change)="fileInput.value=''" multiple />
-          <label class="btn green round py-0 xl-bold" for="fileupload">
-            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-image-fill" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-            </svg>
-          </label>
-          <span class="ml-auto">
-            <span class="m-bold m-4">{{text.length}} / 140</span>
-            <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button"
-              (click)="createTweet(text)">Publishh</button>
-          </span>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col">
-
-      <!-- Navtabs -->
-      <div class="tab-nav col col-lg-6 m-auto">
-        <ul class="nav nav-fill" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link w-100 active show m-bold" id="profile-tab-classic" data-toggle="tab" href="#alltweets"
-              role="tab" aria-controls="alltweets" aria-selected="true">ALL</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link w-100 m-bold" data-toggle="tab" href="#mymeshh" role="tab" aria-controls="mymeshh"
-              aria-selected="false">MY MESHH</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link w-100 m-bold" data-toggle="tab" href="#favs" role="tab" aria-controls="favs"
-              aria-selected="false">FAVS</a>
-          </li>
-        </ul>
-      </div>
+    <div class="col col-lg-6 max-w p-0">
       <!-- All Tweets -->
-      <div class="tab-content col col-lg-6 m-auto" id="myClassicTabContent">
-        <div class="tab-pane fade active show" id="alltweets" role="tabpanel" aria-labelledby="profile-tab-classic">
-          <app-tweet class="m-5" [tweets]="tweets"></app-tweet>
+      <div class="tab-content col-10 col-lg-12 m-auto p-0" id="myClassicTabContent">
+        <div class="tab-pane fade active show mt-2" id="alltweets" role="tabpanel"
+          aria-labelledby="profile-tab-classic">
+            <app-tweet [tweets]="tweets"></app-tweet>
         </div>
 
         <!-- My Tweets -->
         <div class="tab-pane fade" id="mymeshh" role="tabpanel" aria-labelledby="follow-tab-classic">
-          <app-tweet class="m-5" [tweets]="myTweets" [user]="user"></app-tweet>
+
+          <app-tweet [tweets]="myTweets"></app-tweet>
         </div>
 
         <!-- Favs -->
         <div class="tab-pane fade" id="favs" role="tabpanel" aria-labelledby="contact-tab-classic">
-          <app-tweet class="m-5" [tweets]="followingtweets" [user]="user"></app-tweet>
+          <app-tweet [tweets]="followingtweets"></app-tweet>
         </div>
       </div>
     </div>

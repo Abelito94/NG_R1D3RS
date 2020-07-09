@@ -1,0 +1,56 @@
+.round {
+    border-radius: 20px;
+    border: 0px;
+}
+.img-round{
+     border-radius: 100%;
+    border: 0px;
+}
+.sidebar{
+    /* width: 250px; */
+    margin: auto;
+}
+
+.cover{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.profile{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-top: -40px;
+    border: 5px solid white;
+}
+
+.reset-txtarea, .reset-txtarea:focus{
+  outline: none !important;
+  resize:none !important;
+  border: 0px;
+  overflow: hidden;
+}
+
+textarea, textarea:focus {
+  background: transparent;
+}
+.content-padding {
+  margin-left: 9px;
+  margin-right: 13px;
+}
+#textarea {
+  transform: translate(0,-122px);
+}
+
+.fix-h{
+  height: 120px;
+}
+.extra {
+  background-color: rgb(255, 184, 194);
+  color: rgb(255, 184, 194);
+  margin-left: -2px;
+  margin-right: 2px;
+}
+
+
