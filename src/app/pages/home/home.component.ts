@@ -26,7 +26,16 @@ export class HomeComponent {
   user
   text: string = '';
 
-  constructor(private tweetService: APIService, private router: Router) { }
+  //Infinity Scroll
+  throttle = 300;
+  scrollDistance = 1;
+  direction = '';
+  modalOpen = false;
+  sum = 1
+
+
+  constructor(private tweetService: APIService, private router: Router) {
+  }
 
   createTweet(tweetInfo) {
     var newtweet: Tweet = {
@@ -40,8 +49,7 @@ export class HomeComponent {
     this.tweetService.createTweet(newtweet)
       .then(res => console.log(res))
       .then(() => {
-        this.tweetService.getAllTweets()
-          .then(res => this.tweets = res)
+        this.tweetService.getAllTweets(this.sum)
           .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
           .catch(err => console.log(err))
       })
@@ -63,7 +71,7 @@ export class HomeComponent {
         localStorage.setItem('user', JSON.stringify(fullUser[0]))
       })
       .then(() => {
-        this.tweetService.getAllTweets()
+        this.tweetService.getAllTweets(this.sum)
           .then(res => {
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
@@ -73,6 +81,7 @@ export class HomeComponent {
           .then(res => {
             //all tweets
             this.tweets = res;
+          
             //my tweets
             this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
             //my following tweets
@@ -95,8 +104,26 @@ export class HomeComponent {
       })
   }
 
+
   deleteTweet(tweetId) {
     this.tweetService.eraseTweet(tweetId).then(response => this.tweets = this.tweets.filter(tweet => tweetId != tweet.id))
+
+  //infinityScroll
+
+  onScrollDown(ev) {
+    console.log('scrolled down!!', ev);
+    this.sum++
+    this.direction = 'down'
+    this.generateTweet();
+  }
+
+  async generateTweet() {
+    var res = await this.tweetService.getAllTweets(this.sum)
+    this.tweets.push(...res)
+    console.log(res)
+    console.log(this.tweets);
+    return res
+
   }
 }
 
