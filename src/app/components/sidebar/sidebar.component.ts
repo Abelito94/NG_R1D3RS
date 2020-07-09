@@ -23,6 +23,8 @@ export class SidebarComponent {
   text: string = ""
   mainText: string = ""
   extra: string = ""
+  expanded = false;
+
   constructor(
     private router: Router,
     private cloudinary: Cloudinary,
@@ -53,7 +55,13 @@ export class SidebarComponent {
       this.extra = ''
     }
   }
-
+  expandImage() {
+    if (this.expanded) {
+      this.expanded = false;
+    } else {
+      this.expanded = true;
+    }
+  }
   ngOnInit(): void {
 
     // Create the file uploader, wire it to upload to your account

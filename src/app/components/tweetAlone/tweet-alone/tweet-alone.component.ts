@@ -10,6 +10,8 @@ export class TweetAloneComponent implements OnInit{
   @Input() tweet;
   @Input() me;
   user;
+  expanded = false;
+
   //userID: string = this.tweet.userID
   // @Output() notifyErase = new EventErase();
 
@@ -22,5 +24,11 @@ export class TweetAloneComponent implements OnInit{
   erase(){
     // this.notifyErase();
   }
-
+  expandImage() {
+    if (this.expanded) {
+      this.expanded = false;
+    } else {
+      this.expanded = true;
+    }
+  }
 }

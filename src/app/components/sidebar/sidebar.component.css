@@ -53,4 +53,12 @@ textarea, textarea:focus {
   margin-right: 2px;
 }
 
-
+.cover-img {
+    object-fit: cover;
+}
+.expanded {
+  height: autopx;
+}
+.max-h {
+  height: 200px;
+}

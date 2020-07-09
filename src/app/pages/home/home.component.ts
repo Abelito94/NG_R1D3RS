@@ -25,6 +25,7 @@ export class HomeComponent {
   followingtweets: any[] = [];
   user
   text: string = '';
+  expanded = false;
 
   constructor(private tweetService: APIService, private router: Router) {}
 
