@@ -5,6 +5,10 @@
 *:focus{
   outline: none;
 }
+button:focus,button:active {
+   outline: none !important;
+   box-shadow: none;
+}
 .green{
   color: #1DF24C !important;
 }
@@ -81,4 +85,22 @@
 .sticky {
     position: sticky;
     top:0;
+}
+.cover {
+  object-fit: cover;
+}
+.round {
+    border-radius: 20px;
+    border: 0px;
+}
+.img-round{
+     border-radius: 100%;
+    border: 0px;
+}
+.profile{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-top: -40px;
+    border: 5px solid white;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { APIService } from '../../api.service'
 import * as moment from 'moment';
 import { Router } from '@angular/router';
@@ -29,8 +29,6 @@ export class HomeComponent {
   constructor(private tweetService: APIService, private router: Router) {}
 
   createTweet(tweetInfo) {
-
-    console.log(tweetInfo);
     var newtweet: Tweet = {
       userID: this.user.id,
       text: tweetInfo.text,
@@ -39,7 +37,6 @@ export class HomeComponent {
       numRTs: 0,
       urlTweet: tweetInfo.imgUrl || ""
     }
-
     this.tweetService.createTweet(newtweet)
       .then(res => console.log(res))
       .then(() => {
@@ -64,7 +61,6 @@ export class HomeComponent {
         this.user = fullUser[0]
         localStorage.clear()
         localStorage.setItem('user', JSON.stringify(fullUser[0]))
-        console.log('primer then');
       })
       .then(()=>{
         this.tweetService.getAllTweets()
@@ -72,7 +68,6 @@ export class HomeComponent {
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
             })
-            console.log('segundo then');
             return res
           })
       .then(res =>{
@@ -90,6 +85,9 @@ export class HomeComponent {
             var dateA = new Date(a.creationDate).getTime();
             var dateB = new Date(b.creationDate).getTime();
             return dateA < dateB ? 1 : -1;
+          })
+          this.followingtweets.forEach(element => {
+            element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
           })
         })
       })
