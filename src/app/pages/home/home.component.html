@@ -1,54 +1,57 @@
-<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
-  <a id="brand" class="navbar-brand big-bold green">FRESHH</a>
-  <button (click)="logout()" class="btn-lg round big-btn border-green my-2 my-sm-0" type="button">Logout</button>
-</nav>
 
-<div class="container-fluid nav-margin">
-  <div class="row">
-    <div class="col">
-      <div class="col-12 col-lg-6 m-auto card round border-green p-4">
-        <form>
-          <div class="form-group">
-            <textarea [(ngModel)]="text" name="text" class="form-control m-bold reset-txtarea" maxlength="140"
-              id="exampleFormControlTextarea1" rows="3" placeholder="What's new?"></textarea>
-            </div>
-          </form>
-            <span class="ml-auto">
-              <span class="m-bold m-4">{{text.length}} / 140</span>
-              <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button"
-              (click)="createTweet(text)">Publishh</button>
-          </span>
+  <div class="container">
+    <nav class="row navbar-sm navbar-light fixed-top text-dark m-0 justify-content-center index-up">
+      <div class="col-lg-5">
+        <button id="brand" routerLink="/home" class="btn col-12 col-lg-5 xl-bold green py-2">FRESHH</button>
+        <input class="col-12 col-lg-6 round border p-2 pl-3" type="search" placeholder="Search about topics"
+          maxlength="20" aria-label="Search">
       </div>
-    </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col">
-
       <!-- Navtabs -->
-      <div class="tab-nav col col-lg-6 m-auto">
+      <div class="tab-nav col-12 col-lg-6 bg-white border">
         <ul class="nav nav-fill" role="tablist">
           <li class="nav-item">
-            <a class="nav-link w-100 active show m-bold" id="profile-tab-classic" data-toggle="tab" href="#alltweets"
-              role="tab" aria-controls="alltweets" aria-selected="true">ALL</a>
+            <a class="nav-link w-100 active show s-bold" id="profile-tab-classic" data-toggle="tab" href="#alltweets"
+              role="tab" aria-controls="alltweets" aria-selected="true">ON LIVE</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link w-100 m-bold" data-toggle="tab" href="#mymeshh" role="tab" aria-controls="mymeshh"
+            <a class="nav-link w-100 s-bold" data-toggle="tab" href="#mymeshh" role="tab" aria-controls="mymeshh"
               aria-selected="false">MY MESHH</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link w-100 m-bold" data-toggle="tab" href="#favs" role="tab" aria-controls="favs"
-              aria-selected="false">FAVS</a>
+            <a class="nav-link w-100 s-bold" data-toggle="tab" href="#favs" role="tab" aria-controls="favs"
+              aria-selected="false">FOLLOWING</a>
           </li>
         </ul>
       </div>
+    </nav>
+
+  </div>
+
+  <div class="container-flex justify-self-space bg-light pt-5">
+    <div class="row m-0 justify-content-center">
+
+      <div class="col-12 col-lg-5 d-none d-lg-block p-0">
+        <div class="sticky">
+          <app-sidebar [myuser]="user" (propagar)="createTweet($event)"></app-sidebar>
+
+        <div class="col-12 text-center mt-5">
+
+          <button class="round bg-ligth s-bold border-green py-2 px-4" (click)="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-6 bg-white max-w p-0">
       <!-- All Tweets -->
-      <div class="tab-content col col-lg-6 m-auto" id="myClassicTabContent">
-        <div class="tab-pane fade active show" id="alltweets" role="tabpanel" aria-labelledby="profile-tab-classic">
-          <app-tweet class="m-5" [tweets]="tweets"></app-tweet>
+      <div class="tab-content col-10 col-lg-12 m-auto p-0" id="myClassicTabContent">
+        <div class="tab-pane fade active show mt-2" id="alltweets" role="tabpanel" aria-labelledby="profile-tab-classic">
+          <app-tweet [tweets]="tweets"></app-tweet>
         </div>
 
         <!-- My Tweets -->
         <div class="tab-pane fade" id="mymeshh" role="tabpanel" aria-labelledby="follow-tab-classic">
+
           <app-tweet class="m-5" [tweets]="myTweets" [user]="user"></app-tweet>
         </div>
 
@@ -59,6 +62,5 @@
       </div>
     </div>
   </div>
-</div>
-<app-sidebar [myuser]="user"></app-sidebar>
 
+</div>

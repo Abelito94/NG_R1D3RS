@@ -22,14 +22,14 @@ export class HomeComponent {
   myTweets: any[]
   user
 
-
-
-  text: string = ""
-
-
-  constructor(private tweetService: APIService, private router : Router) {
+  constructor(private tweetService: APIService, private router: Router) {
     tweetService.getAllTweets()
-      .then(res => this.tweets = res)
+      .then(res => {
+        res.forEach(element => {
+          element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment().format('LT')}`;
+        })
+        return this.tweets = res
+      })
       .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
       .catch(err => console.log(err))
 
@@ -62,12 +62,10 @@ export class HomeComponent {
           .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
-    this.text = ''
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
-   
-    this.router.navigate(['sign']); 
+    this.router.navigate(['sign']);
   }
 }
