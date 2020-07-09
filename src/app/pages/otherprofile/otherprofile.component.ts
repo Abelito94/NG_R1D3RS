@@ -75,20 +75,20 @@ export class OtherprofileComponent implements OnInit {
   }
 
   async addFollows(userFollower) {
-    let localUser = JSON.parse(localStorage.getItem('user'));
+    this.user = JSON.parse(localStorage.getItem('user'));
 
     await this.dataService.findEqualUsername(userFollower.username)
       .then(response => {
 
-        let hastFollower = response[0].followers.some(fwer => fwer == localUser.id);
+        let hastFollower = response[0].followers.some(fwer => fwer == this.user.id);
 
         if (hastFollower == false) {
-          response[0].followers.push(localUser.id);
+          response[0].followers.push(this.user.id);
         }
         //Update api of profileUser...
         this.dataService.updateFollows(response[0])
           .then(() => {
-            this.dataService.findEqualUsername(localUser.username)
+            this.dataService.findEqualUsername(this.user.username)
               .then(response => {
                 let hastFollowing = response[0].following.some(fwing => fwing == userFollower.id);
                 if (hastFollowing == false) {
@@ -99,6 +99,7 @@ export class OtherprofileComponent implements OnInit {
                 //reload page...
                 this.dataService.findEqualUsername(this.username)
                   .then(res => {
+                    this.user.following.push(userFollower.id)
                     this.profileUser = res[0];
                   })
 
@@ -108,19 +109,19 @@ export class OtherprofileComponent implements OnInit {
   }
 
   async deleteFollows(userFollower) {
-    let localUser = JSON.parse(localStorage.getItem('user'));
+    this.user = JSON.parse(localStorage.getItem('user'));
 
     await this.dataService.findEqualUsername(userFollower.username)
       .then(response => {
 
-        let whereFollower = response[0].followers.indexOf(localUser.id);
+        let whereFollower = response[0].followers.indexOf(this.user.id);
 
         if (whereFollower != -1) {
           response[0].followers.splice(whereFollower, 1);
         }
         this.dataService.updateFollows(response[0])
           .then(() => {
-            this.dataService.findEqualUsername(localUser.username)
+            this.dataService.findEqualUsername(this.user.username)
               .then(response => {
                 let whereFollowing = response[0].following.indexOf(userFollower.id);
                 if (whereFollowing != -1) {
