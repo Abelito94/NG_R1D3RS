@@ -81,7 +81,7 @@ export class HomeComponent {
           .then(res => {
             //all tweets
             this.tweets = res;
-          
+
             //my tweets
             this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
             //my following tweets
@@ -104,10 +104,12 @@ export class HomeComponent {
       })
   }
 
-
   deleteTweet(tweetId) {
-    this.tweetService.eraseTweet(tweetId).then(response => this.tweets = this.tweets.filter(tweet => tweetId != tweet.id))
-
+    this.tweetService.eraseTweet(tweetId).then(response => {
+      this.tweets = this.tweets.filter(tweet => tweetId != tweet.id)
+      this.myTweets = this.myTweets.filter(tweet => tweetId != tweet.id)
+    })
+  }
   //infinityScroll
 
   onScrollDown(ev) {
