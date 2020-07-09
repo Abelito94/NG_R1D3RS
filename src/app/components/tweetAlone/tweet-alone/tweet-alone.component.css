@@ -23,3 +23,27 @@
     height: 200px;
     object-fit: cover;
 }
+
+
+/* Pequeño menu dropdown en tweets */
+.dropdown{
+  position: absolute;
+  top: -12%;
+  right: 0;
+}
+
+#dropdownMenuButton{
+  color: #1DF24C;
+  /*font-size: 1.2rem;*/
+  font-weight: bolder;
+}
+
+#dropdownMenuButton:focus,
+#dropdownMenuButton:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.dropdown-menu{
+  margin-top: -0.5rem !important;
+}

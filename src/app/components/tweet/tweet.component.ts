@@ -7,6 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class TweetComponent {
   @Input() tweets: Array<any>
   @Input() me
+
   @Output() remitterLike = new EventEmitter();
   @Output() remitterNoLike = new EventEmitter();
   ngOnInit() {
@@ -19,4 +20,13 @@ export class TweetComponent {
   remitNoLike(tweet){
     this.remitterNoLike.emit(tweet);
   }
+
+  @Output() notifyErase = new EventEmitter();
+  ngOnInit() {
+  }
+  eraseFromParent(tweet){
+    this.notifyErase.emit(tweet);
+  }
+
+
 }

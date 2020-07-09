@@ -1,4 +1,7 @@
 <div class="list">
   <app-tweet-alone *ngFor="let tweet of tweets" [tweet]="tweet" [me]="me" (emitterLike)="remitLike($event)" (emitterNoLike)="remitNoLike($event)"></app-tweet-alone>
+
+  <app-tweet-alone *ngFor="let tweet of tweets" [tweet]="tweet" [me]="me" (notifyErase)="eraseFromParent($event)"></app-tweet-alone>
+
 </div>
 

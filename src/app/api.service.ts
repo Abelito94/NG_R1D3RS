@@ -66,10 +66,17 @@ export class APIService {
       return responses;
     })
   }
+generateLike
 
   updateTweet(tweet){
     return axios.put(`${this.URL}tweets/${tweet.id}`, tweet)
       .then(response => response.data)
+  }
+
+
+  eraseTweet(tweetId){
+    return axios.delete(`${this.URL}tweets/${tweetId}`)
+      .then(response => response.data);
   }
 
 

@@ -15,10 +15,14 @@ export class TweetAloneComponent implements OnInit{
   @Input() tweet;
   @Input() me;
   user;
+
   @Output() emitterLike = new EventEmitter();
   @Output() emitterNoLike = new EventEmitter();
+
+  ownUser;
+
   //userID: string = this.tweet.userID
-  // @Output() notifyErase = new EventErase();
+  @Output() notifyErase = new EventEmitter<number>();
 
   localUser = JSON.parse(localStorage.getItem('user'));
 
@@ -29,16 +33,20 @@ export class TweetAloneComponent implements OnInit{
 
   async ngOnInit(){
     this.user = await this.tweetService.getUserById(this.tweet.userID);
+    this.ownUser = JSON.parse(localStorage.getItem('user'));
   }
 
-  erase(){
-    // this.notifyErase();
+  eraseFromChild(){
+    this.notifyErase.emit(this.tweet.id);
   }
   emitLike(){
     this.emitterLike.emit(this.tweet);
   }
 
+
   emitNoLike(){
     this.emitterNoLike.emit(this.tweet);
   }
+
+
 }
