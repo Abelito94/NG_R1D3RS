@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   password: string = '';
   profileUrl = null;
   coverUrl: string = '';
-  tags: string[] = [];
+  tags: string[] = ["hello","prueba","esteeslargoparaver", "yunocortito"];
   newUser: object = {};
   callEmail: string = '';
 

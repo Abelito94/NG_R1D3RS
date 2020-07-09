@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -9,15 +9,28 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   @Input() myuser;
-  tags = this.myuser.tags;
+  @Output()
+  propagar = new EventEmitter<string>();
+
+  text: string = ""
+  mainText: string = ""
+  extra: string = ""
 
   constructor(private router : Router) {
   }
 
-  logout(){
-    localStorage.clear();
-   
-    this.router.navigate(['sign']); 
+  createTweet() {
+    this.propagar.emit(this.text)
+    this.text = '';
+  }
+
+  muchoTexto() {
+    this.mainText = this.text.substr(0, 140)
+    if (this.text.length > 140) {
+      this.extra = this.text.substr(140)
+    } else {
+      this.extra = ''
+    }
   }
 }
 
