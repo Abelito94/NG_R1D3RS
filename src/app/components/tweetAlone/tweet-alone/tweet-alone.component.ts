@@ -11,7 +11,7 @@ import { ThrowStmt } from '@angular/compiler';
   templateUrl: './tweet-alone.component.html',
   styleUrls: ['./tweet-alone.component.css']
 })
-export class TweetAloneComponent implements OnInit{
+export class TweetAloneComponent {
   @Input() tweet;
   @Input() me;
   user;
