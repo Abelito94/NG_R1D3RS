@@ -49,7 +49,8 @@ export class HomeComponent {
     this.tweetService.createTweet(newtweet)
       .then(res => console.log(res))
       .then(() => {
-        this.tweetService.getAllTweets(this.sum)
+        this.tweetService.getAllTweets(1)
+          .then(res => this.tweets = res)
           .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
           .catch(err => console.log(err))
       })
