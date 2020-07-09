@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventErase } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { APIService } from '../../../api.service';
 
 @Component({
@@ -10,7 +10,7 @@ export class TweetAloneComponent implements OnInit{
   @Input() tweet;
   @Input() user;
   //userID: string = this.tweet.userID
-  @Output() notifyErase = new EventErase();
+  // @Output() notifyErase = new EventErase();
 
   constructor(private tweetService: APIService) {}
 
@@ -19,7 +19,7 @@ export class TweetAloneComponent implements OnInit{
   }
 
   erase(){
-    this.notifyErase();
+    // this.notifyErase();
   }
 
 }
