@@ -171,8 +171,8 @@ export class SignupComponent implements OnInit {
         email: this.email,
         password: this.password,
       };
+      this.step = 2
     }
-    this.step = 2
   }
 
   chargeImg(event) {
