@@ -10,10 +10,16 @@
 }
 
 .round {
-    border-radius: 50px;
+  border-radius: 50px;
   border: 0px;
 }
 .card {
   margin-bottom: -1px;
   border-radius: 0px;
+}
+
+.cover{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }

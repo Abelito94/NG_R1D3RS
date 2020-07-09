@@ -29,7 +29,7 @@ import { OtherprofileUserComponent } from './components/otherprofile-user/otherp
     LoginComponent,
     SignComponent,
     TweetAloneComponent,
-    SidebarComponent
+    SidebarComponent,
     OtherprofileComponent,
     OtherprofileUserComponent
   ],

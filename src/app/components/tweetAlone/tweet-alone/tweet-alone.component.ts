@@ -8,7 +8,8 @@ import { APIService } from '../../../api.service';
 })
 export class TweetAloneComponent implements OnInit{
   @Input() tweet;
-  @Input() user;
+  @Input() me;
+  user;
   //userID: string = this.tweet.userID
   // @Output() notifyErase = new EventErase();
 

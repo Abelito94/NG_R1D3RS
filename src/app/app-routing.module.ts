@@ -4,7 +4,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { SignComponent } from './pages/sign/sign.component';
 import { LoginComponent } from './pages/login/login.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { OtherprofileComponent } from './pages/otherprofile/otherprofile.component';
 
 
