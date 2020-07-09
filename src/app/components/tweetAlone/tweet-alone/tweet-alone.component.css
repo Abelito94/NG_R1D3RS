@@ -40,3 +40,8 @@
   font-weight: bolder;
 }
 
+#dropdownMenuButton:focus,
+#dropdownMenuButton:active {
+  outline: none !important;
+  box-shadow: none;
+}
