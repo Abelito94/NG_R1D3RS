@@ -66,6 +66,9 @@ export class APIService {
       return responses;
     })
   }
-
+  eraseTweet(tweetId){
+    return axios.delete(`${this.URL}tweets/${tweetId}`)
+      .then(response => response.data);
+  }
 
 }

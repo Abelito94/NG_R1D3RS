@@ -26,7 +26,7 @@ export class HomeComponent {
   user
   text: string = '';
 
-  constructor(private tweetService: APIService, private router: Router) {}
+  constructor(private tweetService: APIService, private router: Router) { }
 
   createTweet(tweetInfo) {
     var newtweet: Tweet = {
@@ -55,14 +55,14 @@ export class HomeComponent {
 
   ngOnInit(): void {
 
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.tweetService.findEqualUsername(this.user.username)
-        .then(fullUser => {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.tweetService.findEqualUsername(this.user.username)
+      .then(fullUser => {
         this.user = fullUser[0]
         localStorage.clear()
         localStorage.setItem('user', JSON.stringify(fullUser[0]))
       })
-      .then(()=>{
+      .then(() => {
         this.tweetService.getAllTweets()
           .then(res => {
             res.forEach(element => {
@@ -70,29 +70,33 @@ export class HomeComponent {
             })
             return res
           })
-      .then(res =>{
-        //all tweets
-        this.tweets = res;
-        //my tweets
-        this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
-        //my following tweets
-        this.tweetService.getFollowingTweets(this.user.following)
-        .then(matrizTweets =>{
-          matrizTweets.map(arrayTweets =>{
-            arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
+          .then(res => {
+            //all tweets
+            this.tweets = res;
+            //my tweets
+            this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
+            //my following tweets
+            this.tweetService.getFollowingTweets(this.user.following)
+              .then(matrizTweets => {
+                matrizTweets.map(arrayTweets => {
+                  arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
+                })
+                this.followingtweets.sort(function (a, b) {
+                  var dateA = new Date(a.creationDate).getTime();
+                  var dateB = new Date(b.creationDate).getTime();
+                  return dateA < dateB ? 1 : -1;
+                })
+                this.followingtweets.forEach(element => {
+                  element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
+                })
+              })
           })
-          this.followingtweets.sort(function(a, b){
-            var dateA = new Date(a.creationDate).getTime();
-            var dateB = new Date(b.creationDate).getTime();
-            return dateA < dateB ? 1 : -1;
-          })
-          this.followingtweets.forEach(element => {
-            element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
-          })
-        })
+          .catch(err => console.log(err))
       })
-      .catch(err => console.log(err))
-    })
+  }
+
+  deleteTweet(tweetId) {
+    this.tweetService.eraseTweet(tweetId).then(response => this.tweets = this.tweets.filter(tweet => tweetId != tweet.id))
   }
 }
 
