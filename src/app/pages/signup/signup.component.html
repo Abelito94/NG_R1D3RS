@@ -71,12 +71,12 @@
               class="col-10 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
               <button type="button" class="col-2 btn-lg btn-dark round m-bold" (click)="addTag()">Add</button>
             </div>
-          </form>
             <span *ngFor="let tag of tags" class="d-inline-block text-white bg-dark round s-bold pl-5 pr-3 pb-3 pt-2 mr-4 mb-4">
               <span>{{tag}}</span>
               <i type="button" class="material-icons m-bold p-1 pl-3" (click)="deleteTag(tag)">close</i>
             </span>
               <div class="red s-bold ml-3" [hidden]="!tagsMaxcount">Máx. 4 tags</div>
+          </form>
         </div>
       <div class="modal-footer">
         <button type="button" class="btn-lg btn-light round big-btn float-right" (click)="close()">Close</button>

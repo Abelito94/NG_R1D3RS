@@ -1,0 +1,58 @@
+<div class="sidebar col-10 my-4 bg-white round border p-0">
+  <img class="cover round" src="https://antonio-carrillo.com/wp-content/uploads/2015/04/mg_7219--400x400.jpg"
+    alt="fondo-collab">
+  <div class="row">
+    <div class="col-4">
+      <img class="profile img-round ml-4" [src]="myuser.profilePictureURL" alt="imagen-perfil">
+    </div>
+    <div class="xl-bold col my-3">
+      {{myuser.username}}
+      <span class="l-medium">@{{myuser.username}}</span>
+      <div class="m-bold">
+        <span class="mr-3">{{myuser.following.length}} following</span>
+        <span class="mr-3">{{myuser.followers.length}} followers</span>
+      </div>
+    </div>
+
+  </div>
+      <div class="row p-0 m-0 py-2 px-4">
+        <div *ngFor="let tag of myuser.tags" class="text-white bg-dark round s-bold px-3 py-2 ml-3 mb-2">
+          <span class="mb-5">{{tag}}</span>
+        </div>
+      </div>
+</div>
+
+<div class="col-10 m-auto card round border-green p-4">
+  <form class=" fix-h ">
+    <div id=" extra" class="fix-h text-white m-bold m-0 px-1">{{mainText}}<em class="extra">{{extra}}</em>
+    </div>
+    <textarea id="textarea" [(ngModel)]="text" name="text" class="fix-h m-bold reset-txtarea w-100 overlay"
+      maxlength="200" (ngModelChange)="muchoTexto()" placeholder="What's new?">{{text}}</textarea>
+  </form>
+
+  <div class="file" *ngFor="let response of responses; let i = index">
+    <button class="btn position-absolute m-2" *ngIf="response.data.delete_token"
+      (click)="deleteImage(response.data, i)"><svg width="2.2em" height="2.2em" viewBox="0 0 16 16"
+        class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
+      </svg></button>
+    <img [src]="response.data.url" class="w-100 rounded mx-auto mb-4 cover" height="300px" alt="">
+  </div>
+
+  <div class="d-flex">
+    <input type="file" id="fileupload" #fileInput ng2FileSelect [style.display]="'none'" [uploader]="uploader"
+      (change)="fileInput.value=''" multiple />
+    <label class="btn green round py-0 xl-bold" for="fileupload">
+      <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-image-fill" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+      </svg>
+    </label>
+
+    <span class="ml-auto">
+      <span class="m-bold m-4">{{text.length}} / 140</span>
+      <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button" (click)="createTweet()">Publishh</button>
+    </span>
+  </div>

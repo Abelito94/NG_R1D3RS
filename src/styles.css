@@ -5,6 +5,10 @@
 *:focus{
   outline: none;
 }
+button:focus,button:active {
+   outline: none !important;
+   box-shadow: none;
+}
 .green{
   color: #1DF24C !important;
 }
@@ -14,30 +18,59 @@
 .bg-green{
   background-color: #1DF24C;
 }
+.red {
+   color: rgb(236, 102, 102);
+}
+.bg-red{
+  background-color: rgb(236, 102, 102);
+}
 .border-green{
-  border:3px solid #1DF24C !important;
+  border:2px solid #1DF24C !important;
 }
 .s-bold{
     font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
 }
 .m-bold {
   font-weight: 600;
+  font-size: 14px;
+}
+.xm-bold{
+   font-weight: 600;
   font-size: 16px;
 }
 .l-bold{
    font-weight: 600;
-  font-size: 21px;
+  font-size: 18px;
 }
 .xl-bold{
    font-weight: 800;
-  font-size: 24px;
+  font-size: 21px;
 }
 .big-bold {
   font-weight: 800;
   font-size: 30px;
 }
-
+.s-medium {
+  font-weight: 500;
+  font-size: 12px;
+}
+.m-medium {
+  font-weight: 500;
+  font-size: 14px;
+}
+.xm-medium {
+  font-weight: 500;
+  font-size: 16px;
+}
+.l-medium {
+  font-weight: 500;
+  font-size: 18px;
+}
+.xl-medium {
+  font-weight: 500;
+  font-size: 21px;
+}
 .big-btn {
   font-weight: 800;
   padding-left: 30px;
@@ -46,5 +79,28 @@
 .full-h {
   min-height: 100vh;
 }
-
-
+.min-w {
+  min-width: 450px;
+}
+.sticky {
+    position: sticky;
+    top:0;
+}
+.cover {
+  object-fit: cover;
+}
+.round {
+    border-radius: 20px;
+    border: 0px;
+}
+.img-round{
+     border-radius: 100%;
+    border: 0px;
+}
+.profile{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-top: -40px;
+    border: 5px solid white;
+}

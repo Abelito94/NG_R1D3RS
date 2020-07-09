@@ -1,17 +1,40 @@
-<nav class="navbar navbar-light bg-white text-dark shadow-sm fixed-top px-5">
-    <a id="brand" class="navbar-brand big-bold green" (click)="toHome()">FRESHH</a>
-    <button (click)="logout()" class="btn-lg round big-btn border-green my-2 my-sm-0 buttonLogout" type="button">Logout</button>
-</nav>
+<div class="container">
+  <nav class="row navbar-sm navbar-light fixed-top text-dark m-0 justify-content-center index-up">
+    <div class="col-lg-5">
+      <button id="brand" routerLink="/home" class="btn col-12 col-lg-5 xl-bold green py-2">FRESHH</button>
+      <input class="col-12 col-lg-6 round border p-2 pl-3" type="search" placeholder="Search about topics"
+        maxlength="20" aria-label="Search">
+    </div>
+    <div class="tab-nav col-12 col-lg-6">
+    </div>
+  </nav>
+</div>
 
-<div class="container-fluid nav-margin">
-    <div class="tab" id="otheruser"> 
-        <app-otherprofile-user [user]="user" 
-        (emitterFollows)="addFollows($event)"
-        (emitterNotFollows)="deleteFollows($event)"
-        ></app-otherprofile-user>
+
+<div class="container-flex justify-self-space bg-light pt-5">
+  <div class="row m-0 justify-content-center">
+
+    <div class="col-12 col-lg-5 d-none d-lg-block p-0">
+      <div class="sticky">
+        <app-sidebar [myuser]="user" (propagar)="createTweet($event)"></app-sidebar>
+
+        <div class="col-12 text-center mt-5">
+
+          <button class="round bg-ligth s-bold border-green py-2 px-4" (click)="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
-    
-    <div class="tab" id="othermeshh">
-        <app-tweet [tweets]="otherTweets" [user]="user"></app-tweet>
+    <div class="col col-lg-6 bg-white max-w p-0 mt-4">
+
+      <app-otherprofile-user [user]="profileUser" (emitterFollows)="addFollows($event)"
+        (emitterNotFollows)="deleteFollows($event)"></app-otherprofile-user>
+
+      <app-tweet [tweets]="otherTweets"></app-tweet>
+
+
+
     </div>
+  </div>
 </div>

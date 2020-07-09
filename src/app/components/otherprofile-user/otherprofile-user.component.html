@@ -1,34 +1,25 @@
-
-<div class="card otherprofile">
-    <div class="profile">
-        <div class="cover">
-           <img src="{{user.profileCoverURL}}">
-        </div>
-        <div class="picture">
-            <img src={{user.profilePictureURL}}>
-        </div>
-        
-        <!--<div class="username">
-            <span class="xl-bold">@ {{user.username}}</span>
-        </div>-->
-        
-        <div class="data">
-            <span class="big-bold name">{{user.name}}</span>
-            <span class="xl-bold username">@{{user.username}}</span>
-
-            <span class="l-bold followers">Followers: {{user.followers.length}}</span>
-            
-            <button type="button" class="buttonFollow" 
-            (click)="emitFollow()"
-            *ngIf="user.followers.indexOf(localUser.id) === -1">
-                <b>Follow</b>
-            </button>
-            <!--<span class="arefollowing" *ngIf="user.followers.indexOf(localUser.id) >= 0">You're following!</span>-->
-            <button type="button" class="buttonFollow" 
-            (click)="emitNotFollow()" 
-            *ngIf="user.followers.indexOf(localUser.id) >= 0">
-                <b>Stop following</b>
-            </button>
-        </div>
+<div class="border round-container" *ngIf="user">
+  <img src="{{user.profileCoverURL}}" class="w-100 round mx-auto cover " height="150px">
+  <div class="row p-0 m-0">
+    <div class="col-8 text-right m-0">
+      <button type="button" class="round bg-green s-medium py-1 px-4" (click)="emitFollow()"
+      *ngIf="user.followers.indexOf(localUser.id) === -1">
+      <b>Follow</b>
+    </button>
+      <button type="button" class="round bg-green s-medium py-1 px-4" (click)="emitNotFollow()"
+      *ngIf="user.followers.indexOf(localUser.id) >= 0">
+      <b>Unfollow</b>
+    </button>
+      <span class="xl-bold name">{{user.name}} </span>
+      <span class="l-medium username">@{{user.username}}</span>
+      <div class="m-bold">
+        <span class="mr-3">{{user.following.length}} following</span>
+        <span class="mr-3">{{user.followers.length}} followers</span>
+      </div>
     </div>
+    <div class="col">
+      <img src={{user.profilePictureURL}} class="img-round profile">
+    </div>
+
+  </div>
 </div>

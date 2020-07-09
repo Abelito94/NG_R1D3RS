@@ -1,29 +1,23 @@
 
-.reset-txtarea, .reset-txtarea:focus{
-  outline: none !important;
-  resize:none;
-  border: 0px;
-}
-
 .round {
   border-radius: 20px;
   border: 0px;
 }
-.nav-margin {
-  margin-top: 100px;
-}
+
 .tab-nav {
   overflow: hidden;
+  /* z-index: 1000; */
 }
 
+ .index-up{
+  z-index: 9999;
+ }
+
 .tab-nav a {
-  float: left;
-  display: block;
   color: black;
   text-align: center;
-  padding: 14px 16px;
+  padding: 10px;
   text-decoration: none;
-  border-bottom: 3px solid transparent;
   transition: .2s ease;
 }
 
@@ -33,7 +27,7 @@
 
 .tab-nav a.active {
   color: black;
-  border-bottom: 3px solid #1DF24C;
+  border-bottom: 4px solid #1DF24C;
 }
 
 .cover {
