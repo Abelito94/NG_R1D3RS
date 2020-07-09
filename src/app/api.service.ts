@@ -67,5 +67,10 @@ export class APIService {
     })
   }
 
+  updateTweet(tweet){
+    return axios.put(`${this.URL}tweets/${tweet.id}`, tweet)
+      .then(response => response.data)
+  }
+
 
 }

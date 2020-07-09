@@ -120,5 +120,20 @@ export class HomeComponent {
     console.log(this.tweets);
     return res
   }
+
+  like(tweet){
+    tweet.numLikes.push(this.user.id);
+    this.tweetService.updateTweet(tweet);
+  }
+
+  disLike(tweet){
+    let whereLike = tweet.numLikes.indexOf(this.user.id);
+
+        if (whereLike != -1) {
+          tweet.numLikes.splice(whereLike, 1);
+          this.tweetService.updateTweet(tweet);
+        }
+  }
+
 }
 
