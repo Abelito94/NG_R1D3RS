@@ -5,17 +5,17 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { SignComponent } from './pages/sign/sign.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { OtherprofileComponent } from './pages/otherprofile/otherprofile.component';
 
 
 const routes: Routes = [
-  
+
   { path: '', redirectTo: '/sign', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'sign', component: SignComponent },
   { path: 'sign/up', component: SignupComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'sidebar', component: SidebarComponent}
-
+  { path: 'home/:username', component: OtherprofileComponent}
 ];
 
 @NgModule({

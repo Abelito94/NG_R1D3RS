@@ -1,6 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +17,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignComponent } from './pages/sign/sign.component';
 import { TweetAloneComponent } from './components/tweetAlone/tweet-alone/tweet-alone.component';
 import{ SidebarComponent } from './components/sidebar/sidebar.component';
+import { OtherprofileComponent } from './pages/otherprofile/otherprofile.component';
+import { OtherprofileUserComponent } from './components/otherprofile-user/otherprofile-user.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +30,16 @@ import{ SidebarComponent } from './components/sidebar/sidebar.component';
     SignComponent,
     TweetAloneComponent,
     SidebarComponent
+    OtherprofileComponent,
+    OtherprofileUserComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'cloudinaryapps', upload_preset: 'firstapp' }),
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

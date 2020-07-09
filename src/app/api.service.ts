@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,39 @@ export class APIService {
       .then(response => console.log(response.data))
       .catch(err => console.log(err))
   }
+
+  async gettweetsByUser(userID){
+    const res = await axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`)
+    return res.data
+  }
+
+  updateFollows(user){
+    return axios.put(`${this.URL}users/${user.id}`, user)
+      .then(response => response.data)
+  }
+
+  getFollowingTweets(arrUserID){
+    let promises = [];
+    let resultsTweets = [];
+    arrUserID.forEach(userID => {
+      promises.push(axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`));
+    })
+    return Promise.all(promises)
+    .then(responses => {
+      console.log(responses);
+      return responses;
+    })
+    /*.then(matrizTweets => {
+      
+      matrizTweets.forEach(arrayTweets => {
+        arrayTweets.data.forEach(tweets =>{
+          resultsTweets.push(tweets);
+          return resultsTweets;
+        })
+      });
+      
+    })*/
+  }
+
+ 
 }

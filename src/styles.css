@@ -2,9 +2,14 @@
 * {
   font-family: 'Montserrat', sans-serif;
 }
-
+*:focus{
+  outline: none;
+}
 .green{
   color: #1DF24C !important;
+}
+.red {
+  color: red;
 }
 .bg-green{
   background-color: #1DF24C;
@@ -40,7 +45,7 @@
 }
 .big-bold {
   font-weight: 800;
-  font-size: 32px;
+  font-size: 30px;
 }
 .s-medium {
   font-weight: 500;

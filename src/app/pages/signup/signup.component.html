@@ -1,68 +1,96 @@
 <app-sign></app-sign>
 
 <div id="bg" class="container-fluid fixed-top full-h bg-opacity overlay"></div>
-<div id="signUp" class="container fixed-top overlay ">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content round p-5">
-      <div class="modal-header">
-        <span class="modal-title big-bold text-dark" id="exampleModalLabel">Create your new account</span>
+<div id="signUp" class="container fixed-top overlay">
+  <div class="mt-5">
+    <div class="modal-content col-12 col-lg-8 round p-5 m-auto">
+      <span class="modal-title xl-bold text-dark" id="exampleModalLabel">
+        <i type="button" class="material-icons m-bold mr-2" (click)="back()" [hidden]="step===1">arrow_back</i>
+        <span>Step {{step}} of 3</span>
         <button type="button" class="close big-bold" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
+      </span>
+      <div class="modal-header mt-3 mb-2">
+        <span class="modal-title big-bold text-dark" id="exampleModalLabel">
+          <span [hidden]="step != 1">Create your new account</span>
+          <span [hidden]="step != 2">Choose your profile picture</span>
+          <span [hidden]="step != 3">What's your job?</span>
+
+        </span>
       </div>
-      <div class="modal-body">
-        <form class="form">
+      <div class="modal-body form-h">
+        <form id="step1" class="form" [hidden]="step != 1">
           <div class="form-group form-height">
             <input type="email" placeholder="Write your email" name="email" [(ngModel)]="email"
-            class="col-12 form-control-lg round bg-light shadow-sm" [class.border-error]="emailIsEmpty"
-            (keyup)="isValidEmail()">
+              class="col-12 form-control-lg round bg-light shadow-sm" [class.border-error]="emailIsEmpty"
+              (keyup)="isValidEmail()">
             <div class="m-3 s-bold valid" [hidden]="!emailIsValid">Looks good!</div>
             <div class="m-3 s-bold invalid" [hidden]="emailFormatValidation">
               Introduce a valid format like 'user@example.com'</div>
-              <div class="m-3 s-bold invalid" [hidden]="emailIsAvaible">
-                This email is already in use</div>
-                <div class="m-3 s-bold invalid" [hidden]="!emailIsEmpty">
-                  Please, complete that field</div>
-                </div>
+            <div class="m-3 s-bold invalid" [hidden]="emailIsAvaible">
+              This email is already in use</div>
+            <div class="m-3 s-bold invalid" [hidden]="!emailIsEmpty">
+              Please, complete that field</div>
+          </div>
           <div class="form-group form-height">
             <input type="text" placeholder="Choose a cool and original username" name="username" [(ngModel)]="username"
-            class="col-12 form-control-lg round bg-light shadow-sm is-valid" [class.border-error]="emailIsEmpty"
-            (keyup)="isValidUsername()">
+              class="col-12 form-control-lg round bg-light shadow-sm is-valid" [class.border-error]="emailIsEmpty"
+              (keyup)="isValidUsername()">
             <div class="m-3 s-bold valid" [hidden]="!usernameIsValid">Looks good!</div>
             <div class="m-3 s-bold invalid" [hidden]="usernameFormatValidation">
               Should be longer than 4</div>
-              <div class="m-3 s-bold invalid" [hidden]="usernameIsAvaible">
-                This username is already in use</div>
-                <div class="m-3 s-bold invalid" [hidden]="!usernameIsEmpty">
+            <div class="m-3 s-bold invalid" [hidden]="usernameIsAvaible">
+              This username is already in use</div>
+            <div class="m-3 s-bold invalid" [hidden]="!usernameIsEmpty">
               Please, complete that field</div>
-            </div>
+          </div>
           <div class="form-group form-height">
             <input type="password" placeholder="Your password here" name="password" [class.border-error]="emailIsEmpty"
-            [(ngModel)]="password" class="col-12 form-control-lg round bg-light shadow-sm"
-            (keyup)="isValidPassword()">
+              [(ngModel)]="password" class="col-12 form-control-lg round bg-light shadow-sm"
+              (keyup)="isValidPassword()">
             <div class="m-3 s-bold valid" [hidden]="!passwordIsValid">Looks good!</div>
             <div class="m-3 s-bold invalid" [hidden]="passwordFormatValidation">
               Should be longer than 8!</div>
-              <div class="m-3 s-bold invalid" [hidden]="!passwordIsEmpty">
-                Please, complete that field</div>
+            <div class="m-3 s-bold invalid" [hidden]="!passwordIsEmpty">
+              Please, complete that field</div>
           </div>
-          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
-            (click)="createUser()">Next</button>
-          <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green">Skip step</button>
-          <button type="button" class="btn-lg btn-light round big-btn float-right" (click)="close()">Close</button>
         </form>
-      </div>
+        <form id="step2" class="form" [hidden]="step != 2">
+          <label class="hoverable m-auto" for="fileInput">
+            <img
+              [src]="profilePictureURL ? profilePictureURL : 'https://katakrak.net/sites/default/files/default_images/default_profile_0.jpg'">
+            <i type="button" class="hover-text bg-light round p-3 material-icons big-bold p-2"
+              (click)="deleteTag(tag)">add</i>
+          </label>
+          <input id="fileInput" type="file" (change)="chargeImg($event)" #fileInput ng2FileSelect [uploader]="uploader">
+        </form>
+        <form id="step3" class="form" [hidden]="step != 3">
+          <div class="form-group">
+              <input type="text" placeholder="Example: developer" name="tags" [(ngModel)]="tag"
+              class="col-10 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
+              <button type="button" class="col-2 btn-lg btn-dark round m-bold" (click)="addTag()">Add</button>
+            </div>
+          </form>
+            <span *ngFor="let tag of tags" class="d-inline-block text-white bg-dark round s-bold pl-5 pr-3 pb-3 pt-2 mr-4 mb-4">
+              <span>{{tag}}</span>
+              <i type="button" class="material-icons m-bold p-1 pl-3" (click)="deleteTag(tag)">close</i>
+            </span>
+              <div class="red s-bold ml-3" [hidden]="!tagsMaxcount">Máx. 4 tags</div>
+        </div>
       <div class="modal-footer">
+        <button type="button" class="btn-lg btn-light round big-btn float-right" (click)="close()">Close</button>
+        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green" (click)="validateForm()"
+          [hidden]="step != 1">Next</button>
+        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green"
+          (click)="setProfilePicture()" [hidden]="step != 2">
+          <span [hidden]="profilePictureURL">Skip step</span>
+          <span [hidden]="!profilePictureURL">Next</span>
+        </button>
+        <button type="button" class="btn-lg btn-warning round big-btn float-right bg-green" [hidden]="step != 3"
+          (click)="createUser()">Create</button>
+
       </div>
     </div>
   </div>
 </div>
-
-<!-- <label class="hoverable" for="fileInput">
-  <img
-  [src]="profileUrl ? profileUrl : 'https://cdn1.iconfinder.com/data/icons/rounded-black-basic-ui/139/Photo_Add-RoundedBlack-512.png'">
-  <div class="hover-text">Choose file</div>
-  <div class="background"></div>
-</label>
-<br />
-<input id="fileInput" type="file" (change)="onSelectFile($event)"> -->

@@ -9,6 +9,10 @@ outline: 0px !important;
   background-color: black;
   opacity: 75%;
 }
+.form-h{
+  height: 250px;
+  flex-wrap: wrap ;
+}
 .valid {
   color: green !important;
 }
@@ -22,14 +26,12 @@ outline: 0px !important;
   border-radius: 50px;
   border: 0px;
 }
-#calltoaction {
-  height: 45px;
-  padding-left: 25px;
-}
+
 /* //img */
 img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
   border-radius: 50%;
 }
 .hoverable{
@@ -42,30 +44,12 @@ img {
 }
 .hoverable .hover-text{
   position: absolute;
-  display: none;
-  top: 50%;
-  left:  50%;
-  transform: translate(-50%,-50%);
+  top: 70%;
+  left:  70%;
+  /* transform: translate(-50%,-50%); */
   z-index: 2;
 }
-.hoverable .background{
-  position: absolute;
-  display: none;
-  top: 0;
-  left:  0;
-  bottom: 0;
-  right: 0;
-  background-color:rgba(255, 255, 255, 0.5);
-  pointer-events: none;
-  border-radius: 50%;
-  z-index: 1;
-}
-.hoverable:hover .hover-text{
-  display: block;
-}
-.hoverable:hover .background{
-  display: block;
-}
+
 #fileInput{
   display: none;
 }
@@ -83,4 +67,8 @@ img {
   animation-name: overlay;
   animation-duration: .4s;
   animation-timing-function: ease-in;
+}
+.btn-link, .btn-link:hover {
+color: black;
+text-decoration-line: none !important;
 }

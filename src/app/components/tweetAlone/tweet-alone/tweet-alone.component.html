@@ -2,13 +2,14 @@
 <div class="card p-3" style="min-width: 540px;">
   <div class="row no-gutters">
     <div class="col-1">
-      <img [src]="user.profilePictureURL" alt="userimages" class="round d-inline card-img">
+      <img [src]="user.profilePictureURL" alt="userimages" class="round d-inline card-img" [routerLink]="'/home/' + user.username">
     </div>
     <div class="col-11">
       <div class="card-body p-0 px-3">
-        <span class="xm-bold">{{user.username}}</span>
-        <span class="m-medium ml-2">@{{user.username}} · </span> <span class="s-medium">{{tweet.creationDate}}</span>
+        <span class="xm-bold" [routerLink]="'/home/' + user.username">{{user.username}}</span>
+        <span class="m-medium ml-2" [routerLink]="'/home/' + user.username">@{{user.username}} · </span> <span class="s-medium">{{tweet.creationDate}}</span>
         <p class="card-text">{{ tweet.text }}</p>
+        <img [hidden]="!tweet.urlTweet" [src]="tweet.urlTweet" alt="imgTweet">
             <div class="footer">
               <p class="card-text">RETWEET {{ tweet.numRTs }} </p>
               <p class="card-text">FAVOURITE {{ tweet.numLikes }} </p>

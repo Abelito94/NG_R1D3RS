@@ -10,7 +10,19 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma'),
+      nodeResolve({jsnext: true, module: true}),
+      commonjs({
+        include: [
+        ...
+        'node_modules/@cloudinary/angular/**',
+        'node_modules/cloudinary-core/**',
+        ],
+        namedExports: {
+          'cloudinary-core/cloudinary-core-shrinkwrap': [ 'Cloudinary' ],
+          '@cloudinary/angular': [ 'CloudinaryModule', 'Cloudinary' ],
+        }
+      }),
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
@@ -27,6 +39,24 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    map: {
+      // Cloudinary lib
+      '@cloudinary/angular': 'npm:@cloudinary/angular-5.x',
+      'cloudinary-core': 'npm:cloudinary-core',
+
+    },
+    packages: {
+      ...
+      "@cloudinary/angular": {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      "cloudinary-core": {
+        main: 'cloudinary-jquery-file-upload.js',
+        defaultExtension: 'js'
+      }
+
+    }
   });
 };
