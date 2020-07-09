@@ -70,7 +70,7 @@ export class HomeComponent {
         this.tweetService.getAllTweets()
           .then(res => {
             res.forEach(element => {
-              element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment().format('LT')}`;
+              element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
             })
             console.log('segundo then');
             return res
