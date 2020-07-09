@@ -8,8 +8,8 @@ export class APIService {
   URL = 'http://localhost:3000/';
   constructor() { }
 
-  async getAllTweets(): Promise<any> {
-    const res = await axios.get(`${this.URL}tweets?_sort=creationDate&_order=desc&_page=1&_limit=50`)
+  async getAllTweets(page): Promise<any> {
+    const res = await axios.get(`${this.URL}tweets?_sort=creationDate&_order=desc&_page=${page}`)
     return res.data
   }
 
