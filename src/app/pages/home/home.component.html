@@ -50,19 +50,20 @@
           infinite-scroll 
           [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
           (scrolled)="onScrollDown($event)">
-
-          <app-tweet [tweets]="tweets"></app-tweet>
+          <app-tweet [tweets]="tweets" (notifyErase)="deleteTweet($event)"></app-tweet>
 
         </div>
 
         <!-- My Tweets -->
         <div class="tab-pane fade" id="mymeshh" role="tabpanel" aria-labelledby="follow-tab-classic">
-          <app-tweet [tweets]="myTweets"></app-tweet>
+
+          <app-tweet [tweets]="myTweets" (notifyErase)="deleteTweet($event)"></app-tweet>
+
         </div>
 
         <!-- Favs -->
         <div class="tab-pane fade" id="favs" role="tabpanel" aria-labelledby="contact-tab-classic">
-          <app-tweet [tweets]="followingtweets"></app-tweet>
+          <app-tweet [tweets]="followingtweets" (notifyErase)="deleteTweet($event)"></app-tweet>
         </div>
       </div>
     </div>
