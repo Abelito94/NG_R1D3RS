@@ -10,7 +10,8 @@ export class TweetAloneComponent implements OnInit {
   @Input() tweet;
   @Input() me;
   @Output() notifyErase = new EventEmitter<number>();
-
+  @Output() emitterLike = new EventEmitter();
+  @Output() emitterNoLike = new EventEmitter();
   user;
   expanded = false;
   ownUser;
@@ -31,5 +32,16 @@ export class TweetAloneComponent implements OnInit {
     } else {
       this.expanded = true;
     }
+  }
+  emitLike() {
+    console.log('like');
+    this.emitterLike.emit(this.tweet);
+  }
+
+
+  emitNoLike() {
+    console.log('dislike');
+
+    this.emitterNoLike.emit(this.tweet);
   }
 }

@@ -8,7 +8,7 @@ type Tweet = {
   userID: any;
   text: string;
   creationDate: string;
-  numLikes: number;
+  numLikes: Array<number>;
   numRTs: number;
   urlTweet: string
 }
@@ -43,7 +43,7 @@ export class HomeComponent {
       userID: this.user.id,
       text: tweetInfo.text,
       creationDate: moment().format(),
-      numLikes: 0,
+      numLikes: [],
       numRTs: 0,
       urlTweet: tweetInfo.imgUrl || ""
     }
@@ -132,12 +132,25 @@ export class HomeComponent {
     res.forEach(element => {
       element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
     })
-
     this.tweets.push(...res)
     console.log(res)
     console.log(this.tweets);
     return res
-
   }
+
+  like(tweet) {
+    tweet.numLikes.push(this.user.id);
+    this.tweetService.updateTweet(tweet);
+  }
+
+  disLike(tweet) {
+    let whereLike = tweet.numLikes.indexOf(this.user.id);
+
+    if (whereLike != -1) {
+      tweet.numLikes.splice(whereLike, 1);
+      this.tweetService.updateTweet(tweet);
+    }
+  }
+
 }
 

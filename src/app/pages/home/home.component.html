@@ -60,20 +60,20 @@
         <div class="tab-pane fade active show mt-2" id="alltweets" role="tabpanel" aria-labelledby="profile-tab-classic"
           infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
           (scrolled)="onScrollDown($event)">
-          <app-tweet [tweets]="tweets" (notifyErase)="deleteTweet($event)"></app-tweet>
+          <app-tweet [tweets]="tweets" (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)" (remitterNoLike)="disLike($event)"></app-tweet>
 
         </div>
 
         <!-- My Tweets -->
         <div class="tab-pane fade mt-2" id="mymeshh" role="tabpanel" aria-labelledby="follow-tab-classic">
 
-          <app-tweet [tweets]="myTweets" (notifyErase)="deleteTweet($event)"></app-tweet>
+          <app-tweet [tweets]="myTweets" (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)" (remitterNoLike)="disLike($event)"></app-tweet>
 
         </div>
 
         <!-- Favs -->
         <div class="tab-pane fade mt-2" id="favs" role="tabpanel" aria-labelledby="contact-tab-classic">
-          <app-tweet [tweets]="followingtweets" (notifyErase)="deleteTweet($event)"></app-tweet>
+          <app-tweet [tweets]="followingtweets" (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)" (remitterNoLike)="disLike($event)"></app-tweet>
         </div>
       </div>
     </div>

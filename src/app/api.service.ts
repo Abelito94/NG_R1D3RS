@@ -36,7 +36,7 @@ export class APIService {
       .catch(err => console.log(err))
   }
   async createTweet(tweet) {
-    const res = await axios.post(`${this.URL}tweets`,tweet)
+    const res = await axios.post(`${this.URL}tweets`, tweet)
     return res.data
   }
   createUser(newUser): Promise<any> {
@@ -45,30 +45,33 @@ export class APIService {
       .catch(err => console.log(err))
   }
 
-  async gettweetsByUser(userID){
+  async gettweetsByUser(userID) {
     const res = await axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`)
     return res.data
   }
 
-  updateFollows(user){
+  updateFollows(user) {
     return axios.put(`${this.URL}users/${user.id}`, user)
       .then(response => response.data)
   }
 
-  getFollowingTweets(arrUserID){
+  getFollowingTweets(arrUserID) {
     let promises = [];
     let resultsTweets = [];
     arrUserID.forEach(userID => {
       promises.push(axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`));
     })
     return Promise.all(promises)
-    .then(responses => {
-      return responses;
-    })
+      .then(responses => {
+        return responses;
+      })
   }
-  eraseTweet(tweetId){
+  eraseTweet(tweetId) {
     return axios.delete(`${this.URL}tweets/${tweetId}`)
       .then(response => response.data);
   }
-
+  updateTweet(tweet) {
+    return axios.put(`${this.URL}tweets/${tweet.id}`, tweet)
+      .then(response => response.data)
+  }
 }
