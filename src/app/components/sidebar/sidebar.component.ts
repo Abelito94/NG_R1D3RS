@@ -37,14 +37,16 @@ export class SidebarComponent {
       text: this.text,
       imgUrl: ''
     }
-    console.log(this.responses);
     if (this.responses.length !== 0) {
       tweetInfo.imgUrl = this.responses[0].data.url
     }
-
-    this.propagar.emit(tweetInfo)
-    this.text = '';
-    this.responses = [];
+    if (this.text.length > 0 && this.text.length < 141) {
+      this.propagar.emit(tweetInfo)
+      this.text = '';
+      this.responses = [];
+      this.mainText = '';
+      this.extra = '';
+    }
   }
 
   muchoTexto() {
@@ -188,5 +190,11 @@ export class SidebarComponent {
       this.responses.splice(index, 1);
     });
   };
+  autogrow() {
+    let textArea = document.getElementById("textarea")
+    textArea.style.overflow = 'hidden';
+    textArea.style.height = '0px';
+    textArea.style.height = textArea.scrollHeight + 'px';
+  }
 }
 
