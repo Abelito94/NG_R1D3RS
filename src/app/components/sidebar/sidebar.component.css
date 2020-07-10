@@ -35,22 +35,36 @@
 textarea, textarea:focus {
   background: transparent;
 }
-.content-padding {
-  margin-left: 9px;
-  margin-right: 13px;
-}
-#textarea {
-  transform: translate(0,-122px);
+
+#extra {
+  margin-left: 2px;
+  margin-top: 2px;
+  padding-right: 2px;
 }
 
-.fix-h{
-  height: 120px;
-}
-.extra {
+.invalid-extra {
   background-color: rgb(255, 184, 194);
   color: rgb(255, 184, 194);
-  margin-left: -2px;
-  margin-right: 2px;
 }
 
+.cover-img {
+    object-fit: cover;
+}
+.expanded {
+  height: auto;
+}
+.max-h {
+  height: 200px;
+}
+.font {
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: large;
+  letter-spacing: 1px;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 

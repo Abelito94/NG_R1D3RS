@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
-  tags: string[] = ["hello","prueba","esteeslargoparaver", "yunocortito"];
+  tags: string[] = [];
   profilePictureURL;
   newUser: object = {};
   tag: string = '';
@@ -238,9 +238,11 @@ export class SignupComponent implements OnInit {
         following: [],
         followers: [],
       };
-      this.APIService.createUser(this.newUser);
-      localStorage.setItem('user', JSON.stringify(this.newUser));
-      this.router.navigate(['home']);
+      this.APIService.createUser(this.newUser)
+        .then(() => {
+          localStorage.setItem('user', JSON.stringify(this.newUser));
+          this.router.navigate(['home']);
+        })
     } else {
       this.step = 1;
     }

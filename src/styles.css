@@ -104,3 +104,9 @@ button:focus,button:active {
     margin-top: -40px;
     border: 5px solid white;
 }
+
+.btn-disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: default !important;
+}

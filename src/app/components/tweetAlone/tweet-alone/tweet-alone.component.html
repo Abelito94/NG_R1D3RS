@@ -8,8 +8,8 @@
       <div class="card-body p-0 px-3">
         <span class="xm-bold" [routerLink]="'/home/' + user.username">{{user.username}}</span>
         <span class="m-medium ml-2" [routerLink]="'/home/' + user.username">@{{user.username}} · </span> <span class="s-medium">{{tweet.creationDate}}</span>
-        <p class="card-text p-1">{{ tweet.text }}</p>
-        <img [hidden]="!tweet.urlTweet" [src]="tweet.urlTweet" alt="imgTweet" class="w-100 rounded mx-auto mb-4 cover" height="300px">
+        <p class="card-text">{{ tweet.text }}</p>
+        <img [hidden]="!tweet.urlTweet" [src]="tweet.urlTweet" alt="imgTweet" class="btn w-100 rounded mx-auto mb-2 cover" [class.max-h]="!expanded" [class.expand]="expanded" (click)="expandImage()">
             <div class="footer">
               <p class="card-text">RETWEET {{ tweet.numRTs }} </p>
               <p class="card-text">FAVOURITE {{ tweet.numLikes }} </p>
@@ -26,7 +26,7 @@
           <button class="dropdown-item" (click)="eraseFromChild()">Eliminar</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 

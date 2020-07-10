@@ -9,10 +9,12 @@ import { APIService } from '../../../api.service';
 export class TweetAloneComponent implements OnInit{
   @Input() tweet;
   @Input() me;
-  user;
-  ownUser;
-  //userID: string = this.tweet.userID
   @Output() notifyErase = new EventEmitter<number>();
+  
+  user;
+  expanded = false;
+  ownUser;
+
 
   constructor(private tweetService: APIService) {}
 
@@ -24,6 +26,11 @@ export class TweetAloneComponent implements OnInit{
   eraseFromChild(){
     this.notifyErase.emit(this.tweet.id);
   }
-
-
+  expandImage() {
+    if (this.expanded) {
+      this.expanded = false;
+    } else {
+      this.expanded = true;
+    }
+  }
 }

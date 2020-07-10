@@ -25,6 +25,7 @@ export class HomeComponent {
   followingtweets: any[] = [];
   user
   text: string = '';
+  expanded = false;
 
   //Infinity Scroll
   throttle = 300;

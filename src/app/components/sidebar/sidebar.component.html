@@ -15,21 +15,19 @@
     </div>
 
   </div>
-      <div class="row p-0 m-0 py-2 px-4">
-        <div *ngFor="let tag of myuser.tags" class="text-white bg-dark round s-bold px-3 py-2 ml-3 mb-2">
-          <span class="mb-5">{{tag}}</span>
-        </div>
-      </div>
-</div>
-
-<div class="col-10 m-auto card round border-green p-4">
-  <form class=" fix-h ">
-    <div id=" extra" class="fix-h text-white m-bold m-0 px-1">{{mainText}}<em class="extra">{{extra}}</em>
+  <div class="row p-0 m-0 py-2 px-4">
+    <div *ngFor="let tag of myuser.tags" class="text-white bg-dark round s-bold px-3 py-2 ml-3 mb-2">
+      <span class="mb-5">{{tag}}</span>
     </div>
-    <textarea id="textarea" [(ngModel)]="text" name="text" class="fix-h m-bold reset-txtarea w-100 overlay"
-      maxlength="200" (ngModelChange)="muchoTexto()" placeholder="What's new?">{{text}}</textarea>
+  </div>
+</div>
+<div class="col-10 m-auto card round border-green p-4">
+  <form class="position-relative">
+    <textarea id="textarea" [(ngModel)]="text" name="text" class="font position-absolute reset-txtarea w-100 overlay"
+    maxlength="200" (ngModelChange)="muchoTexto()" (ngModelChange)="autogrow()" placeholder="What's new?">{{text}}</textarea>
+    <pre id="extra" class="font">{{mainText}}<pre class="d-inline font invalid-extra">{{extra}}</pre>
+    </pre>
   </form>
-
   <div class="file" *ngFor="let response of responses; let i = index">
     <button class="btn position-absolute m-2" *ngIf="response.data.delete_token"
       (click)="deleteImage(response.data, i)"><svg width="2.2em" height="2.2em" viewBox="0 0 16 16"
@@ -37,10 +35,11 @@
         <path fill-rule="evenodd"
           d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
       </svg></button>
-    <img [src]="response.data.url" class="w-100 rounded mx-auto mb-4 cover" height="300px" alt="">
+    <img [src]="response.data.url" class="btn w-100 rounded mx-auto mb-2 cover-img" alt="" [class.max-h]="!expanded"
+      [class.expand]="expanded" (click)="expandImage()">
   </div>
 
-  <div class="d-flex">
+  <div class="d-flex align-items-center">
     <input type="file" id="fileupload" #fileInput ng2FileSelect [style.display]="'none'" [uploader]="uploader"
       (change)="fileInput.value=''" multiple />
     <label class="btn green round py-0 xl-bold" for="fileupload">
@@ -52,7 +51,10 @@
     </label>
 
     <span class="ml-auto">
-      <span class="m-bold m-4">{{text.length}} / 140</span>
-      <button class="btn-lg round big-btn bg-green my-2 my-sm-0" type="button" (click)="createTweet()">Publishh</button>
+      <span class="m-bold mr-1" [class.red]="text.length > 140">{{text.length}}</span><span class="m-bold mr-4">/
+        140</span>
+      <button class="btn round big-btn bg-green" type="button" [class.btn-disabled]="text.length > 140" (click)="createTweet()">Publishh</button>
     </span>
   </div>
+</div>
+
