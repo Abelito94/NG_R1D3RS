@@ -4,9 +4,9 @@
 }
 
 .footer {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
 }
 
 .round {
@@ -15,7 +15,7 @@
 }
 .card {
   margin-bottom: -1px;
-  border-radius: 0px;
+  border-radius: 20px;
 }
 
 .card-img{

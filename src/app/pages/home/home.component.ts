@@ -51,6 +51,12 @@ export class HomeComponent {
       .then(res => console.log(res))
       .then(() => {
         this.tweetService.getAllTweets(1)
+          .then(res => {
+            res.forEach(element => {
+              element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
+            })
+            return res
+          })
           .then(res => this.tweets = res)
           .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
           .catch(err => console.log(err))
@@ -123,6 +129,10 @@ export class HomeComponent {
 
   async generateTweet() {
     var res = await this.tweetService.getAllTweets(this.sum)
+    res.forEach(element => {
+      element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
+    })
+
     this.tweets.push(...res)
     console.log(res)
     console.log(this.tweets);

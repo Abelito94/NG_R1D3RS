@@ -17,24 +17,19 @@
     <div class="col-12 col-lg-5 d-none d-lg-block p-0">
       <div class="sticky">
         <app-sidebar [myuser]="user" (propagar)="createTweet($event)"></app-sidebar>
-
         <div class="col-12 text-center mt-5">
-
           <button class="round bg-ligth s-bold border-green py-2 px-4" (click)="logout()">
             Logout
           </button>
         </div>
       </div>
     </div>
-    <div class="col col-lg-6 bg-white max-w p-0 mt-4">
 
+    <div class="col col-lg-6 bg-white max-w p-0 mt-4">
       <app-otherprofile-user [user]="profileUser" (emitterFollows)="addFollows($event)"
         (emitterNotFollows)="deleteFollows($event)"></app-otherprofile-user>
-
       <app-tweet [tweets]="otherTweets"></app-tweet>
-
-
-
     </div>
+
   </div>
 </div>

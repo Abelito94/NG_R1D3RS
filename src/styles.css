@@ -110,3 +110,6 @@ button:focus,button:active {
   color: #666666 !important;
   cursor: default !important;
 }
+.clickable {
+  cursor: pointer;
+}

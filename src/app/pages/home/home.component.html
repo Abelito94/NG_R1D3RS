@@ -1,54 +1,64 @@
 <div class="container">
   <nav class="row navbar-sm navbar-light fixed-top text-dark m-0 justify-content-center index-up">
     <div class="col-lg-5">
-      <button id="brand" routerLink="/home" class="btn col-12 col-lg-5 xl-bold green py-2">FRESHH</button>
-      <input class="col-12 col-lg-6 round border p-2 pl-3" type="search" placeholder="Search about topics"
-        maxlength="20" aria-label="Search">
+      <span id="brand" routerLink="/home" class="btn col-12 col-lg-5 xl-bold green py-2">FRESHH</span>
+      <!-- <input class="col-12 col-lg-6 round border p-2 pl-3" type="search" placeholder="Search about topics"
+        maxlength="20" aria-label="Search"> -->
+
+
     </div>
-    <!-- Navtabs -->
-    <div class="tab-nav  h-100 col-12 col-lg-6 bg-white border">
-      <ul class="nav nav-fill" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link w-100 active show s-bold" id="profile-tab-classic" data-toggle="tab" href="#alltweets"
-            role="tab" aria-controls="alltweets" aria-selected="true">ON LIVE</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link w-100 s-bold" data-toggle="tab" href="#mymeshh" role="tab" aria-controls="mymeshh"
-            aria-selected="false">MY MESHH</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link w-100 s-bold" data-toggle="tab" href="#favs" role="tab" aria-controls="favs"
-            aria-selected="false">FOLLOWING</a>
-        </li>
-      </ul>
+    <div class="tab-nav col-10 col-lg-6 text-right">
+      <!-- Navtabs -->
+      <div class="pt-1 sticky overlay bg-light menu-round">
+        <div class="tab-nav col-10 col-lg-12 bg-dark mt-1 round" style="min-width: 450px; max-width: 700px;">
+          <ul class="nav nav-fill" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link w-100 active show s-bold text-white" id="profile-tab-classic" data-toggle="tab"
+                href="#alltweets" role="tab" aria-controls="alltweets" aria-selected="true">
+                <div class="circle d-inline-block mr-2"></div> ON LIVE
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link w-100 s-bold text-white" data-toggle="tab" href="#mymeshh" role="tab"
+                aria-controls="mymeshh" aria-selected="false">MY MESHH</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link w-100 s-bold text-white" data-toggle="tab" href="#favs" role="tab" aria-controls="favs"
+                aria-selected="false">FOLLOWING</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </nav>
 
 </div>
 
-<div class="container-flex justify-self-space bg-light pt-5">
+<div class="container-flex full-height justify-self-space bg-light pt-5">
   <div class="row m-0 justify-content-center">
 
     <div class="col-12 col-lg-5 d-none d-lg-block p-0">
       <div class="sticky">
         <app-sidebar [myuser]="user" (propagar)="createTweet($event)"></app-sidebar>
 
-        <div class="col-12 text-center mt-5">
+      <div class="col-12 text-center mt-5">
 
-          <button class="round bg-ligth s-bold border-green py-2 px-4" (click)="logout()">
-            Logout
-          </button>
-        </div>
+        <button class="round bg-ligth s-bold border-green py-2 px-4" (click)="logout()">
+          Logout
+        </button>
+      </div>
+
       </div>
     </div>
-    <div class="col col-lg-6 max-w p-0 mt-n1">
+    <div class="col col-lg-6 max-w p-0 mt-2">
+
       <!-- All Tweets -->
 
-      <div class="tab-content col-10 col-lg-12 m-auto p-0" id="myClassicTabContent">
+      <div class="tab-content col-10 col-lg-11 m-auto p-0" id="myClassicTabContent">
 
         <div class="tab-pane fade active show mt-2" id="alltweets" role="tabpanel" aria-labelledby="profile-tab-classic"
-          infinite-scroll
-          [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+          infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
           (scrolled)="onScrollDown($event)">
           <app-tweet [tweets]="tweets" (notifyErase)="deleteTweet($event)"></app-tweet>
 
