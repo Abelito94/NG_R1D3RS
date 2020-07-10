@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { APIService } from '../../../api.service';
 
 @Component({
@@ -9,20 +9,22 @@ import { APIService } from '../../../api.service';
 export class TweetAloneComponent implements OnInit{
   @Input() tweet;
   @Input() me;
+  @Output() notifyErase = new EventEmitter<number>();
+  
   user;
   expanded = false;
+  ownUser;
 
-  //userID: string = this.tweet.userID
-  // @Output() notifyErase = new EventErase();
 
   constructor(private tweetService: APIService) {}
 
   async ngOnInit(){
     this.user = await this.tweetService.getUserById(this.tweet.userID);
+    this.ownUser = JSON.parse(localStorage.getItem('user'));
   }
 
-  erase(){
-    // this.notifyErase();
+  eraseFromChild(){
+    this.notifyErase.emit(this.tweet.id);
   }
   expandImage() {
     if (this.expanded) {

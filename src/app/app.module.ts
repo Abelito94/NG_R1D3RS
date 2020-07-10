@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
@@ -37,6 +38,7 @@ import { OtherprofileUserComponent } from './components/otherprofile-user/otherp
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    InfiniteScrollModule,
     FormsModule,
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'cloudinaryapps', upload_preset: 'firstapp' }),
     FileUploadModule
