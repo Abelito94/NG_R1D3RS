@@ -13017,6 +13017,21 @@
       "following": [],
       "followers": [],
       "id": 1000
+    },
+    {
+      "username": "stark92",
+      "name": "stark92",
+      "email": "stark@hotmail.com",
+      "password": "1234567890",
+      "tags": [
+        "front-end"
+      ],
+      "profilePictureURL": "https://katakrak.net/sites/default/files/default_images/default_profile_0.jpg",
+      "gender": "",
+      "profileCoverURL": "http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i",
+      "following": [],
+      "followers": [],
+      "id": 1001
     }
   ],
   "tweets": [
@@ -53019,6 +53034,50 @@
       "creationDate": "2018-09-10T03:11:36.449Z",
       "numLikes": [],
       "numRTs": []
+    },
+    {
+      "userID": 1001,
+      "text": "Holaaaaa",
+      "creationDate": "2020-07-13T15:47:57+01:00",
+      "numLikes": [],
+      "numRTs": 0,
+      "urlTweet": "",
+      "id": 5000
+    },
+    {
+      "userID": 1001,
+      "id": 5001,
+      "text": "eeeey",
+      "creationDate": "2020-07-13T15:48:07+01:00",
+      "numLikes": [],
+      "numRTs": 0
+    },
+    {
+      "userID": 1001,
+      "id": 5002,
+      "text": "a",
+      "creationDate": "2020-07-13T15:48:19+01:00",
+      "numLikes": [],
+      "numRTs": 0
+    },
+    {
+      "userID": 1001,
+      "id": 5003,
+      "text": "ssss",
+      "creationDate": "2020-07-13T15:49:15+01:00",
+      "numLikes": [],
+      "numRTs": 0
+    },
+    {
+      "userID": 1000,
+      "id": 5004,
+      "text": "hoaaa",
+      "creationDate": "2020-07-13T15:53:24+01:00",
+      "urlTweet": "http://res.cloudinary.com/cloudinaryapps/image/upload/v1594652004/Assets/fmddzox1uulrvehdnrhb.png",
+      "numLikes": [
+        1000
+      ],
+      "numRTs": 0
     }
   ]
 }

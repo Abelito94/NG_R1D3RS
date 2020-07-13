@@ -149,6 +149,7 @@ export class HomeComponent {
             id: tweet.id,
             text: tweet.text,
             creationDate: resp.creationDate,
+            urlTweet: tweet.urlTweet,
             numLikes: tweet.numLikes,
             numRTs: tweet.numRTs
           }
@@ -172,6 +173,7 @@ export class HomeComponent {
               id: tweet.id,
               text: tweet.text,
               creationDate: resp.creationDate,
+              urlTweet: tweet.urlTweet,
               numLikes: tweet.numLikes,
               numRTs: tweet.numRTs
             }
