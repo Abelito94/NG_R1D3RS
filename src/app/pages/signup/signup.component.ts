@@ -234,7 +234,7 @@ export class SignupComponent implements OnInit {
         tags: this.tags,
         profilePictureURL: this.profilePictureURL,
         gender: '',
-        profileCoverURL: "http://images.firstcovers.com/covers/g/green_abstract-3733.jpg?i",
+        profileCoverURL: "https://get.wallhere.com/photo/soft-gradient-solid-color-gradient-1537167.jpg",
         following: [],
         followers: [],
       };
