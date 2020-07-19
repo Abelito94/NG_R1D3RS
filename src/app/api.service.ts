@@ -45,8 +45,8 @@ export class APIService {
       .catch(err => console.log(err))
   }
 
-  async gettweetsByUser(userID) {
-    const res = await axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`)
+  async gettweetsByUser(page, userID) {
+    const res = await axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=${page}`)
     return res.data
   }
 
@@ -55,11 +55,10 @@ export class APIService {
       .then(response => response.data)
   }
 
-  getFollowingTweets(arrUserID) {
+  getFollowingTweets(arrUserID, pageFollowing) {
     let promises = [];
-    let resultsTweets = [];
     arrUserID.forEach(userID => {
-      promises.push(axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=1&_limit=50`));
+      promises.push(axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=${pageFollowing}`));
     })
     return Promise.all(promises)
       .then(responses => {

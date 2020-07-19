@@ -7,8 +7,8 @@ type Tweet = {
   userID: any;
   text: string;
   creationDate: string;
-  numLikes: number;
-  numRTs: number;
+  numLikes: Array<number>;
+  numRTs: Array<number>;
   urlTweet: string
 }
 
@@ -26,6 +26,14 @@ export class OtherprofileComponent implements OnInit {
   following = [];
   user = JSON.parse(localStorage.getItem('user'))
 
+  //Infinity Scroll
+  throttle = 300;
+  scrollDistance = 1;
+  direction = '';
+  modalOpen = false;
+  page = 1
+  end = false
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -39,7 +47,7 @@ export class OtherprofileComponent implements OnInit {
       .then(res => {
         this.profileUser = res[0];
 
-        this.dataService.gettweetsByUser(this.profileUser.id)
+        this.dataService.gettweetsByUser(this.page, this.profileUser.id)
           .then(res => {
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
@@ -57,8 +65,8 @@ export class OtherprofileComponent implements OnInit {
       userID: this.user.id,
       text: tweetInfo.text,
       creationDate: moment().format(),
-      numLikes: 0,
-      numRTs: 0,
+      numLikes: [],
+      numRTs: [],
       urlTweet: tweetInfo.imgUrl || ""
     }
     this.dataService.createTweet(newtweet)
@@ -140,8 +148,27 @@ export class OtherprofileComponent implements OnInit {
       })
   }
 
+  onScrollDown(ev) {
+    this.page++
+    this.direction = 'down'
+    this.generateTweet();
+  }
+
+  async generateTweet() {
+    var res = await this.dataService.gettweetsByUser(this.page, this.profileUser.id)
+    res.forEach(element => {
+      element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
+    })
+    if(res.length != 0) {
+      this.otherTweets.push(...res)
+    }else {
+      this.end = true
+    }
+    return res
+  }
+
   async like(tweet) {
-    await this.dataService.gettweetsByUser(tweet.userID)
+    await this.dataService.gettweetsByUser(this.page, tweet.userID)
     .then( response =>{
       response.forEach(resp =>{
         if(resp.id == tweet.id){
@@ -163,7 +190,7 @@ export class OtherprofileComponent implements OnInit {
   }
 
   async disLike(tweet) {
-    await this.dataService.gettweetsByUser(tweet.userID)
+    await this.dataService.gettweetsByUser(this.page, tweet.userID)
     .then( response =>{
       response.forEach(resp =>{
         if(resp.id == tweet.id){
