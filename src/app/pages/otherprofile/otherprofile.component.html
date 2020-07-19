@@ -28,7 +28,7 @@
     <div class="col col-lg-6 bg-white max-w p-0 mt-4">
       <app-otherprofile-user [user]="profileUser" (emitterFollows)="addFollows($event)"
         (emitterNotFollows)="deleteFollows($event)"></app-otherprofile-user>
-      <app-tweet [tweets]="otherTweets"></app-tweet>
+      <app-tweet [tweets]="otherTweets" (remitterLike)="like($event)" (remitterNoLike)="disLike($event)"></app-tweet>
     </div>
 
   </div>
