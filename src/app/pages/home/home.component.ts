@@ -32,7 +32,7 @@ export class HomeComponent {
   scrollDistance = 1;
   direction = '';
   modalOpen = false;
-  sum = 1
+  page = 1
 
 
   constructor(private tweetService: APIService, private router: Router) {
@@ -79,7 +79,7 @@ export class HomeComponent {
         localStorage.setItem('user', JSON.stringify(fullUser[0]))
       })
       .then(() => {
-        this.tweetService.getAllTweets(this.sum)
+        this.tweetService.getAllTweets(this.page)
           .then(res => {
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
@@ -121,20 +121,17 @@ export class HomeComponent {
   //infinityScroll
 
   onScrollDown(ev) {
-    console.log('scrolled down!!', ev);
-    this.sum++
+    this.page++
     this.direction = 'down'
     this.generateTweet();
   }
 
   async generateTweet() {
-    var res = await this.tweetService.getAllTweets(this.sum)
+    var res = await this.tweetService.getAllTweets(this.page)
     res.forEach(element => {
       element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
     })
     this.tweets.push(...res)
-    console.log(res)
-    console.log(this.tweets);
     return res
   }
 
