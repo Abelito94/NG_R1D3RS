@@ -1,0 +1,54 @@
+<div class="max-h">
+<app-home></app-home>
+
+<div id="bg" class="container-fluid fixed-top full-h bg-opacity overlay z-index"></div>
+<div id="edit" class="container fixed-top overlay z-index">
+  
+    <div class="modal-content col-12 col-lg-8 round p-5 mx-auto mt-5">
+      <div class="modal-title xl-bold text-dark text-center" id="exampleModalLabel">
+        
+        <button type="button" class="close big-bold float-left" routerLink="/home">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <span class="m-auto">Edit Profile</span>
+        <button type="button" class="float-right bg-green btn-lg round m-bold" (click)="updateUser()">Save</button>
+        
+    </div>
+      
+      <div class="modal-body form-h mt-4">
+        <form id="step2" class="form">
+
+            <label class="coverable" for="coverInput">
+                <img [src]="localUser.profileCoverURL">
+                <i type="button" class="cover-text p-3 material-icons big-bold p-2 ">photo_camera</i>
+            </label>
+            <input id="coverInput" type="file" (change)="chargeCover($event)" #coverInput ng2FileSelect [uploader]="uploader">
+          
+            <label class="hoverable" for="fileInput">
+            <img
+              [src]="localUser.profilePictureURL">
+            <i type="button" class="hover-text p-3 material-icons big-bold p-2 text-white">photo_camera</i>
+          </label>
+          <input id="fileInput" type="file" (change)="chargeImg($event)" #fileInput ng2FileSelect [uploader]="uploader">
+       
+          <div class="form-group">
+              <input type="text" placeholder="Example: developer" name="tags" [(ngModel)]="tag"
+              class="col-10 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
+              <button type="button" class="col-2 btn-lg btn-dark round m-bold" (click)="addTag()">Add</button>
+            </div>
+            <span *ngFor="let tag of tags" class="d-inline-block text-white bg-dark round s-bold pl-5 pr-3 pb-3 pt-2 mr-4 mb-4">
+              <span>{{tag}}</span>
+              <i type="button" class="material-icons m-bold p-1 pl-3" (click)="deleteTag(tag)">close</i>
+            </span>
+              <div class="red s-bold ml-3" [hidden]="!tagsMaxcount">Máx. 4 tags</div>
+          </form>
+
+          
+        </div>
+
+        
+      
+    </div>
+  
+</div>
+</div>
