@@ -73,4 +73,13 @@ export class APIService {
     return axios.put(`${this.URL}tweets/${tweet.id}`, tweet)
       .then(response => response.data)
   }
+  updateUser(userID,newData){
+    //console.log(newData);
+    return axios.patch(`${this.URL}users/${userID}`, newData)
+    .then(response => {
+      //console.log(response.data)
+      response.data
+
+    })
+  }
 }
