@@ -21,6 +21,8 @@ import{ SidebarComponent } from './components/sidebar/sidebar.component';
 import { OtherprofileComponent } from './pages/otherprofile/otherprofile.component';
 import { OtherprofileUserComponent } from './components/otherprofile-user/otherprofile-user.component';
 import { EditComponent } from './edit/edit.component';
+import { HomeMyTweetsComponent } from './pages/home-my-tweets/home-my-tweets.component';
+import { HomeFollowingTweetsComponent } from './pages/home-following-tweets/home-following-tweets.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { EditComponent } from './edit/edit.component';
     SidebarComponent,
     OtherprofileComponent,
     OtherprofileUserComponent,
-    EditComponent
+    EditComponent,
+    HomeMyTweetsComponent,
+    HomeFollowingTweetsComponent
   ],
   imports: [
     BrowserModule,
