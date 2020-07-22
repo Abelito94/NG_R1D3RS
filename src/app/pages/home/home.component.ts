@@ -95,7 +95,7 @@ export class HomeComponent {
             //my tweets
             this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
             //my following tweets
-            this.tweetService.getFollowingTweets(this.user.following, this.pageFollowing)
+            this.tweetService.getFollowingTweets(this.user.following, this.page)
               .then(matrizTweets => {
                 matrizTweets.map(arrayTweets => {
                   arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
