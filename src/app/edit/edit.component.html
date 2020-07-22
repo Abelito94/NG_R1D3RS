@@ -20,14 +20,14 @@
 
             <label class="coverable" for="coverInput">
                 <img [src]="localUser.profileCoverURL">
-                <i type="button" class="cover-text p-3 material-icons big-bold p-2 ">photo_camera</i>
+                <i type="button" class="btn cover-text p-3 material-icons big-bold p-2 ">photo_camera</i>
             </label>
             <input id="coverInput" type="file" (change)="chargeCover($event)" #coverInput ng2FileSelect [uploader]="uploader">
           
             <label class="hoverable" for="fileInput">
             <img
               [src]="localUser.profilePictureURL">
-            <i type="button" class="hover-text p-3 material-icons big-bold p-2 text-white">photo_camera</i>
+            <i type="button" class="btn hover-text p-3 material-icons big-bold p-2 text-white">photo_camera</i>
           </label>
           <input id="fileInput" type="file" (change)="chargeImg($event)" #fileInput ng2FileSelect [uploader]="uploader">
 
