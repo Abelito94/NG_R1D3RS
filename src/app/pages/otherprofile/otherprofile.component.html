@@ -25,11 +25,17 @@
       </div>
     </div>
 
-    <div class="col col-lg-6 bg-white max-w p-0 mt-4">
-      <app-otherprofile-user [user]="profileUser" (emitterFollows)="addFollows($event)"
-        (emitterNotFollows)="deleteFollows($event)"></app-otherprofile-user>
-      <app-tweet [tweets]="otherTweets" (remitterLike)="like($event)" (remitterNoLike)="disLike($event)"></app-tweet>
-    </div>
+    <div class="col col-lg-6 bg-white max-w p-0 mt-4" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown($event)">
 
+      <app-otherprofile-user [user]="profileUser" (emitterFollows)="addFollows($event)"
+        (emitterNotFollows)="deleteFollows($event)">
+      </app-otherprofile-user>
+      <app-tweet [tweets]="otherTweets" (remitterLike)="like($event)" (remitterNoLike)="disLike($event)">
+      </app-tweet>
+      <div [hidden]='!end' class="text-center my-5">
+        <p>Not more</p>
+      </div>
+    </div>
   </div>
 </div>

@@ -3,7 +3,6 @@ import { APIService } from '../../api.service'
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 
-
 type Tweet = {
   userID: any;
   text: string;
@@ -14,17 +13,13 @@ type Tweet = {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-home-my-tweets',
+  templateUrl: './home-my-tweets.component.html',
+  styleUrls: ['./home-my-tweets.component.css']
 })
+export class HomeMyTweetsComponent {
 
-
-export class HomeComponent {
-
-  tweets: any[] = []
   myTweets: any[]
-  followingtweets: any[] = [];
   user
   text: string = '';
   expanded = false;
@@ -35,6 +30,7 @@ export class HomeComponent {
   direction = '';
   modalOpen = false;
   page = 1
+  end = false
 
 
   constructor(private tweetService: APIService, private router: Router) {
@@ -59,7 +55,6 @@ export class HomeComponent {
             })
             return res
           })
-          .then(res => this.tweets = res)
           .then(res => this.myTweets = res.filter(tweet => tweet.userID === this.user.id))
           .catch(err => console.log(err))
       })
@@ -81,42 +76,20 @@ export class HomeComponent {
         localStorage.setItem('user', JSON.stringify(fullUser[0]))
       })
       .then(() => {
-        this.tweetService.getAllTweets(this.page)
+        //my tweets
+        this.tweetService.gettweetsByUser(this.page, this.user.id)
           .then(res => {
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
             })
-            return res
+            this.myTweets = res
           })
-          .then(res => {
-            //all tweets
-            this.tweets = res;
-
-            //my tweets
-            this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
-            //my following tweets
-            this.tweetService.getFollowingTweets(this.user.following, this.page)
-              .then(matrizTweets => {
-                matrizTweets.map(arrayTweets => {
-                  arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
-                })
-                this.followingtweets.sort(function (a, b) {
-                  var dateA = new Date(a.creationDate).getTime();
-                  var dateB = new Date(b.creationDate).getTime();
-                  return dateA < dateB ? 1 : -1;
-                })
-                this.followingtweets.forEach(element => {
-                  element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
-                })
-              })
-          })
-          .catch(err => console.log(err))
       })
+      .catch(err => console.log(err))
   }
 
   deleteTweet(tweetId) {
     this.tweetService.eraseTweet(tweetId).then(() => {
-      this.tweets = this.tweets.filter(tweet => tweetId != tweet.id)
       this.myTweets = this.myTweets.filter(tweet => tweetId != tweet.id)
     })
   }
@@ -129,11 +102,15 @@ export class HomeComponent {
   }
 
   async generateTweet() {
-    var res = await this.tweetService.getAllTweets(this.page)
+    var res = await this.tweetService.gettweetsByUser(this.page, this.user.id)
     res.forEach(element => {
       element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
     })
-    this.tweets.push(...res)
+    if(res.length != 0){
+      this.myTweets.push(...res)
+    }else {
+      this.end = true
+    }
     return res
   }
 
@@ -184,4 +161,3 @@ export class HomeComponent {
   }
 
 }
-

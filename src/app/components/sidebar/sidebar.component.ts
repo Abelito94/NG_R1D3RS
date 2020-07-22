@@ -25,6 +25,9 @@ export class SidebarComponent {
   extra: string = ""
   expanded = false;
 
+  //para la condición de "confirmar"
+  confirm: boolean = false;
+
   constructor(
     private router: Router,
     private cloudinary: Cloudinary,
@@ -46,6 +49,8 @@ export class SidebarComponent {
       this.responses = [];
       this.mainText = '';
       this.extra = '';
+      this.confirm = true;
+      setTimeout(() => (this.confirm = false), 2000);
     }
   }
 

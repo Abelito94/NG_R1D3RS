@@ -14,17 +14,18 @@
         <div class="tab-nav col-10 col-lg-12 bg-dark mt-1 round" style="min-width: 450px; max-width: 700px;">
           <ul class="nav nav-fill" role="tablist">
             <li class="nav-item">
-              <a class="nav-link w-100 active show s-bold text-white" id="profile-tab-classic" role="tab" aria-controls="alltweets" aria-selected="true">
+              <a class="nav-link w-100  s-bold text-white" id="profile-tab-classic" data-toggle="tab" routerLink="/home"
+                role="tab" aria-controls="alltweets" aria-selected="false">
                 <div class="circle d-inline-block mr-2"></div> ON LIVE
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link w-100 s-bold text-white" routerLink="/mytweets" role="tab"
-                aria-controls="mymeshh" aria-selected="false">MY MESHH</a>
+              <a class="nav-link w-100 s-bold active show text-white" data-toggle="tab" routerLink="/mytweets"
+                role="tab" aria-controls="mymeshh" aria-selected="true">MY MESHH</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link w-100 s-bold text-white" routerLink="/followingtweets" role="tab" aria-controls="favs"
-                aria-selected="false">FOLLOWING</a>
+              <a class="nav-link w-100 s-bold text-white" data-toggle="tab" routerLink="/followingtweets" role="tab"
+                aria-controls="favs" aria-selected="false">FOLLOWING</a>
             </li>
           </ul>
         </div>
@@ -53,25 +54,19 @@
     </div>
     <div class="col col-lg-6 max-w p-0 mt-2">
 
-      <!-- All Tweets -->
+      <!-- My Tweets -->
+      <div class="tab-pane fade active show mt-2" id="mymeshh" role="tabpanel" aria-labelledby="follow-tab-classic"
+        infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+        (scrolled)="onScrollDown($event)">
 
-      <div class="tab-content col-10 col-lg-11 m-auto p-0" id="myClassicTabContent">
-
-        <div class="tab-pane fade active show mt-2" id="alltweets"
-             role="tabpanel" 
-             aria-labelledby="profile-tab-classic"
-             infinite-scroll 
-             [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown($event)">
-
-          <app-tweet [tweets]="tweets" 
-                     (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)"
-                     (remitterNoLike)="disLike($event)"></app-tweet>
-
-        </div>
-        
+        <app-tweet [tweets]="myTweets" (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)"
+          (remitterNoLike)="disLike($event)">
+        </app-tweet>
       </div>
-      
+      <div [hidden]='!end' class="text-center my-5">
+        <p>Not more</p>
+      </div>
     </div>
+
   </div>
 </div>

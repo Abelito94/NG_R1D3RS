@@ -1,0 +1,95 @@
+
+.bg-opacity{
+    background-color: black;
+    opacity: 75%;
+  }
+/* //img */
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /*border-radius: 50%;*/
+  }
+  .hoverable{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 50px;
+    margin-top: -80px !important;
+  }
+  .hoverable .hover-text{
+    position: absolute;
+    top: 50%;
+    left:  50%;
+    transform: translate(-50%,-50%); 
+    z-index: 2;
+    
+  }
+  .hoverable > img{
+    border-radius: 50%;
+    
+  }
+  
+  #fileInput{
+    display: none;
+  }
+  #coverInput{
+    display: none;
+  }
+  .modal-content, .modal-body, .modal-header, .modal-footer {
+    border: 0px !important;
+  }
+  .form-height {
+    height: 70px;
+  }
+  @keyframes overlay {
+    from {opacity: 0%;}
+    to {opacity: 75%;}
+  }
+  .overlay {
+    animation-name: overlay;
+    animation-duration: .4s;
+    animation-timing-function: ease-in;
+  }
+  .btn-link, .btn-link:hover {
+  color: black;
+  text-decoration-line: none !important;
+  }
+  .z-index{
+      z-index: 99999;
+  }
+  .max-h{
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .form-h{
+    height: 60vh;
+    flex-wrap: wrap ;
+    overflow-y: scroll;
+    
+  }
+  .round {
+    border-radius: 50px;
+    border: 0px;
+  }
+  .coverable{
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+  .coverable .cover-text{
+    position: absolute;
+    top: 50%;
+    left:  50%;
+    transform: translate(-50%,-50%); 
+    z-index: 2;
+    
+  }
+  .coverable > img {
+    border-radius: 25px;
+    height: 200px;
+  }

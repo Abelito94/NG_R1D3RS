@@ -7,6 +7,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { OtherprofileComponent } from './pages/otherprofile/otherprofile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { QuickLogGuard } from './guards/quick-log.guard';
+import { EditComponent } from './edit/edit.component';
+import { HomeFollowingTweetsComponent } from './pages/home-following-tweets/home-following-tweets.component';
+import { HomeMyTweetsComponent } from './pages/home-my-tweets/home-my-tweets.component';
 
 
 const routes: Routes = [
@@ -16,7 +19,10 @@ const routes: Routes = [
   { path: 'sign', component: SignComponent, canActivate: [QuickLogGuard] },
   { path: 'sign/up', component: SignupComponent, canActivate: [QuickLogGuard] },
   { path: 'login', component: LoginComponent, canActivate: [QuickLogGuard]},
-  { path: 'home/:username', component: OtherprofileComponent, canActivate: [AuthGuard]}
+  { path: 'home/:username', component: OtherprofileComponent, canActivate: [AuthGuard]},
+  { path:'profile/edit', component:EditComponent, canActivate: [AuthGuard]},
+  { path: 'followingtweets', component: HomeFollowingTweetsComponent, canActivate: [AuthGuard]},
+  { path: 'mytweets', component: HomeMyTweetsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
