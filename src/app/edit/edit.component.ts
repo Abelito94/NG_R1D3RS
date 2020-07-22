@@ -3,8 +3,6 @@ import { Cloudinary } from '@cloudinary/angular-5.x';
 import { APIService } from '../api.service';
 import { Router } from '@angular/router';
 import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
-import { ThrowStmt } from '@angular/compiler';
-
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +25,7 @@ export class EditComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
-  tags: string[] = [];
+  tags: string[] = this.localUser.tags;
   profilePictureURL;
   newUser: object = {};
   tag: string = '';
@@ -36,7 +34,7 @@ export class EditComponent implements OnInit {
 
   profilePosition = null;
   coverPosition = null;
-
+  
   constructor(private APIService: APIService,
     private router: Router,
     private cloudinary: Cloudinary,
@@ -110,6 +108,7 @@ export class EditComponent implements OnInit {
         } else {
           // Create new response
           this.responses.push(fileItem);
+          //console.log(fileItem);
         }
       });
     };
@@ -134,8 +133,8 @@ export class EditComponent implements OnInit {
       );
     }
   }
+  //FIN OnInit...
 
-  //FUERA ONIIT...
   chargeImg(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -182,9 +181,9 @@ export class EditComponent implements OnInit {
   addTag() {
     if (this.tag != '') {
       if (this.tags.length < 4) {
-        this.tagsMaxcount = false
-        this.tags.push(this.tag);
-        this.tag = ''
+          this.tagsMaxcount = false
+          this.tags.push(this.tag);
+          this.tag = ''
       } else {
         this.tagsMaxcount = true
       }
@@ -196,27 +195,27 @@ export class EditComponent implements OnInit {
   }
 
   updateUser(){
-    console.log(this.responses);
-    //TRAER LA UL DE CLOUINARY...
-    if(this.responses.length > 1){
+  
+    if(this.coverPosition != null && this.profilePosition != null){
       this.localUser.profilePictureURL = this.responses[this.profilePosition].data.url;
       this.localUser.profileCoverURL = this.responses[this.coverPosition].data.url;
       console.log('los dos');
     }
     else{
-      if(this.responses[0].data.url != this.localUser.profilePictureURL){
-        this.responses[0].data.url = this.localUser.profilePictureURL;
+      if(this.coverPosition == null && this.profilePosition != null){
+        this.localUser.profilePictureURL = this.responses[this.profilePosition].data.url;
         console.log('perfil');
       }
-      if(this.responses[0].data.url != this.localUser.profileCoverURL){
-        this.responses[0].data.url = this.localUser.profileCoverURL;
+      if(this.coverPosition != null && this.profilePosition == null){
+        this.localUser.profileCoverURL = this.responses[this.coverPosition].data.url;
         console.log('cover');
       }
     } 
-
+    
     this.APIService.updateUser(this.localUser.id, {
       profilePictureURL:this.localUser.profilePictureURL,
-      profileCoverURL:this.localUser.profileCoverURL
+      profileCoverURL:this.localUser.profileCoverURL,
+      tags: this.tags
     })
     .then( () => {
       this.responses = [];

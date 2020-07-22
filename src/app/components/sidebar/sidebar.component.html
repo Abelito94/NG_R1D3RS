@@ -4,9 +4,9 @@
   <div class="row">
     <div class="col-4">
       <img class="profile img-round ml-4" [src]="myuser.profilePictureURL" alt="imagen-perfil">
-
+      <button type="button" class="round bg-ligth s-bold border-green py-2 px-4 ml-4 mt-3" routerLink="/profile/edit">Edit</button>
     </div>
-    <button type="button" class="round bg-ligth s-bold border-green py-2 px-4" routerLink="/profile/edit">Edit</button>
+    
     <div class="xl-bold col my-3">
       {{myuser.username}}
       <span class="l-medium">@{{myuser.username}}</span>
@@ -21,7 +21,9 @@
     </div>
 
   </div>
+  
 </div>
+
 </div>
 <div class="col-10 m-auto card round border-green p-4">
   <form class="position-relative">

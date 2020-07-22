@@ -75,10 +75,10 @@ export class APIService {
       .then(response => response.data)
   }
   updateUser(userID,newData){
-    console.log(newData);
+    //console.log(newData);
     return axios.patch(`${this.URL}users/${userID}`, newData)
     .then(response => {
-      console.log(response.data)
+      //console.log(response.data)
       response.data
 
     })

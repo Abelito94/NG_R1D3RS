@@ -30,17 +30,20 @@
             <i type="button" class="hover-text p-3 material-icons big-bold p-2 text-white">photo_camera</i>
           </label>
           <input id="fileInput" type="file" (change)="chargeImg($event)" #fileInput ng2FileSelect [uploader]="uploader">
-       
+
           <div class="form-group">
-              <input type="text" placeholder="Example: developer" name="tags" [(ngModel)]="tag"
-              class="col-10 form-control-lg round bg-light shadow-sm mb-5" (keyup.enter)="addTag()">
-              <button type="button" class="col-2 btn-lg btn-dark round m-bold" (click)="addTag()">Add</button>
-            </div>
+            <input type="text" placeholder="What's your job?" name="tags" [(ngModel)]="tag"
+            class="col-10 form-control-lg round bg-light shadow-sm mb-4 mt-4" (keyup.enter)="addTag()">
+            <button type="button" class="col-2 btn-lg btn-dark round m-bold" (click)="addTag()">Add</button>
+          </div>
+            
             <span *ngFor="let tag of tags" class="d-inline-block text-white bg-dark round s-bold pl-5 pr-3 pb-3 pt-2 mr-4 mb-4">
               <span>{{tag}}</span>
               <i type="button" class="material-icons m-bold p-1 pl-3" (click)="deleteTag(tag)">close</i>
-            </span>
-              <div class="red s-bold ml-3" [hidden]="!tagsMaxcount">Máx. 4 tags</div>
+            </span>           
+            <div class="red s-bold ml-3" [hidden]="!tagsMaxcount">Máx. 4 tags</div>
+
+            
           </form>
 
           
