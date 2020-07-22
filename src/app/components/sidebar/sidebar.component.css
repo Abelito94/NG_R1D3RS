@@ -69,3 +69,9 @@ pre {
   word-break: break-word;
 }
 
+#confirmar{
+  position: relative;
+  left: 13rem;
+  top: 1rem;
+}
+
