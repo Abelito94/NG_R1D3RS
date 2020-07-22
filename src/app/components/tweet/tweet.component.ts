@@ -10,6 +10,8 @@ export class TweetComponent {
   @Output() notifyErase = new EventEmitter();
   @Output() remitterLike = new EventEmitter();
   @Output() remitterNoLike = new EventEmitter();
+  @Output() retweetearInTheHome = new EventEmitter();
+  @Output() onretweetearInTheHome = new EventEmitter();
 
   ngOnInit() {
   }
@@ -22,5 +24,13 @@ export class TweetComponent {
 
   remitNoLike(tweet) {
     this.remitterNoLike.emit(tweet);
+  }
+
+  retweetearInTheTweet(tweet) {
+    this.retweetearInTheHome.emit(tweet);
+  }
+
+  onretweetearInTheTweet(tweet) {
+    this.onretweetearInTheHome.emit(tweet);
   }
 }

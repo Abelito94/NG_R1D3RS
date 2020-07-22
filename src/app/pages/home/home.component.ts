@@ -95,7 +95,7 @@ export class HomeComponent {
             //my tweets
             this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
             //my following tweets
-            this.tweetService.getFollowingTweets(this.user.following, this.pageFollowing)
+            this.tweetService.getFollowingTweets(this.user.following, this.page)
               .then(matrizTweets => {
                 matrizTweets.map(arrayTweets => {
                   arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
@@ -137,8 +137,8 @@ export class HomeComponent {
     return res
   }
 
-  async like(tweet) {
-    await this.tweetService.gettweetsByUser(this.page, tweet.userID)
+  like(tweet) {
+    this.tweetService.gettweetsByUser(this.page, tweet.userID)
       .then(response => {
         response.forEach(resp => {
           if (resp.id == tweet.id) {
@@ -159,8 +159,8 @@ export class HomeComponent {
       })
   }
 
-  async disLike(tweet) {
-    await this.tweetService.gettweetsByUser(this.page, tweet.userID)
+  disLike(tweet) {
+    this.tweetService.gettweetsByUser(this.page, tweet.userID)
       .then(response => {
         response.forEach(resp => {
           if (resp.id == tweet.id) {
@@ -183,5 +183,64 @@ export class HomeComponent {
       })
   }
 
-}
+  retweet(tweet) {
 
+    tweet.numRTs.push(this.user.id)
+
+    let newnumRTs = {
+      numRTs: tweet.numRTs
+    }
+    this.tweetService.updatenumRTs(tweet.id, newnumRTs)
+      .then(() => {
+
+        let newTweet = {
+          userID: this.user.id,
+          text: tweet.text,
+          creationDate: moment().format(),
+          urlTweet: tweet.urlTweet,
+          numLikes: tweet.numLikes,
+          numRTs: tweet.numRTs,
+          RTDate: tweet.creationDate,
+          RTUserId: tweet.userID
+        }
+
+        this.tweetService.createTweet(newTweet)
+          // .then(() => {
+          //   this.tweetService.getAllTweets(1)
+          //     .then(res => {
+          //       res.forEach(element => {
+          //         if (!element.creationDate.includes(','))
+          //           element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
+          //       })
+          //       return res
+          //     })
+          //     .then(res => {
+          //       this.tweets = res
+          //       console.log(res)
+          //     })
+          //     .catch(err => console.log(err))
+          // })
+          // .catch(err => console.log(err))
+
+      })
+  }
+
+  onretweet(tweet) {
+    
+
+    // this.tweet.numRTs = this.tweet.numRTs.filter(res => res != this.userRT.id)
+
+    // let objsinid = {
+    //   numRTs: this.tweet.numRTs
+    // }
+
+    // this.tweetService.updatenumRTs(this.tweet.id, objsinid)
+    // .then(() => {
+    //   this.tweetService.eraseTweet(this.tweet.id)
+    //   .then(() => {
+
+    //   })
+    // })
+  }
+
+}  

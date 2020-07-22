@@ -73,4 +73,10 @@ export class APIService {
     return axios.put(`${this.URL}tweets/${tweet.id}`, tweet)
       .then(response => response.data)
   }
+
+  async updatenumRTs(tweetID, newData){
+    const res = await axios.patch(`${this.URL}tweets/${tweetID}`, newData)
+    return res.data
+  }
+
 }
