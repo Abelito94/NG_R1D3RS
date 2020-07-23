@@ -167,6 +167,7 @@ export class HomeComponent {
             let whereLike = tweet.numLikes.indexOf(this.user.id);
             if (whereLike != -1) {
               tweet.numLikes.splice(whereLike, 1);
+
               let updateTweet = {
                 userID: tweet.userID,
                 id: tweet.id,
@@ -184,63 +185,76 @@ export class HomeComponent {
   }
 
   retweet(tweet) {
+    let newnumRTs = {}
+    var tweetId = ''
 
-    tweet.numRTs.push(this.user.id)
 
-    let newnumRTs = {
-      numRTs: tweet.numRTs
+    if (tweet.RTUserId) {
+      newnumRTs = {
+        tweet: {
+          numRTs: tweet.tweet.numRTs
+        }
+      }
+      tweetId = tweet.tweet.id
+    } else {
+      newnumRTs = {
+        numRTs: tweet.numRTs
+      }
+      tweetId = tweet.id
     }
-    this.tweetService.updatenumRTs(tweet.id, newnumRTs)
+
+
+    this.tweetService.updatenumRTs(tweetId, newnumRTs)
       .then(() => {
 
-        let newTweet = {
-          userID: this.user.id,
-          text: tweet.text,
+        let reTweet = {
+          tweet: {
+            ...tweet
+          },
           creationDate: moment().format(),
-          urlTweet: tweet.urlTweet,
-          numLikes: tweet.numLikes,
-          numRTs: tweet.numRTs,
-          RTDate: tweet.creationDate,
-          RTUserId: tweet.userID
+          RTUserId: this.user.id
         }
 
-        this.tweetService.createTweet(newTweet)
-          // .then(() => {
-          //   this.tweetService.getAllTweets(1)
-          //     .then(res => {
-          //       res.forEach(element => {
-          //         if (!element.creationDate.includes(','))
-          //           element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
-          //       })
-          //       return res
-          //     })
-          //     .then(res => {
-          //       this.tweets = res
-          //       console.log(res)
-          //     })
-          //     .catch(err => console.log(err))
-          // })
-          // .catch(err => console.log(err))
-
+        this.tweetService.createTweet(reTweet)
       })
   }
 
   onretweet(tweet) {
-    
 
-    // this.tweet.numRTs = this.tweet.numRTs.filter(res => res != this.userRT.id)
+    let newnumRTs = {}
+    var tweetId = ''
+    let id = []
 
-    // let objsinid = {
-    //   numRTs: this.tweet.numRTs
-    // }
 
-    // this.tweetService.updatenumRTs(this.tweet.id, objsinid)
-    // .then(() => {
-    //   this.tweetService.eraseTweet(this.tweet.id)
-    //   .then(() => {
+    if (tweet.RTUserId) {
+      newnumRTs = {
+        tweet: {
+          numRTs: tweet.tweet.numRTs
+        }
+      }
+      tweetId = tweet.tweet.id
+    } else {
+      newnumRTs = {
+        numRTs: tweet.numRTs
+      }
+      tweetId = tweet.id
+    }
 
-    //   })
-    // })
+    this.tweetService.updatenumRTs(tweetId, newnumRTs)
+      .then(() => {
+        if (tweet.RTUserId) {
+          this.tweetService.eraseTweet(tweet.id)
+        } else {
+          this.tweetService.gettweetsByUser2(this.user.id)
+            .then(res => {
+              id = res.filter(elem => {
+                return elem.tweet.id === tweet.id
+              })
+              this.tweetService.eraseTweet(id[0].id)
+                .then(() => { })
+            })
+        }
+      })
   }
 
 }  

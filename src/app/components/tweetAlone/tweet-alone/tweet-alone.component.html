@@ -1,87 +1,189 @@
+<div>
 
-<div class="card p-3 mt-3 shadow-sm" style="min-width: 450px; max-width: 680px;" *ngIf="user">
-  <div class="mb-2 d-flex" *ngIf="this.tweet.RTUserId"> Reetweeteado por @{{userRT.username}}<span class="s-medium ml-auto">{{tweet.creationDate}}</span></div>
-  <div class="row no-gutters">
-    <div class="col-1">
-      <img [src]="user.profilePictureURL" alt="userimages" class="clickable p-0 round d-inline card-img"
-        [routerLink]="'/home/' + user.username">
-    </div>
-    <div class="col-11">
-      <div class="card-body p-0 px-3">
-        <span class="clickable p-0 xm-bold" [routerLink]="'/home/' + user.username">{{user.username}}</span>
-        <span class="clickable p-0 m-medium ml-2" [routerLink]="'/home/' + user.username">@{{user.username}} · </span>
-        <span class="s-medium" *ngIf="this.tweet.RTUserId">{{tweet.RTDate}}</span>
-        <span class="s-medium" *ngIf="!this.tweet.RTUserId">{{tweet.creationDate}}</span>
-        <p class="card-text">{{ tweet.text }}</p>
-        <img [hidden]="!tweet.urlTweet" [src]="tweet.urlTweet" alt="imgTweet"
-          class="btn w-100 rounded mx-auto mb-2 cover" [class.max-h]="!expanded" [class.expand]="expanded"
-          (click)="expandImage()">
+  <div class="card p-3 mt-3 shadow-sm" *ngIf="this.tweet.RTUserId && user" style="min-width: 450px; max-width: 680px;">
+    <div class="mb-2 d-flex"> Reetweeteado por @{{userRT.username}}<span
+        class="s-medium ml-auto">{{tweet.creationDate}}</span></div>
+    <div class="row no-gutters">
+      <div class="col-1">
+        <img [src]="user.profilePictureURL" alt="userimages" class="clickable p-0 round d-inline card-img"
+          [routerLink]="'/home/' + user.username">
+      </div>
+      <div class="col-11">
+        <div class="card-body p-0 px-3">
+          <span class="clickable p-0 xm-bold" [routerLink]="'/home/' + user.username">{{user.username}}</span>
+          <span class="clickable p-0 m-medium ml-2" [routerLink]="'/home/' + user.username">@{{user.username}} · </span>
+          <span class="s-medium">{{tweet.tweet.creationDate}}</span>
+          <p class="card-text">{{ tweet.tweet.text }}</p>
+          <img [hidden]="!tweet.tweet.urlTweet" [src]="tweet.tweet.urlTweet" alt="imgTweet"
+            class="btn w-100 rounded mx-auto mb-2 cover" [class.max-h]="!expanded" [class.expand]="expanded"
+            (click)="expandImage()">
 
 
-        <div class="footer">
+          <div class="footer">
 
-         <!--Like Dislike-->
-          <p class="card-text">
+            <!--Like Dislike-->
+            <p class="card-text">
 
-            <span *ngIf="tweet.numLikes.indexOf(ownUser.id) != -1" (click)="emitNoLike()">
-              <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="#1DF24C"
-              xmlns="http://www.w3.org/2000/svg">
+              <span *ngIf="tweet.tweet.numLikes.indexOf(ownUser.id) != -1" (click)="emitNoLike()">
+                <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="#1DF24C"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                </svg>
+              </span>
+
+              <span *ngIf="tweet.tweet.numLikes.indexOf(ownUser.id) == -1" (click)="emitLike()">
+                <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                </svg>
+              </span> {{ tweet.tweet.numLikes.length }}
+
+            </p>
+
+            <!--RETWEET-->
+            <p class="card-text" *ngIf="!tweet.tweet.numRTs.includes(ownUser.id)">
+
+              <span (click)="retweet()">
+                <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                  <path fill-rule="evenodd"
+                    d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                </svg>
+              </span>
+              {{ tweet.tweet.numRTs.length }}
+            </p>
+
+            <p class="card-text" [class.green]="userRT && ownUser.id === userRT.id"
+              *ngIf="tweet.tweet.numRTs.includes(ownUser.id)">
+              <span (click)="onretweet()">
+                <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                  <path fill-rule="evenodd"
+                    d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                </svg>
+              </span>
+              {{ tweet.tweet.numRTs.length }}
+            </p>
+
+
+            <!-- <p>ANSWER</p> -->
+          </div>
+        </div>
+        <div class="dropdown mb-2" *ngIf="ownUser.id == user.id">
+          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="black"
+              xmlns="http://www.w3.org/2000/svg%22%3E">
               <path fill-rule="evenodd"
-              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
             </svg>
-          </span>
-          
-          <span *ngIf="tweet.numLikes.indexOf(ownUser.id) == -1" (click)="emitLike()">
-            <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-            d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-              </svg>
-            </span> {{ tweet.numLikes.length }}
+          </button>
+          <div class="dropdown-menu dropdown-menu-right m-0" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" (click)="eraseFromChild()">Eliminar</button>
+          </div>
+        </div>
 
-          </p>
+      </div>
+    </div>
+  </div>
 
-         <!--RETWEET-->
-          <p class="card-text" *ngIf="!tweet.numRTs.includes(ownUser.id)">
+   <!-- TWEETS NORMALES -->
 
-            <span (click)="retweet()" >
-              <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
-                <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/>
-              </svg>
-            </span>
-          {{ tweet.numRTs.length }} 
-        </p>
+  <div class="card p-3 mt-3 shadow-sm" *ngIf="!this.tweet.RTUserId && user" style="min-width: 450px; max-width: 680px;">
+    <div class="row no-gutters">
+      <div class="col-1">
+        <img [src]="user.profilePictureURL" alt="userimages" class="clickable p-0 round d-inline card-img"
+          [routerLink]="'/home/' + user.username">
+      </div>
+      <div class="col-11">
+        <div class="card-body p-0 px-3">
+          <span class="clickable p-0 xm-bold" [routerLink]="'/home/' + user.username">{{user.username}}</span>
+          <span class="clickable p-0 m-medium ml-2" [routerLink]="'/home/' + user.username">@{{user.username}} · </span>
+          <span class="s-medium">{{tweet.creationDate}}</span>
+          <p class="card-text">{{ tweet.text }}</p>
+          <img [hidden]="!tweet.urlTweet" [src]="tweet.urlTweet" alt="imgTweet"
+            class="btn w-100 rounded mx-auto mb-2 cover" [class.max-h]="!expanded" [class.expand]="expanded"
+            (click)="expandImage()">
 
-        <p class="card-text" [class.green]="userRT && ownUser.id === userRT.id" *ngIf="tweet.numRTs.includes(ownUser.id)">
 
-          <span (click)="onretweet()" >
-            <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
-              <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/>
+          <div class="footer">
+
+            <!--Like Dislike-->
+            <p class="card-text">
+
+              <span *ngIf="tweet.numLikes.indexOf(ownUser.id) != -1" (click)="emitNoLike()">
+                <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="#1DF24C"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                </svg>
+              </span>
+
+              <span *ngIf="tweet.numLikes.indexOf(ownUser.id) == -1" (click)="emitLike()">
+                <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                </svg>
+              </span> {{ tweet.numLikes.length }}
+
+            </p>
+
+            <!--RETWEET-->
+            <p class="card-text" *ngIf="!tweet.numRTs.includes(ownUser.id)">
+
+              <span (click)="retweet()">
+                <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                  <path fill-rule="evenodd"
+                    d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                </svg>
+              </span>
+              {{ tweet.numRTs.length }}
+            </p>
+
+            <p class="card-text green"
+              *ngIf="tweet.numRTs.includes(ownUser.id)">
+
+              <span (click)="onretweet()">
+                <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="#1DF24C"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                  <path fill-rule="evenodd"
+                    d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                </svg>
+              </span>
+              {{ tweet.numRTs.length }}
+            </p>
+
+
+            <!-- <p>ANSWER</p> -->
+          </div>
+        </div>
+        <div class="dropdown mb-2" *ngIf="ownUser.id == user.id">
+          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="black"
+              xmlns="http://www.w3.org/2000/svg%22%3E">
+              <path fill-rule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
             </svg>
-          </span>
-        {{ tweet.numRTs.length }} 
-      </p>
-
-
-          <!-- <p>ANSWER</p> -->
+          </button>
+          <div class="dropdown-menu dropdown-menu-right m-0" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" (click)="eraseFromChild()">Eliminar</button>
+          </div>
         </div>
-      </div>
-      <div class="dropdown mb-2" *ngIf="ownUser.id == user.id">
-        <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="black"
-            xmlns="http://www.w3.org/2000/svg%22%3E">
-            <path fill-rule="evenodd"
-              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-          </svg>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right m-0" aria-labelledby="dropdownMenuButton">
-          <button class="dropdown-item" (click)="eraseFromChild()">Eliminar</button>
-        </div>
-      </div>
 
+      </div>
     </div>
   </div>
 </div>
