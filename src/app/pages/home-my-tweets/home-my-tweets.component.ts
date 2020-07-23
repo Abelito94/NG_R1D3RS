@@ -79,6 +79,7 @@ export class HomeMyTweetsComponent {
         //my tweets
         this.tweetService.gettweetsByUser(this.page, this.user.id)
           .then(res => {
+            console.log(res);
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
             })
@@ -157,6 +158,75 @@ export class HomeMyTweetsComponent {
             }
           }
         })
+      })
+  }
+
+  retweet(tweet) {
+    let newnumRTs = {}
+    var tweetId = ''
+
+
+    if (tweet.isRt) {
+      newnumRTs = {
+          numRTs: tweet.tweet.numRTs
+      }
+      tweetId = tweet.tweet.id
+    } else {
+      newnumRTs = {
+        numRTs: tweet.numRTs
+      }
+      tweetId = tweet.id
+    }
+
+
+    this.tweetService.updatenumRTs(tweetId, newnumRTs)
+      .then(() => {
+
+        let reTweet = {
+          tweet: {
+            ...tweet
+          },
+          creationDate: moment().format(),
+          userID: this.user.id,
+          isRt: true
+        }
+
+        this.tweetService.createTweet(reTweet)
+      })
+  }
+
+  onretweet(tweet) {
+
+    let newnumRTs = {}
+    var tweetId = ''
+    let id = []
+
+    if (tweet.isRt) {
+      newnumRTs = {
+          numRTs: tweet.tweet.numRTs
+      }
+      tweetId = tweet.tweet.id
+    } else {
+      newnumRTs = {
+        numRTs: tweet.numRTs
+      }
+      tweetId = tweet.id
+    }
+
+    this.tweetService.updatenumRTs(tweetId, newnumRTs)
+      .then(() => {
+        if (tweet.isRt) {
+          this.tweetService.eraseTweet(tweet.id)
+        } else {
+          this.tweetService.gettweetsByUser2(this.user.id)
+            .then(res => {
+              id = res.filter(elem => {
+                return elem.tweet.id === tweet.id
+              })
+              this.tweetService.eraseTweet(id[0].id)
+                .then(() => { })
+            })
+        }
       })
   }
 

@@ -60,7 +60,7 @@
         (scrolled)="onScrollDown($event)">
 
         <app-tweet [tweets]="myTweets" (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)"
-          (remitterNoLike)="disLike($event)">
+          (remitterNoLike)="disLike($event)" (retweetearInTheHome)="retweet($event)" (onretweetearInTheHome)="onretweet($event)">
         </app-tweet>
       </div>
       <div [hidden]='!end' class="text-center my-5">

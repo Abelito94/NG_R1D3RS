@@ -62,7 +62,7 @@
 
 
           <app-tweet [tweets]="followingtweets" (notifyErase)="deleteTweet($event)" (remitterLike)="like($event)"
-            (remitterNoLike)="disLike($event)">
+            (remitterNoLike)="disLike($event)" (retweetearInTheHome)="retweet($event)" (onretweetearInTheHome)="onretweet($event)">
           </app-tweet>
 
         </div>

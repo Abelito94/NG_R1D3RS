@@ -86,6 +86,7 @@ export class HomeFollowingTweetsComponent {
         this.tweetService.getFollowingTweets(this.user.following, this.page)
           .then(matrizTweets => {
             matrizTweets.map(arrayTweets => {
+              console.log(arrayTweets);
               arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
             })
             this.followingtweets.sort(function (a, b) {
@@ -124,7 +125,7 @@ export class HomeFollowingTweetsComponent {
             arrayTweets.data.forEach(tweets => {
               this.followingtweets.push(tweets);
             })
-          }else {
+          } else {
             this.end = true
           }
         })
@@ -189,4 +190,89 @@ export class HomeFollowingTweetsComponent {
       })
   }
 
+
+  retweet(tweet) {
+    let newnumRTs = {}
+    var tweetId = ''
+
+
+    if (tweet.isRt) {
+      newnumRTs = {
+        numRTs: tweet.tweet.numRTs
+      }
+      tweetId = tweet.tweet.id
+    } else {
+      newnumRTs = {
+        numRTs: tweet.numRTs
+      }
+      tweetId = tweet.id
+    }
+
+
+    this.tweetService.updatenumRTs(tweetId, newnumRTs)
+      .then(() => {
+        let reTweet
+        if (tweet.isRt) {
+          reTweet = {
+            tweet: {
+              ...tweet.tweet
+            },
+            creationDate: moment().format(),
+            userID: this.user.id,
+            isRt: true
+          }
+
+        } else {
+          reTweet = {
+            tweet: {
+              ...tweet
+            },
+            creationDate: moment().format(),
+            userID: this.user.id,
+            isRt: true
+          }
+        }
+
+        this.tweetService.createTweet(reTweet)
+      })
+  }
+
+  onretweet(tweet) {
+
+    let newnumRTs = {}
+    var tweetId = ''
+    let id = []
+
+
+    if (tweet.isRt) {
+      newnumRTs = {
+          numRTs: tweet.tweet.numRTs
+      }
+      tweetId = tweet.tweet.id
+    } else {
+      newnumRTs = {
+        numRTs: tweet.numRTs
+      }
+      tweetId = tweet.id
+    }
+
+    this.tweetService.updatenumRTs(tweetId, newnumRTs)
+      .then(() => {
+        if (tweet.isRt && tweet.userID === this.user.id) {
+          this.tweetService.eraseTweet(tweet.id)
+        } else {
+          this.tweetService.gettweetsByUser2(this.user.id)
+            .then(res => {
+              id = res.filter(elem => {
+                return elem.tweet.id === tweet.id
+              })
+              return id
+            })
+            .then(id => {
+              this.tweetService.eraseTweet(id[0].id)
+            })
+
+        }
+      })
+  }
 }

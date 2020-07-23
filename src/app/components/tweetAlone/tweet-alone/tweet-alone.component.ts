@@ -23,8 +23,8 @@ export class TweetAloneComponent implements OnInit {
 
   async ngOnInit() {
 
-    if (this.tweet.RTUserId) {
-      this.userRT = await this.tweetService.getUserById(this.tweet.RTUserId)
+    if (this.tweet.isRt) {
+      this.userRT = await this.tweetService.getUserById(this.tweet.userID)
       this.user = await this.tweetService.getUserById(this.tweet.tweet.userID)
     } else {
       this.user = await this.tweetService.getUserById(this.tweet.userID)
@@ -55,7 +55,7 @@ export class TweetAloneComponent implements OnInit {
   }
 
   retweet() {
-    if (this.tweet.RTUserId) {
+    if (this.tweet.isRt) {
       this.tweet.tweet.numRTs.push(this.ownUser.id)
     } else {
       this.tweet.numRTs.push(this.ownUser.id)
@@ -64,7 +64,7 @@ export class TweetAloneComponent implements OnInit {
   }
 
   onretweet() {
-    if (this.tweet.RTUserId) {
+    if (this.tweet.isRt) {
       this.tweet.tweet.numRTs = this.tweet.tweet.numRTs.filter(res => res != this.ownUser.id)
     } else {
       this.tweet.numRTs = this.tweet.numRTs.filter(res => res != this.ownUser.id)

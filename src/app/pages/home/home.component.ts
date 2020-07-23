@@ -86,29 +86,12 @@ export class HomeComponent {
             res.forEach(element => {
               element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
             })
+            res = res.filter(tweet => !tweet.isRt)
             return res
           })
           .then(res => {
             //all tweets
             this.tweets = res;
-
-            //my tweets
-            this.myTweets = res.filter(tweet => tweet.userID === this.user.id);
-            //my following tweets
-            this.tweetService.getFollowingTweets(this.user.following, this.page)
-              .then(matrizTweets => {
-                matrizTweets.map(arrayTweets => {
-                  arrayTweets.data.forEach(tweets => this.followingtweets.push(tweets));
-                })
-                this.followingtweets.sort(function (a, b) {
-                  var dateA = new Date(a.creationDate).getTime();
-                  var dateB = new Date(b.creationDate).getTime();
-                  return dateA < dateB ? 1 : -1;
-                })
-                this.followingtweets.forEach(element => {
-                  element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
-                })
-              })
           })
           .catch(err => console.log(err))
       })
@@ -133,6 +116,7 @@ export class HomeComponent {
     res.forEach(element => {
       element.creationDate = `${moment(element.creationDate).format('ll')} - ${moment(element.creationDate).format('LT')}`;
     })
+    res = res.filter(tweet => !tweet.isRt)
     this.tweets.push(...res)
     return res
   }
@@ -189,7 +173,7 @@ export class HomeComponent {
     var tweetId = ''
 
 
-    if (tweet.RTUserId) {
+    if (tweet.isRt) {
       newnumRTs = {
         tweet: {
           numRTs: tweet.tweet.numRTs
@@ -197,6 +181,7 @@ export class HomeComponent {
       }
       tweetId = tweet.tweet.id
     } else {
+      // SIEMPRE AQUI
       newnumRTs = {
         numRTs: tweet.numRTs
       }
@@ -212,7 +197,8 @@ export class HomeComponent {
             ...tweet
           },
           creationDate: moment().format(),
-          RTUserId: this.user.id
+          userID: this.user.id,
+          isRt: true
         }
 
         this.tweetService.createTweet(reTweet)
@@ -226,7 +212,7 @@ export class HomeComponent {
     let id = []
 
 
-    if (tweet.RTUserId) {
+    if (tweet.isRt) {
       newnumRTs = {
         tweet: {
           numRTs: tweet.tweet.numRTs
@@ -234,6 +220,7 @@ export class HomeComponent {
       }
       tweetId = tweet.tweet.id
     } else {
+      // SIEMPRE AQUI
       newnumRTs = {
         numRTs: tweet.numRTs
       }
@@ -242,19 +229,29 @@ export class HomeComponent {
 
     this.tweetService.updatenumRTs(tweetId, newnumRTs)
       .then(() => {
-        if (tweet.RTUserId) {
+        if (tweet.isRt) {
           this.tweetService.eraseTweet(tweet.id)
         } else {
           this.tweetService.gettweetsByUser2(this.user.id)
             .then(res => {
+
               id = res.filter(elem => {
-                return elem.tweet.id === tweet.id
+                if (elem.tweet) {
+                  return elem.tweet.id === tweet.id
+                }
               })
+              console.log(id);
               this.tweetService.eraseTweet(id[0].id)
-                .then(() => { })
-            })
+                  .then(response => console.log(response))
+            }
+              // .then(() => {
+              //   console.log(id);
+              //   this.tweetService.eraseTweet(id[0].id)
+              //     .then(response => console.log(response))
+              // })
+            )
         }
       })
   }
 
-}  
+}

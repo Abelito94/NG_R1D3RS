@@ -1,7 +1,15 @@
 <div>
 
-  <div class="card p-3 mt-3 shadow-sm" *ngIf="this.tweet.RTUserId && user" style="min-width: 450px; max-width: 680px;">
-    <div class="mb-2 d-flex"> Reetweeteado por @{{userRT.username}}<span
+  <div class="card p-3 mt-3 shadow-sm" *ngIf="this.tweet.isRt && user" style="min-width: 450px; max-width: 680px;">
+    <div class="mb-2 d-flex">
+      <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-arrow-repeat mr-2" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+        <path fill-rule="evenodd"
+          d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+      </svg>
+      BY &nbsp;<span *ngIf="userRT.username != ownUser.username">@{{userRT.username}}</span><span *ngIf="userRT.username == ownUser.username">YOU</span> <span
         class="s-medium ml-auto">{{tweet.creationDate}}</span></div>
     <div class="row no-gutters">
       <div class="col-1">
@@ -44,7 +52,6 @@
 
             <!--RETWEET-->
             <p class="card-text" *ngIf="!tweet.tweet.numRTs.includes(ownUser.id)">
-
               <span (click)="retweet()">
                 <svg width="22px" height="22px" viewBox="0 0 16 16" class="bi bi-arrow-repeat ml-5" fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +102,7 @@
 
    <!-- TWEETS NORMALES -->
 
-  <div class="card p-3 mt-3 shadow-sm" *ngIf="!this.tweet.RTUserId && user" style="min-width: 450px; max-width: 680px;">
+  <div class="card p-3 mt-3 shadow-sm" *ngIf="!this.tweet.isRt && user" style="min-width: 450px; max-width: 680px;">
     <div class="row no-gutters">
       <div class="col-1">
         <img [src]="user.profilePictureURL" alt="userimages" class="clickable p-0 round d-inline card-img"

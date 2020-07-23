@@ -47,14 +47,16 @@ export class APIService {
 
   async gettweetsByUser(page, userID) {
 
+    console.log(page);
+    console.log(userID);
     const res = await axios.get(`${this.URL}tweets?userID=${userID}&_sort=creationDate&_order=desc&_page=${page}`)
     return res.data
   }
 
-  
+
   async gettweetsByUser2(userID) {
 
-    const res = await axios.get(`${this.URL}tweets?RTUserId=${userID}`)
+    const res = await axios.get(`${this.URL}tweets?userID=${userID}`)
     return res.data
   }
 
