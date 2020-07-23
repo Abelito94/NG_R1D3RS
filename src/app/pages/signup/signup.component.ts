@@ -234,7 +234,7 @@ export class SignupComponent implements OnInit {
         tags: this.tags,
         profilePictureURL: this.profilePictureURL,
         gender: '',
-        profileCoverURL: "https://get.wallhere.com/photo/soft-gradient-solid-color-gradient-1537167.jpg",
+        profileCoverURL: "https://static.vecteezy.com/system/resources/previews/000/547/809/non_2x/vector-abstract-lighting-effect-gradient-turquoise-pastel-green-mint-color-background.jpg",
         following: [],
         followers: [],
       };
