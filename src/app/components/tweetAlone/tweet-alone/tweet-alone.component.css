@@ -19,8 +19,8 @@
 }
 
 .card-img{
-  max-width: 40px;
-  max-height: 40px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
 }
 .cover{
@@ -35,14 +35,11 @@
 }
 /* Pequeño menu dropdown en tweets */
 .dropdown{
-  position: absolute;
-  top: -12%;
-  right: 0;
+  margin-left: auto;
 }
 
 #dropdownMenuButton{
   color: #1DF24C;
-  /*font-size: 1.2rem;*/
   font-weight: bolder;
 }
 
@@ -54,4 +51,7 @@
 
 .dropdown-menu{
   margin-top: -0.5rem !important;
+}
+.hover-pointer {
+  cursor: pointer;
 }
