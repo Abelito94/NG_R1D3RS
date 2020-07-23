@@ -89,4 +89,13 @@ export class APIService {
     return res.data
   }
 
+  updateUser(userID,newData){
+    //console.log(newData);
+    return axios.patch(`${this.URL}users/${userID}`, newData)
+    .then(response => {
+      //console.log(response.data)
+      response.data
+
+    })
+  }
 }

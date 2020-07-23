@@ -67,7 +67,7 @@ export class HomeComponent {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.clear()
     this.router.navigate(['sign']);
   }
 
