@@ -2,11 +2,11 @@
   <img class="cover round" [src]="myuser.profileCoverURL"
     alt="fondo-collab">
   <div class="row">
-    <div class="col-4">
-      <img class="profile img-round ml-4" [src]="myuser.profilePictureURL" alt="imagen-perfil">
-      <button type="button" class="round bg-ligth s-bold border-green py-2 px-4 ml-4 mt-3" routerLink="/profile/edit">Edit</button>
+    <div class="col-4 mb-4 ml-3 d-flex flex-column justify-content-center">
+      <img class="profile img-round ml-1 mb-1" [src]="myuser.profilePictureURL" alt="imagen-perfil">
+      <button type="button" class="round bg-ligth s-bold border-green py-2 px-4 m-auto" routerLink="/profile/edit">Edit</button>
     </div>
-    
+
     <div class="xl-bold col my-3">
       {{myuser.username}}
       <span class="l-medium">@{{myuser.username}}</span>
@@ -21,7 +21,7 @@
     </div>
 
   </div>
-  
+
 </div>
 
 </div>
