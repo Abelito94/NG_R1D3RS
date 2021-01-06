@@ -22,7 +22,7 @@
     "@angular/router": "~9.1.9",
     "@cloudinary/angular-5.x": "^1.2.2",
     "@fortawesome/fontawesome-free": "^5.13.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "cloudinary-core": "^2.10.1",
     "moment": "^2.27.0",
